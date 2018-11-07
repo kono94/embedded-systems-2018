@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include "validDate.h"
 #include <inttypes.h>
+
+
+
 uint8_t isValidDate(uint8_t day, uint8_t month, uint8_t hundreds, uint8_t tens){
-  int leapYear = testLeapYear(hundreds, tens);
-  int validDay = isValidDay(day, month, leapYear);
+  uint8_t leapYear = testLeapYear(hundreds, tens);
+  uint8_t validDay = isValidDay(day, month, leapYear);
   return validDay;
 }
 
-int testLeapYear(int hundreds, int tens){
+uint8_t testLeapYear(uint8_t hundreds, uint8_t tens){
   if(tens == 0){
     if(hundreds % 4 == 0)
       return 1;
@@ -19,7 +22,7 @@ int testLeapYear(int hundreds, int tens){
     return 0;
 }
 
-int isValidDay(int day, int month, int leapYear){
+uint8_t isValidDay(uint8_t day, uint8_t month, uint8_t leapYear){
   if(month != 2 && month < 8){
     if(month % 2 == 0 && day < 31)
       return 1;

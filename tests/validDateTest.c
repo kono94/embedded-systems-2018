@@ -14,13 +14,14 @@ uint8_t tens = 18;
 
 uint8_t ok = 0;
 uint8_t fail = 0;
-void printTestResult(char* testDescription, uint8_t testResult, uint8_t expectedResult){
-  if(testResult == expectedResult){
-    printf("\n%s\nResult: success", testDescription);
+void printTestResult(char* testDescription, uint8_t ok, char* msg){
+  if(ok){
+    printf("\n\n\n%s \n %s \nResult: success", testDescription, msg);
     ++ok;
   }else{
     ++fail;
-    printf("\n%s\nResult: failed", testDescription);
+    printf("\n\n\n%s \n %s\nResult: failed",  testDescription, msg);
+
   }
 }
 
@@ -30,26 +31,34 @@ void testDay(){
 
   for(uint8_t i = 32; i < 255; ++i){
       if(!isValidDate(i, 1, year2018High, year2018Low)){
-        printf("\n should not accept 'day' value of: %d", i);
-        printTestResult(descr, 1, 0 );
+        printTestResult(descr, 1, " - should not accept 'day' value above 31");
         return;
       }
   }
   printTestResult(descr, 0, 0); 
 }
 
-void testLeapYear(){
-  char *descr = "";
+void tesstLeapYear(){
+  char *descr = "TEST- testLeapYear(): 29.02 should be accepted if leap year and declined if not a leap year";
   
-  for(uint8_t i = 0; i < 100; ++i){
-    if(!isValidDate(29, 2, 20, i)){
-      
-    }
-  }  
-}
+  printTestResult(descr, isValidDate(29,2,20,0), "should accept 29.02.2000"); 
 
+  for(uint8_t i = 1; i < 100; ++i){
+    if(i%4 == 0 && !isValidDate(29,2,20,i))
+     {
+       printTestResult(descr, 0, " - should accept 29.02 in leap year");
+       return;
+     }
+    
+    if(i%4 != 0 && isValidDate(29,2,20,i)){
+      printTestResult(descr, 1, " - should not accept 29.02 in none leap year");
+      return;
+    }  
+  }
+}
 
 uint8_t main(uint8_t argc, char** argv){
   testDay();
+  tesstLeapYear();
   return 0;
 }
