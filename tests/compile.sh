@@ -1,4 +1,4 @@
 #!/bin/bash
 
-gcc -Wall -o validDateTest validDate.c validDateTest.c
-./validDateTest
+gcc -Wall -o test_validDate validDate.c test_validDate.c
+./test_validDate
