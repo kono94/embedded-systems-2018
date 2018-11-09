@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include "validDate.h"
-#define RED  "\x1B[31m"
-#define RESET "\x1B[0m"
-#define GRN   "\x1B[32m"
+#include "testFramework.h"
+#include <inttypes.h>
 
 // dec: 2018 
 // bin: 11111100010
@@ -13,19 +12,6 @@ uint8_t year2018Low = 0b11100010;
 // Split in century and decimal year:
 uint8_t hundreds = 20;
 uint8_t tens = 18;
-
-uint8_t ok = 0;
-uint8_t fail = 0;
-void printTestResult(char* testDescription, uint8_t ok, char* msg){
-  if(ok){
-    printf("\n\n\n%s \n %s \nResult:" GRN " success" RESET, testDescription, msg);
-    ++ok;
-  }else{
-    ++fail;
-    printf("\n\n\n%s \n %s\nResult:" RED " failed" RESET,  testDescription, msg);
-
-  }
-}
 
 void testDay(){
   char *descr = "TEST- testDay(): value for 'day' above 31 should not be accepted.";
@@ -59,9 +45,10 @@ void tesstLeapYear(){
   }
 }
 
-uint8_t main(uint8_t argc, char** argv){
+
+
+uint8_t validDateTest_runAll(){
   testDay();
   tesstLeapYear();
-  printf("\n");
   return 0;
 }
