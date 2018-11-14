@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * File testsuite_validDate.c
+ *
+ * Suite for all tests regarding the validation of a date
+ *
+ * Author: Jan Löwenstrom
+ * Date: 09.11.18
+ *******************************************************************************/
+
 #include <stdio.h>
 #include <inttypes.h>
 #include "testFramework.h"

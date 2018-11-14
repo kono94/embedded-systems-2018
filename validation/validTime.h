@@ -1,4 +1,11 @@
-
+/*******************************************************************************
+ * File validTime.h
+ *
+ * //TODO: description
+ *
+ * Autor: Johann Hoffer
+ * Date: 09.11.18
+ *******************************************************************************/
 
 #ifndef ES2018_REPO_VALIDTIME_H
 #define ES2018_REPO_VALIDTIME_H

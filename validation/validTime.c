@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * File validTime.c
+ *
+ * //TODO: description
+ *
+ * Autor: Johann Hoffer
+ * Date: 09.11.18
+ *******************************************************************************/
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <inttypes.h>

@@ -19,6 +19,7 @@
  * Autor: Jan Löwenstrom
  * Date: 14.11.18
  *******************************************************************************/
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <inttypes.h>

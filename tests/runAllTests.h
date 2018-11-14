@@ -1,6 +1,12 @@
-//
-// Created by Jan Uni on 09.11.18.
-//
+/*******************************************************************************
+ * File runAllTests.h
+ *
+ * Calls all test suites.
+ *
+ * Author: Jan Löwenstrom
+ * Date: 09.11.18
+ *******************************************************************************/
+
 
 #ifndef ES2018_REPO_RUNALLTESTS_H
 #define ES2018_REPO_RUNALLTESTS_H

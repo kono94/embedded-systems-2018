@@ -1,6 +1,11 @@
-//
-// Created by Jan Uni on 09.11.18.
-//
+/*******************************************************************************
+ * File testsuite_validDate.h
+ *
+ * Suite for all tests regarding the validation of a date
+ *
+ * Author: Jan Löwenstrom
+ * Date: 09.11.18
+ *******************************************************************************/
 
 #ifndef ES2018_REPO_TEST_VALIDDATE_H
 #define ES2018_REPO_TEST_VALIDDATE_H
