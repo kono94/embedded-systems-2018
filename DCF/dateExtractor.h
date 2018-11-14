@@ -1,8 +1,0 @@
-//
-// Created by Jan Uni on 14.11.18.
-//
-
-#ifndef ES2018_REPO_DATEEXTRACTOR_H
-#define ES2018_REPO_DATEEXTRACTOR_H
-
-#endif //ES2018_REPO_DATEEXTRACTOR_H

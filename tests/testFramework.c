@@ -1,13 +1,27 @@
-//
-// Created by Jan Uni on 09.11.18.
-//
+/*******************************************************************************
+ * File testFramework.c
+ *
+ * Offers functions that allow a unified and well formatted output
+ * of test results.
+ *
+ * Author: Jan Löwenstrom
+ * Date: 09.11.18
+ *******************************************************************************/
+
+/*
+ * Defines constants for colored output:
+ * SUCCESS -> green text
+ * FAIL -> red text
+ *
+ * and the default color to switch back to the original color
+ */
+#define RED   "\x1B[31m"
+#define GRN   "\x1B[32m"
+#define RESET "\x1B[0m"
 
 #include <stdio.h>
 #include <inttypes.h>
 #include "testFramework.h"
-#define RED   "\x1B[31m"
-#define GRN   "\x1B[32m"
-#define RESET "\x1B[0m"
 
 uint8_t ok = 0;
 uint8_t fail = 0;

@@ -1,10 +1,30 @@
-//
-// Created by Jan Uni on 14.11.18.
-//
-
-#include "../DCF/DCF.h"
-#include "bitConverter.h"
+/*******************************************************************************
+ * File bitConverter.c
+ *
+ * Offers function to convert binary to decimal.
+ * Parameters represent single bits.
+ *
+ * e.q:
+ * bit1 = 0
+ * bit2 = 1
+ * bit3 = 1
+ * bit4 = 1
+ *
+ * binary-number: 1110
+ *
+ * converted to decimal by:
+ *
+ * 0*1 + 1*2 + 1*4 + 1*8 = 14
+ *
+ * Autor: Jan Löwenstrom
+ * Date: 14.11.18
+ *******************************************************************************/
 #include <stdio.h>
+#include <stdbool.h>
+#include <inttypes.h>
+#include "bitConverter.h"
+
+
 uint8_t helper_2bit(bool bit1, bool bit2){
     return bit1 + bit2 * 2;
 }

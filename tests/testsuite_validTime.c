@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include "testFramework.h"
-#include "validTime.h"
+#include "../validation/validTime.h"
 
 void testEdgeCases(){
   char *descr = "TEST- testEdgeCase(): special cases";
