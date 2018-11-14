@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "validTime.h"
-#include "testFramework.h"
 #include <inttypes.h>
+#include "testFramework.h"
+#include "validTime.h"
 
 void testEdgeCases(){
   char *descr = "TEST- testEdgeCase(): special cases";
@@ -71,11 +71,12 @@ void negativeSamples(){
   printTestResult(descr, !isValidTime(88,33), " - should not accept 88:33");
 }
 
-uint8_t validTimeTest_runAll(){
-  testEdgeCases();
-  testMinutes();
-  testHours();
-  positiveSamples();
-  negativeSamples();
-  return 0;
+uint8_t runTestsuite_validTime(){
+    printSuiteName("TEST SUITE FOR VALID_TIME");
+    testEdgeCases();
+    testMinutes();
+    testHours();
+    positiveSamples();
+    negativeSamples();
+    return 0;
 }

@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "validDate.h"
-#include "testFramework.h"
 #include <inttypes.h>
+#include "testFramework.h"
+#include "validDate.h"
 
 // dec: 2018 
 // bin: 11111100010
@@ -47,7 +47,8 @@ void tesstLeapYear(){
 
 
 
-uint8_t validDateTest_runAll(){
+uint8_t runTestsuite_validDate(){
+  printSuiteName("TEST SUITE FOR VALID_DATE");
   testDay();
   tesstLeapYear();
   return 0;
