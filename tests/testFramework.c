@@ -12,8 +12,8 @@
 uint8_t ok = 0;
 uint8_t fail = 0;
 
-void printTestResult(char* testDescription, uint8_t ok, char* msg){
-    if(ok){
+void printTestResult(char* testDescription, uint8_t didTestFail, char* msg){
+    if(didTestFail){
         printf("\n%s \n %s \nResult:" GRN " success\n" RESET, testDescription, msg);
         ++ok;
     }else{
