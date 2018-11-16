@@ -24,11 +24,13 @@
 #include "testsuite_validDate.h"
 #include "testsuite_validTime.h"
 #include "testsuite_bitConverter.h"
+#include "testsuite_dateExtractor.h"
 
 int main(int argc, char** argv){
     runTestsuite_validDate();
     runTestsuite_validTime();
     runTestsuite_bitConverter();
+    //runTestsuite_dateExtractor();
     printf(GRN "\n TEST OK: %d \n" RED " TEST FAILED: %d \n" RESET, ok, fail);
     return 0;
 }
