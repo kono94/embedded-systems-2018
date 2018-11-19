@@ -4,7 +4,7 @@
  * Offers functions that use the full DCF-77 message
  * to return certain date or time information.
  *
- * Autor: Jan Löwenstrom
+ * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 14.11.18
  *******************************************************************************/
 

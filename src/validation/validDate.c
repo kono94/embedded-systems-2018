@@ -3,7 +3,7 @@
  *
  * //TODO: description
  *
- * Autor: Johann Hoffer
+ * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.11.18
  *******************************************************************************/
 

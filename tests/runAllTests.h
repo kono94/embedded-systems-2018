@@ -3,7 +3,7 @@
  *
  * Calls all test suites.
  *
- * Author: Jan Löwenstrom
+ * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.11.18
  *******************************************************************************/
 

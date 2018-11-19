@@ -2,13 +2,14 @@
 // Created by Johann on 15.11.2018.
 //
 
-#include "../util/dateExtractor.h"
 #include <stdbool.h>
 #include <inttypes.h>
+#include "../src/util/dateExtractor.h"
 #include "testsuite_bitConverter.h"
 #include "testFramework.h"
-#include "../util/bitConverter.h"
-#include "../DCF/dcftype.h"
+#include "../src/util/bitConverter.h"
+#include "../src/DCF/dcftype.h"
+/*
 void setBits(bool bits[], uint8_t i0, uint8_t i1) {
     for (int i = i0; i < i1; ++i)
         rawDCF[i] = bits[i-i0];
@@ -63,8 +64,10 @@ void testGetMinute(){
     array = {1,1,1,1,1,1,1};
     setBits(&array, 21, 28);
     printTestResult(descr, getMinutes(&rawDCF) == 85, "1111111 should be 85");
+
+    }
     */
-}
+
 /*
 void testGetHour(){
     char* descr = "TEST- getHour(): convert  bits 29-34 to responding decimal values";
@@ -248,10 +251,10 @@ void runTestsuite_dateExtractor(){
     testGetCalendarYears();
     testGetHour();
          testGetWeekdayString();
-
+testGetMinute();
      */
 
-    testGetMinute();
+
 }
 
 

@@ -3,7 +3,7 @@
  *
  * Suite for all tests regarding the validation of a date
  *
- * Author: Jan Löwenstrom
+ * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.11.18
  *******************************************************************************/
 

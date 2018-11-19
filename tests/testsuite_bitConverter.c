@@ -4,7 +4,7 @@
  * Suite for all tests regarding all functions offered by the
  * bitConverter.c file
  *
- * Author: Jan Löwenstrom
+ * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 14.11.18
  *******************************************************************************/
 
@@ -13,7 +13,7 @@
 #include <inttypes.h>
 #include "testsuite_bitConverter.h"
 #include "testFramework.h"
-#include "../util/bitConverter.h"
+#include "../src/util/bitConverter.h"
 
 
 void test_2bitConversion(){

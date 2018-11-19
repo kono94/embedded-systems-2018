@@ -1,20 +1,19 @@
 /*******************************************************************************
- * File validTime.c
+ * File validTime.h
  *
  * //TODO: description
  *
- * Autor: Johann Hoffer
+ * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.11.18
  *******************************************************************************/
 
-#include <stdio.h>
+#ifndef ES2018_REPO_VALIDTIME_H
+#define ES2018_REPO_VALIDTIME_H
+
 #include <stdbool.h>
 #include <inttypes.h>
-#include "validTime.h"
 
-bool isValidTime(uint8_t hours, uint8_t minutes){
-  if(hours < 24 && minutes < 60)
-    return true;
-  else
-    return false;
-}
+bool isValidTime(uint8_t hours, uint8_t minutes);
+
+#endif //ES2018_REPO_VALIDTIME_H
+

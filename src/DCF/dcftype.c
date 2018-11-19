@@ -11,7 +11,7 @@
  * DCF bit 0 => DCF[0]
  * DCF bit 21 => DCF[21]
  *
- * Autor: Jan Löwenstrom
+ * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 14.11.18
  *******************************************************************************/
 

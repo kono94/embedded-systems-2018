@@ -4,7 +4,7 @@
  * Offers functions that allow a unified and well formatted output
  * of test results.
  *
- * Author: Jan Löwenstrom
+ * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.11.18
  *******************************************************************************/
 

@@ -3,14 +3,14 @@
  *
  * Suite for all tests regarding the validation of a given time in minutes and hours
  *
- * Author: Jan Löwenstrom
+ * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.11.18
  *******************************************************************************/
 
 #include <stdio.h>
 #include <inttypes.h>
 #include "testFramework.h"
-#include "../validation/validTime.h"
+#include "../src/validation/validTime.h"
 
 void testEdgeCases(){
   char *descr = "TEST- testEdgeCase(): special cases";

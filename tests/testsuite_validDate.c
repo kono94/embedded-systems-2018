@@ -3,14 +3,14 @@
  *
  * Suite for all tests regarding the validation of a date
  *
- * Author: Jan Löwenstrom
+ * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.11.18
  *******************************************************************************/
 
 #include <stdio.h>
 #include <inttypes.h>
 #include "testFramework.h"
-#include "../validation/validDate.h"
+#include "../src/validation/validDate.h"
 
 // dec: 2018 
 // bin: 11111100010
