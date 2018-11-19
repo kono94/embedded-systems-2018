@@ -4,10 +4,12 @@ F_CPU := 16000000
 
 # Schon drin sind /usr/lib/avr/include
 # Es fehlen noch die Bibliotheken von simavr
-I_FLAGS := -I /usr/include/simavr/
+I_FLAGS := -I /usr/lib/avr/include/ -I /usr/include/simavr/
 
 # Compiler-Optionen für alle Kompiliervorgänge
 C_FLAGS := -O -Wall
+
+OBJECTS := test-main.elf
 
 SIMULATOR := simavr
 
@@ -23,18 +25,16 @@ main:	src/main.c
 #  -Wl,--undefined=_mmcu,--section-start=.mmcu=0x910000
 # ist seltsam, aber bewahrt den Wert .mmcu in der Hex-Datei und lässt
 # diesen nicht wegoptimieren. Das ist für den Testbetrieb in der Simulation wichtig.
-test-phases.elf:
+test-main-elf:
 	avr-gcc -mmcu=$(MCU) \
-		-o test-phases.elf \
+		-o test-main.elf \
 		-Wl,--undefined=_mmcu,--section-start=.mmcu=0x910000 \
 		$(I_FLAGS) \
 		$(C_FLAGS) \
 		$(SOURCE)
 
-test-phases: test-normal-modus.vcd test-phases.elf
-	$(SIMULATOR) -m $(MCU) -f $(F_CPU) test-phases.elf
-	diff test-output.vcd test-normal-modus.vcd > phases.diff \
-		|| echo "see result in file phases.diff"
+test-main: test-main-elf
+	$(SIMULATOR) -m $(MCU) -f $(F_CPU) test-main.elf
 
 clean:
 	rm -f runAllTest

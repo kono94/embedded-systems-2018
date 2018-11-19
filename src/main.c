@@ -1,20 +1,18 @@
 //
 // Created by Jan Uni on 14.11.18.
 //
+#include "main.h"
 #include <stdio.h>
-#include <avr/io.h>
-#include <stdint.h>
-#include <avr/avr_mcu_section.h>
+#include <inttypes.h>
 
-// Imports fuer den Simulator.
+#include <avr/io.h>
+#include <avr/avr_mcu_section.h>
 #include <sim_vcd_file.h>
 
+
 // Importiert die Stopp-Funktion, um den Simulator anzuhalten (sleep_cpu())
-#include <avr/sleep.h>
-
 // Importiert die Interrupt-Funktion, um den Simulator anzuhalten (ISR())
-#include <avr/interrupt.h>
-
+#include <avr/iom32c1.h>
 #include "DCF/dcftype.h"
 #include "util/dateExtractor.h"
 
@@ -41,8 +39,9 @@ ISR(TIMER2_COMPA_vect)
 
 int main(int argc, char** argv){
     DCF_init();
-    printf("%d" , getCalendarDay(&rawDCF));
+   printf("%d" , getCalendarDay(&rawDCF));
     PORTD = 1;
+    GTCCR = 0;
     // Timer 2 konfigurieren
     GTCCR |= (1 << TSM) | (1 << PSRASY);  //Timer anhalten, Prescaler Reset
     ASSR |= (1 << AS2);                   //Asynchron Mode einschalten
@@ -54,9 +53,8 @@ int main(int argc, char** argv){
     GTCCR &= ~(1 << TSM);                 //Timer starten
     sei();                                //Enable global Interrupts
 
-    for(;;);                           // The main loop stays empty and
-    // could contain code you want.
-
+   for(;;);                           // The main loop stays empty and
+   // could contain code you want.
 
     return 0;
 }

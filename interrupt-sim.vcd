@@ -1,0 +1,12 @@
+$timescale 10ns $end
+$scope module logic $end
+$var wire 8 ! PORT_D $end
+$upscope $end
+$enddefinitions $end
+$dumpvars
+bxxxxxxxx !
+$end
+#4587
+b00000001 !
+#4588
+b00000001 !
