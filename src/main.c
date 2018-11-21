@@ -33,6 +33,7 @@ const struct avr_mmcu_vcd_trace_t _mytrace[] _MMCU_ = {
 };
 
 bool a = true;
+uint8_t b = 0;
 void output(){
    if(a){
 	      PORTD = 0b10100000;
@@ -43,18 +44,20 @@ void output(){
 }
 
 // Interrupt subroutine for external interrupt 0
-ISR(TIMER1_COMPB_vect)
+ISR(TIMER1_OVF_vect)
 {
-      printf("%d" , getCalendarDay(&rawDCF));
-      output();
+      if(b == 0){
+          output();
+          TCNT1 = 63974;
+      }
 }
 
 int main(int argc, char** argv){
-    DCF_init();
-    printf("%d" , getCalendarDay(&rawDCF));
-    PORTD = 1;
-	PORTD = 0b11101011;
-    cli(); // disable global interrupts
+
+
+    
+  //  DCF_init();
+//    cli(); // disable global interrupts
     
     // General Interrupt Control Registeri (for external interrupts i.e. buttons)
     // GICR = 0b01000000;
@@ -110,23 +113,18 @@ int main(int argc, char** argv){
      * 1 1 0 = External clock source on T1 pin. Clock on failing edge.
      */
 
-    TCCR1A = 0;
+    TCNT1 = 15625;
+
+    TCCR1A = 0x00;
     // 0b00001101
-    TCCR1B |= (1 << CS12)|(1 << CS11)|(1 << CS10);
+    TCCR1B = 0b00000101;
 
-
-    // 3906 
-    OCR1AH = 0b00001111;
-    OCR1AL = 0b01000010;
-
-    TIMSK |= (1 << OCIE1A);
-    TIMSK |= (1 << OCIE1B);
+    TIMSK = 0b00000100;
     sei();                                //Enable globl Interrupts
 
-   for(int i=0;i <30;++i){
-  	printf("kek");
-   	output();
-   }	   // The main loop stays empty and
+    for(;;);
+
+   // The main loop stays empty and
    // could contain code you want.
 
     return 0;
