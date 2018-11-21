@@ -11,8 +11,12 @@
 
 
 // Importiert die Stopp-Funktion, um den Simulator anzuhalten (sleep_cpu())
-// Importiert die Interrupt-Funktion, um den Simulator anzuhalten (ISR())
-#include <avr/iom32c1.h>
+#include <avr/sleep.h>
+// Importiert die Interrupt-Funktion, um den Simulator anzuhalten (ISR(), cli(), sei())
+#include <avr/interrupt.h>
+
+#include <util/delay.h>
+
 #include "DCF/dcftype.h"
 #include "util/dateExtractor.h"
 
@@ -28,32 +32,101 @@ const struct avr_mmcu_vcd_trace_t _mytrace[] _MMCU_ = {
         { AVR_MCU_VCD_SYMBOL("PORT_D"), .what = (void*)&PORTD, },
 };
 
-
+bool a = true;
+void output(){
+   if(a){
+	      PORTD = 0b10100000;
+      }else{
+	      PORTD = 0b01000000;
+      }
+      a = !a;
+}
 
 // Interrupt subroutine for external interrupt 0
-ISR(TIMER2_COMPA_vect)
+ISR(TIMER1_COMPB_vect)
 {
       printf("%d" , getCalendarDay(&rawDCF));
-
+      output();
 }
 
 int main(int argc, char** argv){
     DCF_init();
-   printf("%d" , getCalendarDay(&rawDCF));
+    printf("%d" , getCalendarDay(&rawDCF));
     PORTD = 1;
-    GTCCR = 0;
-    // Timer 2 konfigurieren
-    GTCCR |= (1 << TSM) | (1 << PSRASY);  //Timer anhalten, Prescaler Reset
-    ASSR |= (1 << AS2);                   //Asynchron Mode einschalten
-    TCCR2A = (1 << WGM21);                //CTC Modus
-    TCCR2B |= (1 << CS22) | (1 << CS21);  //Prescaler 256
-    // 32768 / 256 / 1 = 128                Intervall = 1s
-    OCR2A = 128 - 1;
-    TIMSK2 |= (1<<OCIE2A);                //Enable Compare Interrupt
-    GTCCR &= ~(1 << TSM);                 //Timer starten
-    sei();                                //Enable global Interrupts
+	PORTD = 0b11101011;
+    cli(); // disable global interrupts
+    
+    // General Interrupt Control Registeri (for external interrupts i.e. buttons)
+    // GICR = 0b01000000;
+    
+    /*
+     * Considering this for DCF-77 Receiver!
+     * ADCSRA = ADC Control and Status Register A
+     *
+     * Bit 7 - ADEN: ADC Enable
+     * Setting this bit to one enables the ADC.
+     *
+     * Bit 3 - ADIE: ADC Interrupt Enable
+     * When this bit is written to one and the 1-bit in SREG is set, the ADC Conversion Complete
+     * Interrupt is actived.
+     *
+     * Bit 2:0 - ADPS2:0: ADC Prescaler Select Bits
+     * These bits determine the division factor between the XTAL frequency and the input clockl to the ADC
+     * 0 0 0 = 2
+     * 0 0 1 = 2
+     * 0 1 0 = 4
+     * 0 1 1 = 8
+     * 1 0 0 = 16
+     * 1 0 1 = 32
+     * 1 1 0 = 64
+     * 1 1 1 = 128
+     */
+    // ADCSR = 0b10000111;
 
-   for(;;);                           // The main loop stays empty and
+    /*
+     * Waveform Genetator Mode
+     * TCCR1A - Bit 0 = WGM10
+     * 		Bit 1 = WGM11
+     *
+     * TCCR1B - Bit 4 = WGM13
+     * 		Bit 3 = WGM12
+     * 		Bit 0 = CS10
+     * 		Bit 1 = CS11
+     * 		Bit 2 = CS12
+     *
+     * WGM 0100:
+     * Timer/Counter Mode of Operation = CTC
+     * Top = OCR1A
+     * Update of OCR1x = Immediate
+     * TOV1 Flag Set on = MAX
+     *
+     * CS10, 11, 12 = Clock Select - Prescaler
+     * The three Clock Select bits select the clock source to be used by the Timer/Counter
+     * 0 0 1 = No pescaling
+     * 0 1 0 = /8 (From prescaler)
+     * 0 1 1 = /64
+     * 1 0 0 = /256
+     * 1 0 1 = /1024
+     * 1 1 0 = External clock source on T1 pin. Clock on failing edge.
+     */
+
+    TCCR1A = 0;
+    // 0b00001101
+    TCCR1B |= (1 << CS12)|(1 << CS11)|(1 << CS10);
+
+
+    // 3906 
+    OCR1AH = 0b00001111;
+    OCR1AL = 0b01000010;
+
+    TIMSK |= (1 << OCIE1A);
+    TIMSK |= (1 << OCIE1B);
+    sei();                                //Enable globl Interrupts
+
+   for(int i=0;i <30;++i){
+  	printf("kek");
+   	output();
+   }	   // The main loop stays empty and
    // could contain code you want.
 
     return 0;

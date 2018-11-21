@@ -4,7 +4,7 @@ F_CPU := 16000000
 
 # Schon drin sind /usr/lib/avr/include
 # Es fehlen noch die Bibliotheken von simavr
-I_FLAGS := -I /usr/lib/avr/include/ -I /usr/include/simavr/
+I_FLAGS := -I /usr/include/simavr/
 
 # Compiler-Optionen für alle Kompiliervorgänge
 C_FLAGS := -O -Wall
