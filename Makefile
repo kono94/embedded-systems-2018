@@ -13,6 +13,8 @@ OBJECTS := test-main.elf
 
 SIMULATOR := simavr
 
+main.hex: main
+	avr-objcopy -O ihex main.elf main.hex
 main:	src/main.c
 	avr-gcc -mmcu=$(MCU) \
 		-o main.elf \
@@ -39,3 +41,6 @@ test-main: test-main-elf
 clean:
 	rm -f runAllTest
 	rm -f main
+
+firm: main.hex
+	avrdude -P /dev/ttyS0 -p m32 -c ponyser -v -U main.hex
