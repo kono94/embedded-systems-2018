@@ -33,7 +33,6 @@ const struct avr_mmcu_vcd_trace_t _mytrace[] _MMCU_ = {
 };
 
 bool a = true;
-uint8_t b = 0;
 void output(){
    if(a){
 	      PORTD = 0b10100000;
@@ -46,10 +45,8 @@ void output(){
 // Interrupt subroutine for external interrupt 0
 ISR(TIMER1_OVF_vect)
 {
-      if(b == 0){
           output();
-          TCNT1 = 63974;
-      }
+          TCNT1 = 49911;
 }
 
 int main(int argc, char** argv){
@@ -113,7 +110,27 @@ int main(int argc, char** argv){
      * 1 1 0 = External clock source on T1 pin. Clock on failing edge.
      */
 
-    TCNT1 = 15625;
+    /*
+     * TCNT1 = Timer/Counter1 counter value
+     *
+     * Meaning the maximum counter value of the 16-bit timer1
+     * is 65536.
+     * An interrup is thrown everytime the timer1 overflows
+     * (set by the TIMSK (Timer/Counter Interrupt Mask Register) 
+     * Bit 2 = TOIE1
+     *
+     * Prescale in timer1 equals 1024.
+     * Clockrate = 16.000.000
+     *
+     * 16.000.000 / 1024 =  15625 (ticks to reach 1 second)
+     *
+     * Timer maximum (65536) - 15625 = 49911;
+     *
+     * Setting the timer value to 49911 lets the timer overflow
+     * in 15625 ticks which is exactly one second. After processing
+     * the interrupt vector the time value gets set to 49911 once again.
+    */
+    TCNT1 = 49911;
 
     TCCR1A = 0x00;
     // 0b00001101
