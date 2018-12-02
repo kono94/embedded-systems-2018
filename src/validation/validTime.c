@@ -12,9 +12,7 @@
 #include <inttypes.h>
 #include "validTime.h"
 
-bool isValidTime(uint8_t hours, uint8_t minutes){
-  if(hours < 24 && minutes < 60)
-    return true;
-  else
-    return false;
+bool isValidTime(uint8_t hours, uint8_t minutes, uint8_t seconds){
+  return (hours < 24 && minutes < 60 && seconds < 60);
 }
+

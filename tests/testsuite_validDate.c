@@ -54,11 +54,20 @@ void tesstLeapYear(){
   }
 }
 
+void testNegativeDateSamples(){
+    char *descr = "TEST- testNegativeDateSamples(): dates that should be counted as invalid ";
 
+    printTestResult(descr, !isValidDate(2,2,20,123), "should not expect years_ten above 99 (needs to increment hundreds if 99+1");
+}
 
+void testPositiveDateSamples(){
+
+}
 uint8_t runTestsuite_validDate(){
   printSuiteName("TEST SUITE FOR VALID_DATE");
   testDay();
   tesstLeapYear();
+    testNegativeDateSamples();
+    testPositiveDateSamples();
   return 0;
 }

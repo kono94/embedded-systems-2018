@@ -20,38 +20,22 @@ bool isValidDate(uint8_t day, uint8_t month, uint8_t hundreds, uint8_t tens){
 
 bool isLeapYear(uint8_t hundreds, uint8_t tens){
   if(tens == 0){
-    if(hundreds % 4 == 0)
-      return true;
-    else
-      return false;
-  }else if(tens % 4 == 0)
-    return true;
-  else
-    return false;
+      return (hundreds % 4 == 0);
+  }else
+     return (tens % 4 == 0);
 }
 
 bool isValidDay(uint8_t day, uint8_t month, uint8_t leapYear){
   if(month != 2 && month < 8){
-    if(month % 2 == 0 && day < 31)
-      return true;
-    else if(month % 2 == 1 && day < 32)
-      return true;
-    else
-      return false;
+
+    return ((month % 2 == 0 && day < 31) || (month % 2 == 1 && day < 32));
+
   }else if(month != 2 && month > 7 && month < 13){
-    if(month % 2 == 1 && day < 31)
-      return true;
-    else if(month % 2 == 0 && day < 32)
-      return true;
-    else
-      return false;
+
+    return ((month % 2 == 1 && day < 31) || (month % 2 == 0 && day < 32));
+
   }else if(month == 2){
-    if(leapYear && day < 30)
-      return true;
-    else if(!leapYear && day < 29)
-      return true;
-    else
-      return false;
+      return ((leapYear && day < 30) || (!leapYear && day < 29));
   }else
     return false;
 }

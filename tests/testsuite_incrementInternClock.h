@@ -1,0 +1,10 @@
+//
+// Created by Jan Uni on 02.12.18.
+//
+
+#ifndef ES2018_REPO_TESTSUITE_INCREMENTINTERNCLOCK_H
+#define ES2018_REPO_TESTSUITE_INCREMENTINTERNCLOCK_H
+
+uint8_t runTestsuite_incrementInternClock();
+
+#endif //ES2018_REPO_TESTSUITE_INCREMENTINTERNCLOCK_H

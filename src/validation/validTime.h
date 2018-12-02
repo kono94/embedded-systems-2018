@@ -13,7 +13,7 @@
 #include <stdbool.h>
 #include <inttypes.h>
 
-bool isValidTime(uint8_t hours, uint8_t minutes);
+bool isValidTime(uint8_t hours, uint8_t minutes, uint8_t seconds);
 
 #endif //ES2018_REPO_VALIDTIME_H
 

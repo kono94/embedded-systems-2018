@@ -8,6 +8,7 @@
 #include <inttypes.h>
 
 typedef struct {
+    uint8_t seconds;
     uint8_t minutes;
     uint8_t hours;
     uint8_t days;
@@ -20,4 +21,5 @@ typedef struct {
 volatile AvrDatetime avrDatetime;
 volatile AvrDatetime* p_avrDatetime;
 void AvrDatetime_init();
+void incrementByOneSecond();
 #endif //ES2018_REPO_AVRDATETIME_H
