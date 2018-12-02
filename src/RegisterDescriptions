@@ -1,64 +1,6 @@
-//
-// Created by Jan Uni on 14.11.18.
-//
-#include "main.h"
-#include <stdio.h>
-#include <inttypes.h>
-
-#include <avr/io.h>
-#include <avr/avr_mcu_section.h>
-#include <sim_vcd_file.h>
-
-
-// Importiert die Stopp-Funktion, um den Simulator anzuhalten (sleep_cpu())
-#include <avr/sleep.h>
-// Importiert die Interrupt-Funktion, um den Simulator anzuhalten (ISR(), cli(), sei())
-#include <avr/interrupt.h>
-
-#include <util/delay.h>
-
-#include "DCF/dcftype.h"
-#include "util/dateExtractor.h"
-
-// Definiert den AVR-Typ fuer den Simulator.
-AVR_MCU(F_CPU, "atmega32");
-
-// Definiert die Simulatorausgabedatei und die Dauer der Simulation in
-// Mikrosekunden.
-AVR_MCU_VCD_FILE("interrupt-sim.vcd", 10000);
-
-// Definiert die durch den Simulator auszugebenden Ports.
-const struct avr_mmcu_vcd_trace_t _mytrace[] _MMCU_ = {
-        { AVR_MCU_VCD_SYMBOL("PORT_D"), .what = (void*)&PORTD, },
-};
-
-bool a = true;
-void output(){
-   if(a){
-	      PORTD = 0b10100000;
-      }else{
-	      PORTD = 0b01000000;
-      }
-      a = !a;
-}
-
-// Interrupt subroutine for external interrupt 0
-ISR(TIMER1_OVF_vect)
-{
-          output();
-          TCNT1 = 49911;
-}
-
-int main(int argc, char** argv){
-
-
-    
-  //  DCF_init();
-//    cli(); // disable global interrupts
-    
-    // General Interrupt Control Registeri (for external interrupts i.e. buttons)
+   // General Interrupt Control Registeri (for external interrupts i.e. buttons)
     // GICR = 0b01000000;
-    
+
     /*
      * Considering this for DCF-77 Receiver!
      * ADCSRA = ADC Control and Status Register A
@@ -116,7 +58,7 @@ int main(int argc, char** argv){
      * Meaning the maximum counter value of the 16-bit timer1
      * is 65536.
      * An interrup is thrown everytime the timer1 overflows
-     * (set by the TIMSK (Timer/Counter Interrupt Mask Register) 
+     * (set by the TIMSK (Timer/Counter Interrupt Mask Register)
      * Bit 2 = TOIE1
      *
      * Prescale in timer1 equals 1024.
@@ -130,19 +72,3 @@ int main(int argc, char** argv){
      * in 15625 ticks which is exactly one second. After processing
      * the interrupt vector the time value gets set to 49911 once again.
     */
-    TCNT1 = 49911;
-
-    TCCR1A = 0x00;
-    // 0b00001101
-    TCCR1B = 0b00000101;
-
-    TIMSK = 0b00000100;
-    sei();                                //Enable globl Interrupts
-
-    for(;;);
-
-   // The main loop stays empty and
-   // could contain code you want.
-
-    return 0;
-}
