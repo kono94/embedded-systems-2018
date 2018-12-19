@@ -10,14 +10,14 @@
 #include "../src/util/bitConverter.h"
 #include "../src/DCF/dcftype.h"
 
-void set7Bits(DCF* dcf, uint8_t i0, uint8_t i1, uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6) {
-    *dcf[i0 + 0] = b0;
-    *dcf[i0 + 1] = b1;
-    *dcf[i0 + 2] = b2;
-    *dcf[i0 + 3] = b3;
-    *dcf[i0 + 4] = b4;
-    *dcf[i0 + 5] = b5;
-    *dcf[i0 + 6] = b6;
+void set7Bits(uint8_t i0, uint8_t i1, uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6) {
+    rawDCF[i0 + 0] = b0;
+    rawDCF[i0 + 1] = b1;
+    rawDCF[i0 + 2] = b2;
+    rawDCF[i0 + 3] = b3;
+    rawDCF[i0 + 4] = b4;
+    rawDCF[i0 + 5] = b5;
+    rawDCF[i0 + 6] = b6;
 }
 void set6Bits(uint8_t i0, uint8_t i1, uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5) {
     rawDCF[i0 + 0] = b0;
@@ -42,10 +42,7 @@ void set3Bits(uint8_t i0, uint8_t i1, uint8_t b0, uint8_t b1, uint8_t b2) {
 
 void testGetMinute(){
     char* descr = "TEST- getMinute(): convert  bits 21-27 to responding decimal values";
-	DCF* dcf;
-	for(uint8_t i=0; i < 59; ++i){
-        dcf[i] = 0;
-    }
+	DCF_init():
     set7Bits(dcf, 21, 28, 1,0,0,0,0,0,0);
     printTestResult(descr, getMinutes(&rawDCF) == 1, "0000001 should be 1");
 
