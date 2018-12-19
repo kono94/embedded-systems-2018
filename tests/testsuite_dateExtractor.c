@@ -43,7 +43,7 @@ void set3Bits(uint8_t i0, uint8_t i1, uint8_t b0, uint8_t b1, uint8_t b2) {
 void testGetMinute(){
     char* descr = "TEST- getMinute(): convert  bits 21-27 to responding decimal values";
 	DCF_init();
-    set7Bits(dcf, 21, 28, 1,0,0,0,0,0,0);
+    set7Bits(21, 28, 1,0,0,0,0,0,0);
     printTestResult(descr, getMinutes(&rawDCF) == 1, "0000001 should be 1");
 
     //set7Bits(21, 28, 0,1,0,0,0,0,0);
