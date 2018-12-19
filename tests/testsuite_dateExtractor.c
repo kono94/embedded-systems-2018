@@ -45,9 +45,9 @@ void testGetMinute(){
     set7Bits(21, 28, 1,0,0,0,0,0,0);
     printTestResult(descr, getMinutes(&rawDCF) == 1, "0000001 should be 1");
 
-    array = {0,1,0,0,0,0,0};
     set7Bits(21, 28, 0,1,0,0,0,0,0);
     printTestResult(descr, getMinutes(&rawDCF) == 2, "0000010 should be 2");
+}
 /*
     array = {0,0,1,0,0,0,0};
     setBits(&array, 21, 28,0,0,1,0,0,0,0);
@@ -276,10 +276,5 @@ void runTestsuite_dateExtractor(){
     testGetHour();
          testGetWeekdayString();
      */
-testGetMinute();
-
-
+  testGetMinute();
 }
-
-
-
