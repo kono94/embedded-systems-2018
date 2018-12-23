@@ -50,7 +50,7 @@ simulate-main-elf:
 		$(AVR_SOURCE)
 
 simulate-main: simulate-main-elf
-	$(SIMULATOR) -m $(MCU) -f $(F_CPU) simulate-main.elf
+	$(SIMULATOR) -m $(MCU) -f $(F_CPU) -i input.vcd simulate-main.elf
 
 clean:
 	rm -f runAllTests

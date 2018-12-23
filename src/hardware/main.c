@@ -19,18 +19,22 @@
 
 #include "../DCF/dcftype.h"
 #include "../util/dateExtractor.h"
-#include "../models/internClock/avrDatetime.h"
+#include "../internClock/avrDatetime.h"
+#include "./signalToDCF.h"
 
 // Definiert den AVR-Typ fuer den Simulator.
 AVR_MCU(F_CPU, "atmega32");
 
 // Definiert die Simulatorausgabedatei und die Dauer der Simulation in
 // Mikrosekunden.
-AVR_MCU_VCD_FILE("interrupt-sim.vcd", 10000);
+AVR_MCU_VCD_FILE("output.vcd", 121000);
 
 // Definiert die durch den Simulator auszugebenden Ports.
 const struct avr_mmcu_vcd_trace_t _mytrace[] _MMCU_ = {
         { AVR_MCU_VCD_SYMBOL("PORT_D"), .what = (void*)&PORTD, },
+        { AVR_MCU_VCD_SYMBOL("PORT_A"), .what = (void*)&PORTA, },
+        { AVR_MCU_VCD_SYMBOL("PIN_C"), .what = (void*)&PINC, },
+        { AVR_MCU_VCD_SYMBOL("PORT_B"), .what = (void*)&PORTB, },
 };
 
 bool a = true;
@@ -43,36 +47,45 @@ void output(){
       a = !a;
 }
 
-// Interrupt subroutine for external interrupt 0
+// Interrupt throwing when intern timer should be incremented
 ISR(TIMER1_OVF_vect)
 {
-          output();
-          TCNT1 = 49912;
+    TCNT1 = 49912;
 }
 
-
-void interrupt_timer(){
-    //    cli(); // disable global interrupts
-
+void enableOneSecInterrupt(){
     TCNT1 = 49912;
-
     TCCR1A = 0x00;
     // 0b00001101
     TCCR1B = 0b00000101;
-
-    TIMSK = 0b00000100;
-    sei();                                //Enable globl Interrupts
-
-    for(;;);
-
-    // The main loop stays empty and
-    // could contain code you want.
-
+    // enable timer1
+    TIMSK |= 0b00000100;
 }
+
+void setupInterrupts(){
+    cli(); // disable global interrupts
+    enableOneSecInterrupt();
+    enableOneMilliInterrupt();
+    sei(); //Enable global Interrupts
+}
+
+void displayDCF() {
+    for (int i = 0; i < DCF_LENGTH; i++) {
+        PORTA = i;
+        PORTB = rawDCF[i];
+        _delay_ms(10);
+        PORTB = 0b00000000;
+        PORTB = 0b00000001;
+    }
+}
+
 int main(int argc, char** argv){
-    printf("kek");
     DCF_init();
     AvrDatetime_init();
-
+    setupInterrupts();
+    _delay_ms(118000);
+    displayDCF();
+    cli();
+    sleep_cpu();
     return 0;
 }
