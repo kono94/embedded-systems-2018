@@ -1,0 +1,39 @@
+$date 2018-11-13 22:00 $end
+$comment
+  This file specifies one-bit input for tests.
+  SIMAVR does only take micro seconds.
+$end
+$timescale 1us $end
+$scope module logic $end
+$var wire 1 c iogC_1 $end
+$upscope $end
+$enddefinitions $end
+$dumpvars
+xc
+$end
+#0
+1c
+#100000
+0c
+#1000000
+1c
+#1200000
+0c
+#2000000
+1c
+#2100000
+0c
+#4000000
+1c
+#4100000
+0c
+#5000000
+1c
+#5200000
+0c
+#6000000
+1c
+#6200000
+0c
+
+

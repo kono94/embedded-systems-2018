@@ -21,6 +21,8 @@
 #include "../util/dateExtractor.h"
 #include "../internClock/avrDatetime.h"
 #include "./signalToDCF.h"
+#include "oneSecondInterrupt.h"
+#include "sendToDisplay.c"
 
 // Definiert den AVR-Typ fuer den Simulator.
 AVR_MCU(F_CPU, "atmega32");
@@ -37,30 +39,7 @@ const struct avr_mmcu_vcd_trace_t _mytrace[] _MMCU_ = {
         { AVR_MCU_VCD_SYMBOL("PORT_B"), .what = (void*)&PORTB, },
 };
 
-bool a = true;
-void output(){
-   if(a){
-	      PORTD = 0b10100000;
-      }else{
-	      PORTD = 0b01000000;
-      }
-      a = !a;
-}
 
-// Interrupt throwing when intern timer should be incremented
-ISR(TIMER1_OVF_vect)
-{
-    TCNT1 = 49912;
-}
-
-void enableOneSecInterrupt(){
-    TCNT1 = 49912;
-    TCCR1A = 0x00;
-    // 0b00001101
-    TCCR1B = 0b00000101;
-    // enable timer1
-    TIMSK |= 0b00000100;
-}
 
 void setupInterrupts(){
     cli(); // disable global interrupts
@@ -83,6 +62,7 @@ int main(int argc, char** argv){
     DCF_init();
     AvrDatetime_init();
     setupInterrupts();
+    init_sendToDisplay();
     _delay_ms(118000);
     displayDCF();
     cli();

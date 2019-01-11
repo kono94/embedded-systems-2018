@@ -107,3 +107,10 @@ char* getWeekdayString(const DCF* dcf){
         default: return "ERROR 34";
     }
 }
+
+/*
+ * bits for weekday: 42-44
+ */
+uint8_t getWeekdayIndex(const DCF* dcf){
+    return helper_3bit(*dcf[42], *dcf[43], *dcf[44]);
+}

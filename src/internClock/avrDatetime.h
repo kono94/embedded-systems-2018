@@ -15,6 +15,7 @@ typedef struct {
     uint8_t months;
     uint8_t years_tens;
     uint8_t years_hundreds;
+    uint8_t weekdayIndex;
     char* weekdayString;
 }AvrDatetime;
 

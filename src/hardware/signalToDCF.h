@@ -6,8 +6,8 @@
 #define ES2018_REPO_SIGNALTODCF_H
 #include <inttypes.h>
 
+void scanDCF();
+
 uint8_t g_position;
-void enableOneMilliInterrupt();
-void displayDCF();
 
 #endif //ES2018_REPO_SIGNALTODCF_H
