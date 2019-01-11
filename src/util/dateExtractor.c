@@ -43,9 +43,9 @@
 /*
  * bits for minutes: 21-27
  */
-uint8_t getMinutes(const DCF* dcf){
-    uint8_t units = helper_4bit(*dcf[21], *dcf[22], *dcf[23], *dcf[24]);
-    uint8_t tens = 10 * helper_3bit(*dcf[25], *dcf[26], *dcf[27]);
+uint8_t getMinutes(const DCF dcf){
+    uint8_t units = helper_4bit(dcf[21], dcf[22], dcf[23], dcf[24]);
+    uint8_t tens = 10 * helper_3bit(dcf[25], dcf[26], dcf[27]);
 
     return tens + units;
 }
@@ -53,9 +53,9 @@ uint8_t getMinutes(const DCF* dcf){
 /*
  * bits for hours: 29-34
  */
-uint8_t getHours(const DCF* dcf){
-    uint8_t units = helper_4bit(*dcf[29], *dcf[30], *dcf[31], *dcf[32]);
-    uint8_t tens = 10 * helper_2bit(*dcf[33], *dcf[34]);
+uint8_t getHours(const DCF dcf){
+    uint8_t units = helper_4bit(dcf[29], dcf[30], dcf[31], dcf[32]);
+    uint8_t tens = 10 * helper_2bit(dcf[33], dcf[34]);
 
     return tens + units;
 }
@@ -63,9 +63,9 @@ uint8_t getHours(const DCF* dcf){
 /*
  * bits for day: 36-41
  */
-uint8_t getCalendarDay(const DCF* dcf){
-    uint8_t units = helper_4bit(*dcf[36], *dcf[37], *dcf[38], *dcf[39]);
-    uint8_t tens = 10 * helper_2bit(*dcf[40], *dcf[41]);
+uint8_t getCalendarDay(const DCF dcf){
+    uint8_t units = helper_4bit(dcf[36], dcf[37], dcf[38], dcf[39]);
+    uint8_t tens = 10 * helper_2bit(dcf[40], dcf[41]);
 
     return tens + units;
 }
@@ -73,9 +73,9 @@ uint8_t getCalendarDay(const DCF* dcf){
 /*
  * bits for month: 45-49
  */
-uint8_t getCalendarMonth(const DCF* dcf){
-    uint8_t units = helper_4bit(*dcf[45], *dcf[46], *dcf[47], *dcf[48]);
-    uint8_t tens = 10 * *dcf[49];
+uint8_t getCalendarMonth(const DCF dcf){
+    uint8_t units = helper_4bit(dcf[45], dcf[46], dcf[47], dcf[48]);
+    uint8_t tens = 10 * dcf[49];
 
     return tens + units;
 }
@@ -83,9 +83,9 @@ uint8_t getCalendarMonth(const DCF* dcf){
 /*
  * bits for year: 50-57
  */
-uint8_t getCalendarYears(const DCF* dcf){
-    uint8_t units = helper_4bit(*dcf[50], *dcf[51], *dcf[52], *dcf[53]);
-    uint8_t tens = 10 * helper_4bit(*dcf[54], *dcf[55], *dcf[56], *dcf[57]);
+uint8_t getCalendarYears(const DCF dcf){
+    uint8_t units = helper_4bit(dcf[50], dcf[51], dcf[52], dcf[53]);
+    uint8_t tens = 10 * helper_4bit(dcf[54], dcf[55], dcf[56], dcf[57]);
 
     return tens + units;
 }
@@ -93,8 +93,8 @@ uint8_t getCalendarYears(const DCF* dcf){
 /*
  * bits for weekday: 42-44
  */
-char* getWeekdayString(const DCF* dcf){
-    uint8_t weekday = helper_3bit(*dcf[42], *dcf[43], *dcf[44]);
+char* getWeekdayString(const DCF dcf){
+    uint8_t weekday = helper_3bit(dcf[42], dcf[43], dcf[44]);
 
     switch(weekday) {
         case 1: return "Mon";
@@ -111,6 +111,6 @@ char* getWeekdayString(const DCF* dcf){
 /*
  * bits for weekday: 42-44
  */
-uint8_t getWeekdayIndex(const DCF* dcf){
-    return helper_3bit(*dcf[42], *dcf[43], *dcf[44]);
+uint8_t getWeekdayIndex(const DCF dcf){
+    return helper_3bit(dcf[42], dcf[43], dcf[44]);
 }

@@ -7,7 +7,7 @@
 #include <stdbool.h>
 
 #include "dcftype.h"
-
+#include "../util/triggers.h"
 
 
 int MISSING_THRESHOLD = 5;

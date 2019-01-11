@@ -14,11 +14,11 @@
 
 #include "../DCF/dcftype.h"
 
-uint8_t getMinutes(const DCF* dcf);
-uint8_t getHours(const DCF* dcf);
-uint8_t getCalendarDay(const DCF* dcf);
-uint8_t getCalendarMonth(const DCF* dcf);
-uint8_t getCalendarYears(const DCF* dcf);
+uint8_t getMinutes(const DCF dcf);
+uint8_t getHours(const DCF dcf);
+uint8_t getCalendarDay(const DCF dcf);
+uint8_t getCalendarMonth(const DCF dcf);
+uint8_t getCalendarYears(const DCF dcf);
 
 /*
  * returns a string that represents the weekday
@@ -28,6 +28,6 @@ uint8_t getCalendarYears(const DCF* dcf);
  *  ...
  * "Sun"
  */
-char* getWeekdayString(const DCF* dcf);
+char* getWeekdayString(const DCF dcf);
 
 #endif //ES2018_REPO_DATEEXTRACTOR_H

@@ -11,10 +11,10 @@
 #include <stdbool.h>
 
 void init_triggers(){
-    bool trigger_sentToDisplay = false;
-    bool trigger_evaluateSignal = false;
-    bool trigger_oneSecondPassed = false;
-    bool trigger_signalError = false;
-    bool trigger_noSignalError = false;
+    trigger_sentToDisplay = false;
+    trigger_evaluateSignal = false;
+    trigger_oneSecondPassed = false;
+    trigger_signalError = false;
+    trigger_noSignalError = false;
 }
 
