@@ -9,36 +9,61 @@
 #include "testFramework.h"
 #include "../src/util/bitConverter.h"
 #include "../src/DCF/dcftype.h"
-/*
-void setBits(bool bits[], uint8_t i0, uint8_t i1) {
-    for (int i = i0; i < i1; ++i)
-        rawDCF[i] = bits[i-i0];
+
+void set7Bits(uint8_t i0, uint8_t i1, uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6) {
+    rawDCF[i0 + 0] = b0;
+    rawDCF[i0 + 1] = b1;
+    rawDCF[i0 + 2] = b2;
+    rawDCF[i0 + 3] = b3;
+    rawDCF[i0 + 4] = b4;
+    rawDCF[i0 + 5] = b5;
+    rawDCF[i0 + 6] = b6;
+}
+void set6Bits(uint8_t i0, uint8_t i1, uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5) {
+    rawDCF[i0 + 0] = b0;
+    rawDCF[i0 + 1] = b1;
+    rawDCF[i0 + 2] = b2;
+    rawDCF[i0 + 3] = b3;
+    rawDCF[i0 + 4] = b4;
+    rawDCF[i0 + 5] = b5;
+}
+void set5Bits(uint8_t i0, uint8_t i1, uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
+    rawDCF[i0 + 0] = b0;
+    rawDCF[i0 + 1] = b1;
+    rawDCF[i0 + 2] = b2;
+    rawDCF[i0 + 3] = b3;
+    rawDCF[i0 + 4] = b4;
+}
+void set3Bits(uint8_t i0, uint8_t i1, uint8_t b0, uint8_t b1, uint8_t b2) {
+    rawDCF[i0 + 0] = b0;
+    rawDCF[i0 + 1] = b1;
+    rawDCF[i0 + 2] = b2;
 }
 
 void testGetMinute(){
     char* descr = "TEST- getMinute(): convert  bits 21-27 to responding decimal values";
-    bool array[7] = {1,0,0,0,0,0,0};
-    setBits(&array, 21, 28);
+	DCF_init();
+    set7Bits(21, 28, 1,0,0,0,0,0,0);
     printTestResult(descr, getMinutes(&rawDCF) == 1, "0000001 should be 1");
 
-    array = {0,1,0,0,0,0,0};
-    setBits(&array, 21, 28);
-    printTestResult(descr, getMinutes(&rawDCF) == 2, "0000010 should be 2");
+    //set7Bits(21, 28, 0,1,0,0,0,0,0);
+    //printTestResult(descr, getMinutes(&rawDCF) == 2, "0000010 should be 2");
+}
 /*
     array = {0,0,1,0,0,0,0};
-    setBits(&array, 21, 28);
+    setBits(&array, 21, 28,0,0,1,0,0,0,0);
     printTestResult(descr, getMinutes(&rawDCF) == 4, "0000100 should be 4");
 
     array = {0,0,0,1,0,0,0};
-    setBits(&array, 21, 28);
+    setBits(&array, 21, 28,0,0,0,1,0,0,0);
     printTestResult(descr, getMinutes(&rawDCF) == 8, "0001000 should be 8");
 
     array = {0,0,0,0,1,0,0};
-    setBits(&array, 21, 28);
+    setBits(&array, 21, 28, 0,0,0,0,1,0,0);
     printTestResult(descr, getMinutes(&rawDCF) == 10, "0010000 should be 10");
 
     array = {0,0,0,0,0,1,0};
-    setBits(&array, 21, 28);
+    setBits(&array, 21, 28,0,0,0,0,0,1,0);
     printTestResult(descr, getMinutes(&rawDCF) == 20, "0100000 should be 20");
 
     array = {0,0,0,0,0,0,1};
@@ -251,11 +276,6 @@ void runTestsuite_dateExtractor(){
     testGetCalendarYears();
     testGetHour();
          testGetWeekdayString();
-testGetMinute();
      */
-
-
+  testGetMinute();
 }
-
-
-

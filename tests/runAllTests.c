@@ -31,8 +31,8 @@ int main(int argc, char** argv){
     //runTestsuite_validDate();
     //runTestsuite_validTime();
     //runTestsuite_bitConverter();
-    runTestsuite_incrementInternClock();
-    //runTestsuite_dateExtractor();
+    //runTestsuite_incrementInternClock();
+    runTestsuite_dateExtractor();
     printf(GRN "\n TEST OK: %d \n" RED " TEST FAILED: %d \n" RESET, ok, fail);
     return 0;
 }
