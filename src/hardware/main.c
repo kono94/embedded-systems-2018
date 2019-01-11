@@ -1,9 +1,16 @@
-//
-// Created by Jan Uni on 14.11.18.
-//
+/*******************************************************************************
+ * File main.c
+ *
+ *
+ *
+ * Authors: Jan Löwenstrom & Johann Hoffer
+ * Date: 14.11.18
+ *******************************************************************************/
+
 #include "main.h"
 #include <stdio.h>
 #include <inttypes.h>
+#include <stdbool.h>
 
 #include <avr/io.h>
 #include <avr/avr_mcu_section.h>
@@ -20,9 +27,10 @@
 #include "../DCF/dcftype.h"
 #include "../util/dateExtractor.h"
 #include "../internClock/avrDatetime.h"
-#include "./signalToDCF.h"
+#include "../DCF/signalToDCF.h"
 #include "oneSecondInterrupt.h"
 #include "../display/displayInstructions.c"
+#include "../util/triggers.h"
 
 // Definiert den AVR-Typ fuer den Simulator.
 AVR_MCU(F_CPU, "atmega32");
@@ -59,28 +67,57 @@ void displayDCF() {
 }
 
 
-bool trigger_sentToDisplay = false;
-bool trigger_scanDCF_PIN = false;
-
 int main(int argc, char** argv){
     DCF_init();
     AvrDatetime_init();
     setupInterrupts();
     init_sendToDisplay();
-    _delay_ms(118000);
-    displayDCF();
+    init_triggers();
+
     while(true){
+        if(trigger_SignalError){
+            trigger_signalError = false;
+            // draw SIGNAL ERROR
+        }
+
+        if(trigger_noSignalError){
+            trigger_noSignalError = false;
+            // clear SIGNAL ERROR
+        }
+
         if(trigger_scanDCF_PIN) {
             trigger_scanDCF_PIN = false;
+            evaluateSignal(PINC);
         }
 
         if(trigger_sentToDisplay){
             trigger_sentToDisplay = false;
+            // gets called EVERY 1ms
+            if(display_toSend > 0){
+                if(sending_phase == 0){
+                    // SET ENABLE TO 0 (LOWER)
+                    setEnableBit(0);
+                    // SET DATA BITS
+                    setDataPins(display_data[display_toSend_currentSession - display_toSend]);
+                    sending_phase = 1;
+                }else if(sending_phase == 1){
+                    // SET ENABLE TO HIGH (PULL UP, DATA WILL BE READ IN)
+                    setEnableBit(1);
+                    display_toSend--;
+                    sending_phase = 0;
+                    if(display_toSend == 0){
+                        setInstructionsForRow(display_row++)
+                    }
+                }
+            }
         }
 
+        if(trigger_oneSecondPassed){
+            trigger_oneSecondPassed = false;
+            // TODO: count up second
 
-        cli();
-        sleep_cpu();
-        return 0;
+
+            visualizeOnDisplay();
+        }
     }
 }

@@ -1,6 +1,11 @@
-//
-// Created by Jan Uni on 09.01.19.
-//
+/*******************************************************************************
+ * File fontConstants.h
+ *
+ *
+ *
+ * Authors: Jan Löwenstrom & Johann Hoffer
+ * Date: 09.01.19
+ *******************************************************************************/
 
 #ifndef ES2018_REPO_FONTCONSTANSTS_H
 #define ES2018_REPO_FONTCONSTANSTS_H

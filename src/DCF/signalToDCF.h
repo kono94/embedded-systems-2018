@@ -6,7 +6,7 @@
 #define ES2018_REPO_SIGNALTODCF_H
 #include <inttypes.h>
 
-void scanDCF();
+void evaluateSignal();
 
 uint8_t g_position;
 

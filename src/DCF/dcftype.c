@@ -16,6 +16,8 @@
  *******************************************************************************/
 
 #include "dcftype.h"
+#include <inttypes.h>
+
 #include "../util/bitConverter.h"
 
 

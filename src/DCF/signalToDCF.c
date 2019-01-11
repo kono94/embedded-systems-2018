@@ -3,14 +3,12 @@
 //
 
 #include "signalToDCF.h"
-#include "../DCF/dcftype.h"
-#include <stdio.h>
 #include <inttypes.h>
 #include <stdbool.h>
-#include <avr/io.h>
+
+#include "dcftype.h"
 
 
-#include <avr/interrupt.h>
 
 int MISSING_THRESHOLD = 5;
 int ZERO_BORDER_ALL = 70;
@@ -25,10 +23,15 @@ int state_0_all = 0;
 
 int state_1_all = 0;
 int state_1_missed = 0;
+bool errorState = false;
 
-
-void scanDCF(){
-    if(PINC >= 1){
+void evaluateSignal(uint8_t pinC_value){
+    if(pinC_value >= 1){
+        if(errorState){
+            errorState = false;
+            // tell "main" that the signal is present once again
+            trigger_noSignalError = true;
+        }
         // switch to active state
         if(currentState == 0){
             // not active and 1 => active state but keep all-counter
@@ -37,7 +40,6 @@ void scanDCF(){
                 // new minute found
                 state_0_all = 0;
                 g_position = 0;
-                PORTD = 0b11100000;
             }
         }else if(currentState == 1){
             // active and 1 => reset missing count and increment all-counter
@@ -48,9 +50,11 @@ void scanDCF(){
         if(currentState == 0){
             // not active and 0 => just increment all-counter of inactive state
             state_0_all += 1;
-            if(state_0_all >= MISSING_SIGNAL_BORDER){
-                PORTD = 0b0011111100;
+            if(state_0_all >= MISSING_SIGNAL_BORDER && !errorState){
                 // 3 seconds no ones or zeros found
+                errorState = true;
+                trigger_signalError = true;
+
             }
         }else if(currentState == 1){
             // active and 0 => increment all count and missed count,
@@ -62,11 +66,9 @@ void scanDCF(){
             if(state_1_missed >= MISSING_THRESHOLD){
                 if(state_1_all >= ONE_BORDER_ALL){
                     rawDCF[g_position++%60] = 1;
-                    PORTD = 0b00000011;
                     state_0_all = 0;
                 }else if(state_1_all >= ZERO_BORDER_ALL){
                     rawDCF[g_position++%60] = 0;
-                    PORTD = 0b00000001;
                     state_0_all = 0;
                 }else{
                     // do not reset inactive counter!

@@ -1,9 +1,14 @@
-//
-// Created by Jan Uni on 09.01.19.
-//
+/*******************************************************************************
+ * File fontConstants.c
+ *
+ *
+ *
+ * Authors: Jan Löwenstrom & Johann Hoffer
+ * Date: 09.01.19
+ *******************************************************************************/
 
 #include "fontConstansts.h"
-
+#include <inttypes.h>
 
 void init_fontConstants{
          CHAR_ZERO = {0b01111100, 0b10001010, 0b10010010, 0b10100010, 0b01111100, 0b00000000};
@@ -29,11 +34,10 @@ void init_fontConstants{
          CHAR_EMPTY = ;
 };
 
-// return array with size 6
-// 0 = 0
-// 1 = 1
-// ....
-/*
+/* return array with size 6
+ * 0 = 0
+ * 1 = 1
+ * ....
  * 9 = 9
  * 10 = "."
  * 11 = ":"

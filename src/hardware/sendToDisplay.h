@@ -1,5 +1,5 @@
 /*******************************************************************************
- * File oneMilliInterrupt.h
+ * File sendToDisplay.h
  *
  *
  *
@@ -7,12 +7,13 @@
  * Date: 09.01.19
  *******************************************************************************/
 
-#ifndef ES2018_REPO_ONEMILLIINTERRUPT_H
-#define ES2018_REPO_ONEMILLIINTERRUPT_H
+#ifndef ES2018_REPO_SENDTODISPLAY_H
+#define ES2018_REPO_SENDTODISPLAY_H
 
 #include <avr/io.h>
-#include <avr/interrupt.h>
+#include <inttypes.h>
 
-void enableOneMilliInterrupt();
+void setEnableBit(uint8_t enableBit);
+void setDataPins(uint_8 data);
 
-#endif //ES2018_REPO_ONEMILLIINTERRUPT_H
+#endif //ES2018_REPO_SENDTODISPLAY_H

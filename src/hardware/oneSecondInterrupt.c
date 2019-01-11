@@ -1,14 +1,22 @@
-//
-// Created by Jan Uni on 09.01.19.
-//
+/*******************************************************************************
+ * File oneSecondInterrupt.c
+ *
+ *
+ *
+ * Authors: Jan Löwenstrom & Johann Hoffer
+ * Date: 09.01.19
+ *******************************************************************************/
 
 #include "oneSecondInterrupt.h"
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 
 // Interrupt throwing when intern timer should be incremented
 ISR(TIMER1_OVF_vect)
 {
     TCNT1 = 49912;
+    trigger_oneSecondPassed = true;
 }
 
 void enableOneSecInterrupt(){
