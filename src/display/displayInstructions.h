@@ -7,6 +7,7 @@
 #include <inttypes.h>
 
 void init_sendToDisplay();
+void visualizeOnDisplay();
 void sendToDisplay();
 
 #endif //ES2018_REPO_SENDTODISPLAY_H

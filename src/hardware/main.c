@@ -22,7 +22,7 @@
 #include "../internClock/avrDatetime.h"
 #include "./signalToDCF.h"
 #include "oneSecondInterrupt.h"
-#include "sendToDisplay.c"
+#include "../display/displayInstructions.c"
 
 // Definiert den AVR-Typ fuer den Simulator.
 AVR_MCU(F_CPU, "atmega32");
@@ -58,6 +58,10 @@ void displayDCF() {
     }
 }
 
+
+bool trigger_sentToDisplay = false;
+bool trigger_scanDCF_PIN = false;
+
 int main(int argc, char** argv){
     DCF_init();
     AvrDatetime_init();
@@ -65,7 +69,18 @@ int main(int argc, char** argv){
     init_sendToDisplay();
     _delay_ms(118000);
     displayDCF();
-    cli();
-    sleep_cpu();
-    return 0;
+    while(true){
+        if(trigger_scanDCF_PIN) {
+            trigger_scanDCF_PIN = false;
+        }
+
+        if(trigger_sentToDisplay){
+            trigger_sentToDisplay = false;
+        }
+
+
+        cli();
+        sleep_cpu();
+        return 0;
+    }
 }

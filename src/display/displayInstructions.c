@@ -2,9 +2,9 @@
 // Created by Jan Uni on 09.01.19.
 //
 
-#include "sendToDisplay.h"
+#include "displayInstructions.h"
 #include "../internClock/avrDatetime.h"
-#include "../util/fontConstansts.h"
+#include "fontConstansts.h"
 
 uint_8 display_dataLength;
 uint_8 display_row;
@@ -29,16 +29,15 @@ void init_sendToDisplay(){
 
 // This gets called when one second passed /changed
 // (in while-loop in main-file)
-void visualize() {
+void visualizeOnDisplay() {
     display_row = 1;
-    visualize_row(1);
+    setInstructionsForRow(1);
 }
 
-void visualize_row(uint8_t row){
+void setInstructionsForRow(uint8_t row){
     switch (row){
         case 1:
             // instruction for HH:mm:SS
-
             memcpy(display_data,    getInstructionFromNumber(p_avrDatetime->hours/10), font_width * sizeof(uint_8));
             memcpy(display_data + 6,    getInstructionFromNumber(p_avrDatetime->hours%10), font_width * sizeof(uint_8));
             memcpy(display_data + 12,    getInstructionFromNumber(11), font_width * sizeof(uint_8));
@@ -76,24 +75,5 @@ void visualize_row(uint8_t row){
             break;
         default:
             break;
-    }
-}
-
-// gets called EVERY 1ms
-void sendToDisplay(){
-    if(display_toSend > 0){
-       if(sending_phase == 0){
-            // SET ENABLE TO 0 (LOWER)
-            // SET DATA BITS
-           // ADC = display_data[display_toSend_currentSession - display_toSend];
-           sending_phase = 1;
-       }else if(sending_phase == 1){
-           // SET ENABLE TO HIGH (PULL UP, DATA WILL BE READ IN)
-           display_toSend--;
-           sending_phase = 0;
-           if(display_toSend == 0){
-               visualize_row(display_row++)
-           }
-       }
     }
 }
