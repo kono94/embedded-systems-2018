@@ -8,10 +8,12 @@
  *******************************************************************************/
 
 #include "oneMilliInterrupt.h"
-#include "../DCF/signalToDCF.h"
-#include "../display/displayInstructions.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <stdbool.h>
+#include "../DCF/signalToDCF.h"
+#include "../display/displayInstructions.h"
+#include "../util/triggers.h"
 
 // Interrupt subroutine for external interrupt 0
 ISR(TIMER0_OVF_vect)
@@ -29,6 +31,5 @@ void enableOneMilliInterrupt(){
     // enable timer0
     TIMSK |= 0b00000001;
 
-    interruptCounter = 0;
     g_position = 0;
 }

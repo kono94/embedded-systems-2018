@@ -13,7 +13,8 @@
 #include <avr/io.h>
 #include <inttypes.h>
 
+void turnDisplayOn();
 void setEnableBit(uint8_t enableBit);
-void setDataPins(uint_8 data);
+void setDataPins(uint8_t data);
 
 #endif //ES2018_REPO_SENDTODISPLAY_H

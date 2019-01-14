@@ -1,5 +1,5 @@
 /*******************************************************************************
- * File fontConstants.h
+ * File fontants.h
  *
  *
  *
@@ -7,38 +7,36 @@
  * Date: 09.01.19
  *******************************************************************************/
 
-#ifndef ES2018_REPO_FONTCONSTANSTS_H
-#define ES2018_REPO_FONTCONSTANSTS_H
+#ifndef ES2018_REPO_FONTANSTS_H
+#define ES2018_REPO_FONTANSTS_H
 #include <inttypes.h>
 
+#define font_width 6
 
-uint_8 font_width = 6;
+extern uint8_t CHAR_ZERO[];
+extern uint8_t CHAR_ONE[];
+extern uint8_t CHAR_TWO[];
+extern uint8_t CHAR_THREE[];
+extern uint8_t CHAR_FOUR[];
+extern uint8_t CHAR_FIVE[];
+extern uint8_t CHAR_SIX[];
+extern uint8_t CHAR_SEVEN[];
+extern uint8_t CHAR_EIGHT[];
+extern uint8_t CHAR_NINE[];
+extern uint8_t CHAR_M[];
+extern uint8_t CHAR_D[];
+extern uint8_t CHAR_F[];
+extern uint8_t CHAR_S[];
+extern uint8_t CHAR_i[];
+extern uint8_t CHAR_o[];
+extern uint8_t CHAR_r[];
+extern uint8_t CHAR_a[];
+extern uint8_t CHAR_DOUBLE_POINTS[];
+extern uint8_t CHAR_SINGLE_POINT[];
+extern uint8_t CHAR_EMPTY[];
+extern uint8_t CHAR_INVALID[];
 
-uint_8 CHAR_ZERO[6];
-uint_8 CHAR_ONE[6];
-uint_8 CHAR_TWO[6];
-uint_8 CHAR_THREE[6];
-uint_8 CHAR_FOUR[6];
-uint_8 CHAR_FIVE[6];
-uint_8 CHAR_SIX[6];
-uint_8 CHAR_SEVEN[6];
-uint_8 CHAR_EIGHT[6];
-uint_8 CHAR_NINE[6];
-uint_8 CHAR_M[6];
-uint_8 CHAR_D[6];
-uint_8 CHAR_F[6];
-uint_8 CHAR_S[6];
-uint_8 CHAR_i[6];
-uint_8 CHAR_o[6];
-uint_8 CHAR_r[6];
-uint_8 CHAR_a[6];
-uint_8 CHAR_DOUBLE_POINTS[6];
-uint_8 CHAR_SINGLE_POINT[6];
-uint_8 CHAR_EMPTY[6];
+uint8_t* getInstructionFromNumber(uint8_t n);
+uint8_t* getInstructionFromWeekdayIndex(uint8_t weekdayIndex);
 
-
-void init_fontConstants();
-uint_8* getInstructionFromNumber(uint_t n);
-uint_8* getInstructionFromWeekdayIndex(uint_t weekdayIndex);
-
-#endif //ES2018_REPO_FONTCONSTANSTS_H
+#endif //ES2018_REPO_FONTANSTS_H

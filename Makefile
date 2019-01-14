@@ -1,7 +1,6 @@
 MCU := atmega32
-AVR_SOURCE := src/hardware/*.c src/DCF/*.c src/util/*.c src/validation/*.c src/internClock/*.c
-DEV_SOURCE := src/development/*.c src/DCF/*.c src/util/*.c src/validation/*.c src/internClock/*.c
-TEST_SOURCE := tests/*.c src/DCF/*.c src/util/*.c src/validation/*.c src/internClock/*.c
+AVR_SOURCE := src/**/*.c
+TEST_SOURCE := tests/*.c src/DCF/*.c src/util/*.c  src/display/*.c src/validation/*.c src/internClock/*.c
 F_CPU := 16000000
 
 # Schon drin sind /usr/lib/avr/include
@@ -17,12 +16,6 @@ SIMULATOR := simavr
 
 main.hex: main
 	avr-objcopy -O ihex main.elf main.hex
-
-development:	src/development/main.c
-	gcc	-o development \
-		$(C_FLAGS) \
-		$(DEV_SOURCE)
-
 
 test:	tests/runAllTests.c
 	gcc	-o runAllTests \

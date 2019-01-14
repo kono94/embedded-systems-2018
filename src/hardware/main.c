@@ -29,15 +29,18 @@
 #include "../internClock/avrDatetime.h"
 #include "../DCF/signalToDCF.h"
 #include "oneSecondInterrupt.h"
-#include "../display/displayInstructions.c"
+#include "oneMilliInterrupt.h"
+#include "../display/displayInstructions.h"
 #include "../util/triggers.h"
+#include "sendToDisplay.h"
+
 
 // Definiert den AVR-Typ fuer den Simulator.
 AVR_MCU(F_CPU, "atmega32");
 
 // Definiert die Simulatorausgabedatei und die Dauer der Simulation in
 // Mikrosekunden.
-AVR_MCU_VCD_FILE("output.vcd", 121000);
+AVR_MCU_VCD_FILE("output.vcd", 10000);
 
 // Definiert die durch den Simulator auszugebenden Ports.
 const struct avr_mmcu_vcd_trace_t _mytrace[] _MMCU_ = {
@@ -71,11 +74,27 @@ int main(int argc, char** argv){
     DCF_init();
     AvrDatetime_init();
     setupInterrupts();
-    init_sendToDisplay();
     init_triggers();
 
+    // Mark all PORTA pins as output
+    DDRA = 0b11111111;
+
+    // Mark all PORTB pins as output
+    DDRB = 0b11111111;
+
+    turnDisplayOn();
+    p_avrDatetime->hours = 12;
+    p_avrDatetime->minutes = 45;
+    p_avrDatetime->seconds = 06;
+
+    p_avrDatetime->days = 07;
+    p_avrDatetime->months = 1;
+    p_avrDatetime->years_hundreds = 20;
+    p_avrDatetime->years_tens = 19;
+
+    p_avrDatetime->weekdayIndex = 1;
     while(true){
-        if(trigger_SignalError){
+        if(trigger_signalError){
             trigger_signalError = false;
             // draw SIGNAL ERROR
         }
@@ -85,8 +104,8 @@ int main(int argc, char** argv){
             // clear SIGNAL ERROR
         }
 
-        if(trigger_scanDCF_PIN) {
-            trigger_scanDCF_PIN = false;
+        if(trigger_evaluateSignal) {
+            trigger_evaluateSignal = false;
             evaluateSignal(PINC);
         }
 
@@ -96,6 +115,7 @@ int main(int argc, char** argv){
             if(display_toSend > 0){
                 if(sending_phase == 0){
                     // SET ENABLE TO 0 (LOWER)
+
                     setEnableBit(0);
                     // SET DATA BITS
                     setDataPins(display_data[display_toSend_currentSession - display_toSend]);
@@ -106,7 +126,8 @@ int main(int argc, char** argv){
                     display_toSend--;
                     sending_phase = 0;
                     if(display_toSend == 0){
-                        setInstructionsForRow(display_row++)
+                        // next row
+                        setInstructionsForRow(display_row++);
                     }
                 }
             }
@@ -115,8 +136,6 @@ int main(int argc, char** argv){
         if(trigger_oneSecondPassed){
             trigger_oneSecondPassed = false;
             // TODO: count up second
-
-
             visualizeOnDisplay();
         }
     }

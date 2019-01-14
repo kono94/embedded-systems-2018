@@ -23,4 +23,5 @@ volatile AvrDatetime avrDatetime;
 volatile AvrDatetime* p_avrDatetime;
 void AvrDatetime_init();
 void incrementByOneSecond();
+
 #endif //ES2018_REPO_AVRDATETIME_H

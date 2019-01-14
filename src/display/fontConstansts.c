@@ -9,30 +9,32 @@
 
 #include "fontConstansts.h"
 #include <inttypes.h>
+#include <stdlib.h>
+#include <string.h>
 
-void init_fontConstants{
-         CHAR_ZERO = 	{0b01111100, 0b10001010, 0b10010010, 0b10100010, 0b01111100, 0b00000000};
-         CHAR_ONE =  	{0b00100010, 0b01000010, 0b11111110, 0b00000010, 0b00000010, 0b00000000};
-         CHAR_TWO = 	{0b01000110, 0b10001010, 0b10001010, 0b10010010, 0b01100010, 0b00000010};
-         CHAR_THREE = 	{0b01000100, 0b10000010, 0b10010010, 0b10010010, 0b01101100, 0b00000000};
-         CHAR_FOUR = 	{0b00011000, 0b00101000, 0b01001000, 0b11111110, 0b00001000, 0b00000000};
-         CHAR_FIVE = 	{0b11100010, 0b10100010, 0b10100010, 0b10010100, 0b10001000, 0b00000000};
-         CHAR_SIX = 	{0b00111100, 0b01010010, 0b10010010, 0b10010010, 0b00001100, 0b00000000};
-         CHAR_SEVEN = 	{0b11000000, 0b10000000, 0b10011110, 0b10100000, 0b11000000, 0b00000000};
-         CHAR_EIGHT = 	{0b01101100, 0b10010010, 0b10010010, 0b10010010, 0b01101100, 0b00000000};
-         CHAR_NINE = 	{0b01100000, 0b10010010, 0b10010010, 0b10010100, 0b01111000, 0b00000000};
-         CHAR_M = 		{0b00000000, 0b11111110, 0b01000000, 0b00110000, 0b01000000, 0b11111110};
-         CHAR_D = 		{0b11111110, 0b10000010, 0b10000010, 0b01000100, 0b00111000, 0b00000000};
-         CHAR_F = 		{0b11111110, 0b10010000, 0b10010000, 0b10010000, 0b10000000, 0b00000000};
-         CHAR_S = 		{0b01100010, 0b10010010, 0b10010010, 0b10010010, 0b10001100, 0b00000000};
-         CHAR_i = 		{0b00000000, 0b00100010, 0b10111110, 0b00000010, 0b00000010, 0b00000000};
-         CHAR_o = 		{0b00011100, 0b00100010, 0b00100010, 0b00100010, 0b00011100, 0b00000000};
-         CHAR_r = 		{0b00111110, 0b00010000, 0b00100000, 0b00100000, 0b00010000, 0b00000000};
-         CHAR_a = 		{0b00000100, 0b00101010, 0b00101010, 0b00101010, 0b00011110, 0b00000000};
-         CHAR_DOUBLE_POINTS = 	{0b00000000, 0b00110110, 0b00110110, 0b00000000, 0b00000000, 0b00000000};
-         CHAR_SINGLE_POINT = 	{0b00000000, 0b00000110, 0b00000110, 0b00000000, 0b00000000, 0b00000000};
-         CHAR_EMPTY = 			{0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000};
-};
+uint8_t CHAR_ZERO[] = {0b01111100, 0b10001010, 0b10010010, 0b10100010, 0b01111100, 0b00000000};
+uint8_t CHAR_ONE[] =  	{0b00100010, 0b01000010, 0b11111110, 0b00000010, 0b00000010, 0b00000000};
+uint8_t CHAR_TWO[] = 	{0b01000110, 0b10001010, 0b10001010, 0b10010010, 0b01100010, 0b00000000};
+uint8_t CHAR_THREE[] = 	{0b01000100, 0b10000010, 0b10010010, 0b10010010, 0b01101100, 0b00000000};
+uint8_t CHAR_FOUR[] = 	{0b00011000, 0b00101000, 0b01001000, 0b11111110, 0b00001000, 0b00000000};
+uint8_t CHAR_FIVE[] = 	{0b11100010, 0b10100010, 0b10100010, 0b10010100, 0b10001000, 0b00000000};
+uint8_t CHAR_SIX[] = 	{0b00111100, 0b01010010, 0b10010010, 0b10010010, 0b00001100, 0b00000000};
+uint8_t CHAR_SEVEN[] = 	{0b11000000, 0b10000000, 0b10011110, 0b10100000, 0b11000000, 0b00000000};
+uint8_t CHAR_EIGHT[] = 	{0b01101100, 0b10010010, 0b10010010, 0b10010010, 0b01101100, 0b00000000};
+uint8_t CHAR_NINE[] = 	{0b01100000, 0b10010010, 0b10010010, 0b10010100, 0b01111000, 0b00000000};
+uint8_t CHAR_M[] = 		{0b11111110, 0b01000000, 0b00110000, 0b01000000, 0b11111110, 0b00000000};
+uint8_t CHAR_D[] = 		{0b11111110, 0b10000010, 0b10000010, 0b01000100, 0b00111000, 0b00000000};
+uint8_t CHAR_F[] = 		{0b11111110, 0b10010000, 0b10010000, 0b10010000, 0b10000000, 0b00000000};
+uint8_t CHAR_S[] = 		{0b01100010, 0b10010010, 0b10010010, 0b10010010, 0b10001100, 0b00000000};
+uint8_t CHAR_i[] = 		{0b00000000, 0b00100010, 0b10111110, 0b00000010, 0b00000010, 0b00000000};
+uint8_t CHAR_o[] = 		{0b00011100, 0b00100010, 0b00100010, 0b00100010, 0b00011100, 0b00000000};
+uint8_t CHAR_r[] = 		{0b00111110, 0b00010000, 0b00100000, 0b00100000, 0b00010000, 0b00000000};
+uint8_t CHAR_a[] = 		{0b00000100, 0b00101010, 0b00101010, 0b00101010, 0b00011110, 0b00000000};
+uint8_t CHAR_DOUBLE_POINTS[] = 	{0b00000000, 0b00110110, 0b00110110, 0b00000000, 0b00000000, 0b00000000};
+uint8_t CHAR_SINGLE_POINT[] = 	{0b00000000, 0b00000110, 0b00000110, 0b00000000, 0b00000000, 0b00000000};
+uint8_t CHAR_EMPTY[] = 			{0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000};
+uint8_t CHAR_INVALID[] = {0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,};
+
 
 /* return array with size 6
  * 0 = 0
@@ -42,33 +44,36 @@ void init_fontConstants{
  * 10 = "."
  * 11 = ":"
  */
-uint_8* getInstructionFromNumber(uint_t n){
+uint8_t* getInstructionFromNumber(uint8_t n){
     switch(n){
-        case 0:
-            return CHAR_ZERO;
-        case 1:
-            return CHAR_ONE;
-        case 10:
-            return CHAR_SINGLE_POINT;
-        case 11:
-            return CHAR_DOUBLE_POINTS;
+        case 0: return CHAR_ZERO;
+        case 1: return CHAR_ONE;
+        case 2: return CHAR_TWO;
+        case 3: return CHAR_THREE;
+        case 4: return CHAR_FOUR;
+        case 5: return CHAR_FIVE;
+        case 6: return CHAR_SIX;
+        case 7: return CHAR_SEVEN;
+        case 8: return CHAR_EIGHT;
+        case 9: return CHAR_NINE;
+        case 10: return CHAR_SINGLE_POINT;
+        case 11: return CHAR_DOUBLE_POINTS;
+        default: return CHAR_INVALID;
     }
 }
 
 
-
 // return array with size 12 as it combines
 // two characters to represent weekday (Mo, Di, Mi, Do, Fr,...)
-uint_8* getInstructionFromWeekdayIndex(uint_t weekdayIndex){
+uint8_t* getInstructionFromWeekdayIndex(uint8_t weekdayIndex){
 
     // array to hold the result
-    uint_8* combined = malloc(2 * font_width * sizeof(uint_8));
+    uint8_t* combined = malloc(2 * font_width * 8);
 
-    uint_8* firstLetter;
-    uint_8* secondLetter;
+    uint8_t* firstLetter;
+    uint8_t* secondLetter;
 
     switch(weekdayIndex) {
-        switch(weekday) {
         case 1:
             firstLetter = CHAR_M;
             secondLetter = CHAR_o;
@@ -104,8 +109,8 @@ uint_8* getInstructionFromWeekdayIndex(uint_t weekdayIndex){
             break;;
     }
 
-    memcpy(combined,     firstLetter, font_width * sizeof(uint_8));
-    memcpy(combined + font_width, secondLetter, font_width * sizeof(uint_8));
+    memcpy(combined,     firstLetter, font_width * 8);
+    memcpy(combined + font_width, secondLetter, font_width * 8);
 
     return combined;
 }
@@ -137,7 +142,7 @@ uint_8* getInstructionFromWeekdayIndex(uint_t weekdayIndex){
 0 0 0 1 0 0
 0 1 1 0 0 0
 1 0 0 0 0 0
-1 1 1 1 1 1
+1 1 1 1 1 0
 0 0 0 0 0 0
 
 3:
