@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 input=$2;
 output_file="$1.vcd";
-time=600000;
+time=0;
 
 echo "\$date $(date) \$end
 \$comment

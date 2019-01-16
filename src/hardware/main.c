@@ -73,8 +73,8 @@ void displayDCF() {
 int main(int argc, char** argv){
     DCF_init();
     AvrDatetime_init();
-    setupInterrupts();
     init_triggers();
+    init_sendToDisplay();
 
     // Mark all PORTA pins as output
     DDRA = 0b11111111;
@@ -82,17 +82,22 @@ int main(int argc, char** argv){
     // Mark all PORTB pins as output
     DDRB = 0b11111111;
 
-    turnDisplayOn();
-    p_avrDatetime->hours = 12;
-    p_avrDatetime->minutes = 45;
-    p_avrDatetime->seconds = 06;
+    p_avrDatetime->hours = 23;
+    p_avrDatetime->minutes = 55;
+    p_avrDatetime->seconds = 50;
 
-    p_avrDatetime->days = 07;
-    p_avrDatetime->months = 1;
+    p_avrDatetime->days = 31;
+    p_avrDatetime->months = 12;
     p_avrDatetime->years_hundreds = 20;
-    p_avrDatetime->years_tens = 19;
+    p_avrDatetime->years_tens = 18;
 
     p_avrDatetime->weekdayIndex = 1;
+
+
+    turnDisplayOn();
+
+    setupInterrupts();
+
     while(true){
         if(trigger_signalError){
             trigger_signalError = false;
@@ -111,23 +116,40 @@ int main(int argc, char** argv){
 
         if(trigger_sentToDisplay){
             trigger_sentToDisplay = false;
-            // gets called EVERY 1ms
-            if(display_toSend > 0){
+            if(instructionNextClock){
                 if(sending_phase == 0){
                     // SET ENABLE TO 0 (LOWER)
-
                     setEnableBit(0);
+                    // Wait some time;
+                    wasteTime(30);
+                    setInstructionMode();
+                    setDataPins(instructionData);
+                    sending_phase = 1;
+                }else if(sending_phase == 1){
+                    // SET ENABLE TO HIGH (PULL UP, DATA WILL BE READ IN)
+                    setEnableBit(1);
+                    sending_phase = 0;
+                    instructionNextClock = false;
+                }
+            }else if(display_toSend > 0){
+                if(sending_phase == 0){
+                    // SET ENABLE TO 0 (LOWER, WRITE DATA PINS INTO RAM DISPLAY)
+                    setEnableBit(0);
+                    // Wait some time;
+                    wasteTime(30);
+                    setWriteMode();
                     // SET DATA BITS
                     setDataPins(display_data[display_toSend_currentSession - display_toSend]);
                     sending_phase = 1;
                 }else if(sending_phase == 1){
-                    // SET ENABLE TO HIGH (PULL UP, DATA WILL BE READ IN)
+                    // SET ENABLE TO HIGH (PULL UP, INSTRUCTION PINS WILL ANNOUNCE WHAT TO DO WITH NEXT DATA)
                     setEnableBit(1);
                     display_toSend--;
                     sending_phase = 0;
                     if(display_toSend == 0){
                         // next row
-                        setInstructionsForRow(display_row++);
+                        setInstructionsForRow(++display_row);
+                        changeRowOnDisplayTo(display_row);
                     }
                 }
             }
@@ -135,7 +157,7 @@ int main(int argc, char** argv){
 
         if(trigger_oneSecondPassed){
             trigger_oneSecondPassed = false;
-            // TODO: count up second
+            incrementByOneSecond();
             visualizeOnDisplay();
         }
     }

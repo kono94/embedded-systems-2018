@@ -31,6 +31,7 @@ void incrementByOneSecond(){
             if(!isValidInternClock(p_avrDatetime)){
                 p_avrDatetime->hours = 0;
                 p_avrDatetime->days++;
+                p_avrDatetime->weekdayIndex = (p_avrDatetime->weekdayIndex % 7) + 1;
 
                 if(!isValidInternClock(p_avrDatetime)){
                     p_avrDatetime->days = 1;

@@ -11,7 +11,7 @@
 #include "sendToDisplay.h"
 #include <inttypes.h>
 #include <avr/io.h>
-
+#include <stdbool.h>
 /*
  * Pin Layout:
  * Using all PORTA pins as output for data bits;
@@ -27,26 +27,63 @@
  * PB5 = Rest   (17)
  *
  */
-void setEnableBit(uint8_t enableBit){
-    // SET Enable bit
+
+void init_sendToDisplay(){
+    instructionNextClock = false;
+    instructionData = 0b00000000;
 }
 
-void setDataPins(uint8_t data){
+void setEnableBit(uint8_t enableBit){
+    // SET Enable bit
+    if(enableBit == 0){
+        PORTB &= ~(1 << PB2);
+    }else{
+        PORTB |= (1 << PB2);
+    }
+}
+
+void setInstructionMode(){
+    // setting R/W to 0 and D/I to 0
+    PORTB &= ~(1 << PB0 | 1 << PB1);
+}
+
+void setWriteMode(){
     // setting R/W to 0 and D/I to 1
     PORTB &= ~(1 << PB0);
     PORTB |= (1 << PB1);
+}
+
+void setDataPins(uint8_t data){
     PORTA = data;
 }
 
 void turnDisplayOn(){
-    // setting R/W and D/I to 0 for instructions
-    PORTB &= ~(1<<PB0 | 1<<PB1);
-    PORTA = 0b11111111;
+    setEnableBit(0);
+    wasteTime(30);
+    setInstructionMode();
+    setDataPins(0b11111111);
+    wasteTime(30);
+    setEnableBit(1);
 }
 
 void turnDisplayOff(){
-    // setting R/W and D/I to 0 for instructions
-    PORTB &= ~(1<<PB0 | 1<<PB1);
-    PORTA = 0b11111110;
+    setEnableBit(0);
+    wasteTime(30);
+    setInstructionMode();
+    setDataPins(0b11111110);
+    wasteTime(30);
+    setEnableBit(1);
 }
 
+void wasteTime(uint8_t c){
+    uint8_t tmp = 0;
+    for(int i=0; i < c; i++){
+        tmp++;
+    }
+}
+
+
+void changeRowOnDisplayTo(uint8_t x){
+    instructionData = 0b10111000 | (x & 0b111);
+    instructionNextClock = true;
+}
