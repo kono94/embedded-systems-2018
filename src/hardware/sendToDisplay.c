@@ -12,69 +12,21 @@
 #include <inttypes.h>
 #include <avr/io.h>
 #include <stdbool.h>
+
 /*
  * Pin Layout:
  * Using all PORTA pins as output for data bits;
  *
- * Using PORTB for other instructions:
+ * Using PORTC for other instructions:
  *
  * () = Index of pin on the self made port, from right to left, starting at 1
- * PB0 = R/W Input   (3)
- * PB1 = D/I Data Read  (4)
- * PB2 = Enable (5)
- * PB3 = Chip Select IC1    (15)
- * PB4 = Chip Select IC2    (16)
- * PB5 = Rest   (17)
- *
+ * PC0 = R/W Input   (3)
+ * PC1 = D/I Data Read  (4)
+ * PC2 = Enable (5)
+ * PC3 = Chip Select IC1    (15)
+ * PC4 = Chip Select IC2    (16)
+ * PC5 = Reset   (17)
  */
-
-void init_sendToDisplay(){
-    instructionNextClock = false;
-    instructionData = 0b00000000;
-}
-
-void setEnableBit(uint8_t enableBit){
-    // SET Enable bit
-    if(enableBit == 0){
-        PORTB &= ~(1 << PB2);
-    }else{
-        PORTB |= (1 << PB2);
-    }
-}
-
-void setInstructionMode(){
-    // setting R/W to 0 and D/I to 0
-    PORTB &= ~(1 << PB0 | 1 << PB1);
-}
-
-void setWriteMode(){
-    // setting R/W to 0 and D/I to 1
-    PORTB &= ~(1 << PB0);
-    PORTB |= (1 << PB1);
-}
-
-void setDataPins(uint8_t data){
-    PORTA = data;
-}
-
-void turnDisplayOn(){
-    setEnableBit(0);
-    wasteTime(30);
-    setInstructionMode();
-    setDataPins(0b11111111);
-    wasteTime(30);
-    setEnableBit(1);
-}
-
-void turnDisplayOff(){
-    setEnableBit(0);
-    wasteTime(30);
-    setInstructionMode();
-    setDataPins(0b11111110);
-    wasteTime(30);
-    setEnableBit(1);
-}
-
 void wasteTime(uint8_t c){
     uint8_t tmp = 0;
     for(int i=0; i < c; i++){
@@ -82,8 +34,52 @@ void wasteTime(uint8_t c){
     }
 }
 
+void clockCycle(){
+    // set Enable Bit to 1 (pull high)
+    PORTC |= (1 << PC2);
+    // wait a bit
+    wasteTime(100);
+    // set enable bit to 0 (pull down)
+    PORTC &= ~(1 << PC2);
+}
+
+void setInstructionMode(){
+    // setting R/W to 0 and D/I to 0
+    PORTC &= ~(1 << PC0 | 1 << PC1);
+}
+
+void setWriteMode(){
+    // setting R/W to 0 and D/I to 1
+    PORTC &= ~(1 << PC0);
+    PORTC |= (1 << PC1 | 1 << PC3);
+}
+
+void sendWriteData(uint8_t data){
+    setWriteMode();
+    setDataPins(data);
+    clockCycle();
+}
+
+
+void sendInstructionData(uint8_t instructionData){
+    setInstructionMode();
+    setDataPins(instructionData);
+    clockCycle();
+}
+
+void setDataPins(uint8_t data){
+    PORTA = data;
+}
+
+void turnDisplayOn(){
+    sendInstructionData(0b00111111);
+}
+
+void turnDisplayOff(){
+    sendInstructionData(0b00111110);
+}
 
 void changeRowOnDisplayTo(uint8_t x){
-    instructionData = 0b10111000 | (x & 0b111);
-    instructionNextClock = true;
+    sendInstructionData(0b10111000 | (x & 0b111));
 }
+

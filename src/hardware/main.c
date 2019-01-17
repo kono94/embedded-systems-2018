@@ -46,6 +46,7 @@ AVR_MCU_VCD_FILE("output.vcd", 10000);
 const struct avr_mmcu_vcd_trace_t _mytrace[] _MMCU_ = {
         { AVR_MCU_VCD_SYMBOL("PORT_D"), .what = (void*)&PORTD, },
         { AVR_MCU_VCD_SYMBOL("PORT_A"), .what = (void*)&PORTA, },
+        { AVR_MCU_VCD_SYMBOL("PORT_C"), .what = (void*)&PORTC, },
         { AVR_MCU_VCD_SYMBOL("PIN_C"), .what = (void*)&PINC, },
         { AVR_MCU_VCD_SYMBOL("PORT_B"), .what = (void*)&PORTB, },
 };
@@ -59,28 +60,24 @@ void setupInterrupts(){
     sei(); //Enable global Interrupts
 }
 
-void displayDCF() {
-    for (int i = 0; i < DCF_LENGTH; i++) {
-        PORTA = i;
-        PORTB = rawDCF[i];
-        _delay_ms(10);
-        PORTB = 0b00000000;
-        PORTB = 0b00000001;
-    }
-}
-
-
-int main(int argc, char** argv){
-    DCF_init();
-    AvrDatetime_init();
-    init_triggers();
-    init_sendToDisplay();
+void setupPorts(){
+    // use LED
+    DDRD = 0x50;
 
     // Mark all PORTA pins as output
     DDRA = 0b11111111;
 
-    // Mark all PORTB pins as output
-    DDRB = 0b11111111;
+    // Mark all PORTC pins as output
+    DDRC = 0b11111111;
+
+    PORTA = 0;
+    PORTB = 0;
+}
+int main(int argc, char** argv){
+    DCF_init();
+    AvrDatetime_init();
+    init_triggers();
+    setupPorts();
 
     p_avrDatetime->hours = 23;
     p_avrDatetime->minutes = 55;
@@ -95,68 +92,50 @@ int main(int argc, char** argv){
 
 
     turnDisplayOn();
+    wasteTime(100);
 
     setupInterrupts();
+
+    bool lightOn = false;
 
     while(true){
         if(trigger_signalError){
             trigger_signalError = false;
-            // draw SIGNAL ERROR
+            // draw SIGNAL-ERROR
         }
 
         if(trigger_noSignalError){
             trigger_noSignalError = false;
-            // clear SIGNAL ERROR
+            // clear SIGNAL-ERROR
         }
 
         if(trigger_evaluateSignal) {
             trigger_evaluateSignal = false;
-            evaluateSignal(PINC);
+           // evaluateSignal(PINC);
         }
 
         if(trigger_sentToDisplay){
             trigger_sentToDisplay = false;
-            if(instructionNextClock){
-                if(sending_phase == 0){
-                    // SET ENABLE TO 0 (LOWER)
-                    setEnableBit(0);
-                    // Wait some time;
-                    wasteTime(30);
-                    setInstructionMode();
-                    setDataPins(instructionData);
-                    sending_phase = 1;
-                }else if(sending_phase == 1){
-                    // SET ENABLE TO HIGH (PULL UP, DATA WILL BE READ IN)
-                    setEnableBit(1);
-                    sending_phase = 0;
-                    instructionNextClock = false;
-                }
-            }else if(display_toSend > 0){
-                if(sending_phase == 0){
-                    // SET ENABLE TO 0 (LOWER, WRITE DATA PINS INTO RAM DISPLAY)
-                    setEnableBit(0);
-                    // Wait some time;
-                    wasteTime(30);
-                    setWriteMode();
-                    // SET DATA BITS
-                    setDataPins(display_data[display_toSend_currentSession - display_toSend]);
-                    sending_phase = 1;
-                }else if(sending_phase == 1){
-                    // SET ENABLE TO HIGH (PULL UP, INSTRUCTION PINS WILL ANNOUNCE WHAT TO DO WITH NEXT DATA)
-                    setEnableBit(1);
-                    display_toSend--;
-                    sending_phase = 0;
-                    if(display_toSend == 0){
-                        // next row
-                        setInstructionsForRow(++display_row);
-                        changeRowOnDisplayTo(display_row);
-                    }
+            if(display_toSend > 0){
+                sendWriteData(display_data[display_toSend_currentSession - display_toSend]);
+                display_toSend--;
+                if(display_toSend == 0){
+                    // next row
+                    setInstructionsForRow(++display_row);
+                    changeRowOnDisplayTo(display_row);
                 }
             }
         }
 
         if(trigger_oneSecondPassed){
             trigger_oneSecondPassed = false;
+            if(lightOn){
+                PORTD |= (1<<5);
+                lightOn = false;
+            }else{
+                PORTD &= ~(1<<5);
+                lightOn = true;
+            }
             incrementByOneSecond();
             visualizeOnDisplay();
         }

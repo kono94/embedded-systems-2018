@@ -106,7 +106,7 @@ uint8_t* getInstructionFromWeekdayIndex(uint8_t weekdayIndex){
             // ERROR DISPLAY "DD"
             firstLetter = CHAR_D;
             secondLetter = CHAR_D;
-            break;;
+            break;
     }
 
     memcpy(combined,     firstLetter, font_width * 8);

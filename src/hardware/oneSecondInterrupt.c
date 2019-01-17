@@ -24,7 +24,9 @@ ISR(TIMER1_OVF_vect)
 void enableOneSecInterrupt(){
     TCNT1 = 49912;
     TCCR1A = 0x00;
+
     // 0b00001101
+    // Prescale
     TCCR1B = 0b00000101;
     // enable timer1
     TIMSK |= 0b00000100;
