@@ -49,9 +49,15 @@ void setInstructionMode(){
 }
 
 void setWriteMode(){
-    // setting R/W to 0 and D/I to 1
+    // setting R/W to 0 and D/I to 1 AND Chip select 1
     PORTC &= ~(1 << PC0);
     PORTC |= (1 << PC1 | 1 << PC3);
+}
+
+void setStatusReadMode(){
+    // setting R/W to 1 and D/I to 0
+    PORTC |= (1 << PC0);
+    PORTC &= ~(1 << PC1);
 }
 
 void sendWriteData(uint8_t data){
@@ -83,3 +89,10 @@ void changeRowOnDisplayTo(uint8_t x){
     sendInstructionData(0b10111000 | (x & 0b111));
 }
 
+void resetDisplay(){
+    setStatusReadMode();
+    // setting DB4 to 0 (reset low)
+    PORTA &= ~(1 << PA4);
+    wasteTime(100);
+    PORTA |= (1 << PA4);
+}
