@@ -72,6 +72,10 @@ void setupPorts(){
 
     PORTA = 0;
     PORTB = 0;
+
+    //disable JTAG
+    MCUCSR |= (1<<7);
+    MCUCSR |= (1<<7);
 }
 int main(int argc, char** argv){
     DCF_init();
