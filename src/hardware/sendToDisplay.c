@@ -12,6 +12,7 @@
 #include <inttypes.h>
 #include <avr/io.h>
 #include <stdbool.h>
+#include <util/delay.h>
 
 /*
  * Pin Layout:
@@ -38,7 +39,7 @@ void clockCycle(){
     // set Enable Bit to 1 (pull high)
     PORTC |= (1 << PC2);
     // wait a bit
-    wasteTime(100);
+    _delay_us(10);
     // set enable bit to 0 (pull down)
     PORTC &= ~(1 << PC2);
 }
@@ -90,9 +91,16 @@ void changeRowOnDisplayTo(uint8_t x){
 }
 
 void resetDisplay(){
-    setStatusReadMode();
     // setting DB4 to 0 (reset low)
     PORTA &= ~(1 << PA4);
-    wasteTime(100);
+    _delay_us(500);
     PORTA |= (1 << PA4);
+    _delay_us(500);
+    PORTA &= ~(1 << PA4);
+}
+
+void sendEmptyDI(){
+    setInstructionMode();
+    setDataPins(0b00000000);
+    clockCycle();
 }

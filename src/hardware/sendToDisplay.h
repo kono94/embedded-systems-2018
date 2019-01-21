@@ -21,6 +21,9 @@ void turnDisplayOff();
 void wasteTime(uint8_t c);
 void changeRowOnDisplayTo(uint8_t x);
 void resetDisplay();
+void sendEmptyDI();
+
+#define F_CPU 16000000UL
 
 void setDataPins(uint8_t data);
 #endif //ES2018_REPO_SENDTODISPLAY_H

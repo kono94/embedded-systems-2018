@@ -78,11 +78,7 @@ int main(int argc, char** argv){
     AvrDatetime_init();
     init_triggers();
     setupPorts();
-    wasteTime(200);
-    wasteTime(200);
-    wasteTime(200);
-    wasteTime(200);
-    wasteTime(200);
+    _delay_ms(3);
 
     p_avrDatetime->hours = 23;
     p_avrDatetime->minutes = 55;
@@ -96,19 +92,10 @@ int main(int argc, char** argv){
     p_avrDatetime->weekdayIndex = 1;
 
     resetDisplay();
-    wasteTime(200);
-    wasteTime(200);
-    wasteTime(200);
-    wasteTime(200);
-    wasteTime(200);
+    _delay_ms(3);
     turnDisplayOn();
-    wasteTime(100);
-    wasteTime(200);
-    wasteTime(200);
-    wasteTime(200);
-    wasteTime(200);
-    wasteTime(200);
-    wasteTime(200);
+    _delay_ms(3);
+    sendEmptyDI();
     setupInterrupts();
 
     bool lightOn = false;
