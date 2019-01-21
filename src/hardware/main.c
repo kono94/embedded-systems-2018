@@ -104,10 +104,9 @@ int main(int argc, char** argv){
     _delay_ms(1);
     sendEmptyDI();
 
-    setupInterrupts();
-
+    //setupInterrupts();
+    sendInstructionData(0b10111011);
     while(1){
-        sendInstructionData(0b10111011);
         sendWriteData(0b11000101);
     }
     bool lightOn = false;

@@ -39,26 +39,26 @@ void clockCycle(){
     // set Enable Bit to 1 (pull high)
     PORTC |= (1 << PC2);
     // wait a bit
-    _delay_us(10);
+    _delay_us(100);
     // set enable bit to 0 (pull down)
     PORTC &= ~(1 << PC2);
 }
 
 void setInstructionMode(){
     // setting R/W to 0 and D/I to 0
-    PORTC &= ~(1 << PC0 | 1 << PC1);
+    PORTC &= ~(1 << PC1 | 1 << PC0);
 }
 
 void setWriteMode(){
     // setting R/W to 0 and D/I to 1 AND Chip select 1
-    PORTC &= ~(1 << PC0);
-    PORTC |= (1 << PC1 | 1 << PC3);
+    PORTC &= ~(1 << PC1);
+    PORTC |= (1 << PC0 | 1 << PC3);
 }
 
 void setStatusReadMode(){
-    // setting R/W to 1 and D/I to 0
-    PORTC |= (1 << PC0);
-    PORTC &= ~(1 << PC1);
+    // setting R/W to  0 and D/I to 1
+    PORTC |= (1 << PC1);
+    PORTC &= ~(1 << PC0);
 }
 
 void sendWriteData(uint8_t data){
