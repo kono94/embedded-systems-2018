@@ -97,6 +97,8 @@ void resetDisplay(){
     PORTA |= (1 << PA4);
     _delay_us(500);
     PORTA &= ~(1 << PA4);
+    _delay_us(500);
+    PORTA |= (1 << PA4);
 }
 
 void sendEmptyDI(){
