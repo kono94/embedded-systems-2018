@@ -103,11 +103,13 @@ int main(int argc, char** argv){
     turnDisplayOn();
     _delay_ms(1);
     sendEmptyDI();
-    while(1){
-        sendWriteData(0b10101010);
-    }
+
     setupInterrupts();
 
+    while(1){
+        sendInstructionData(0b10111011);
+        sendWriteData(0b11000101);
+    }
     bool lightOn = false;
 
     while(true){

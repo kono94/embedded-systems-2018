@@ -79,6 +79,8 @@ void setDataPins(uint8_t data){
 }
 
 void turnDisplayOn(){
+    // Turn on chip 1
+    PORTC |= (1 << PC3);
     sendInstructionData(0b00111111);
 }
 
