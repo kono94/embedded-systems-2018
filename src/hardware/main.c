@@ -76,6 +76,9 @@ void setupPorts(){
     //disable JTAG
     MCUCSR |= (1<<7);
     MCUCSR |= (1<<7);
+
+    //disabling Two-wire Serial Bus Clock Line
+    TWCR &= ~(1 << TWEN);
 }
 int main(int argc, char** argv){
     DCF_init();
