@@ -39,7 +39,7 @@ void clockCycle(){
     // set Enable Bit to 1 (pull high)
     PORTC |= (1 << PC2);
     // wait a bit
-    _delay_us(100);
+    _delay_us(1);
     // set enable bit to 0 (pull down)
     PORTC &= ~(1 << PC2);
 }
@@ -67,7 +67,6 @@ void sendWriteData(uint8_t data){
     clockCycle();
 }
 
-
 void sendInstructionData(uint8_t instructionData){
     setInstructionMode();
     setDataPins(instructionData);
@@ -89,17 +88,22 @@ void turnDisplayOff(){
 }
 
 void changeRowOnDisplayTo(uint8_t x){
-    sendInstructionData(0b10111000 | (x & 0b111));
+    // resset Y counter to 0
+    sendInstructionData(0b01000000);
+ 
+    // change Page (X) to desired row
+   // sendInstructionData(0b10111000 | (x & 0b111));
+    sendInstructionData(0b10111000 | x);
 }
 
 void resetDisplay(){
     // setting DB4 to 0 (reset low)
     PORTC &= ~(1 << PC5);
-    _delay_us(500);
+    _delay_us(1);
     PORTC |= (1 << PC5);
-    _delay_us(500);
+    _delay_us(1);
     PORTC &= ~(1 << PC5);
-    _delay_us(500);
+    _delay_us(1);
     PORTC |= (1 << PC5);
 }
 
@@ -107,4 +111,14 @@ void sendEmptyDI(){
     setInstructionMode();
     setDataPins(0b00000000);
     clockCycle();
+}
+
+void clearDisplay(){
+	//sendInstructionData(0b11000000);
+	for(uint8_t page=0; page < 8; page++){
+		changeRowOnDisplayTo(page);
+		for(uint8_t column=0; column < 60; ++column){
+		        sendWriteData(0b00000000);
+		}
+	}
 }

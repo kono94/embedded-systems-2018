@@ -22,7 +22,7 @@ void wasteTime(uint8_t c);
 void changeRowOnDisplayTo(uint8_t x);
 void resetDisplay();
 void sendEmptyDI();
-
+void clearDisplay();
 #define F_CPU 16000000UL
 
 void setDataPins(uint8_t data);

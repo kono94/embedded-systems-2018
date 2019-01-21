@@ -63,7 +63,7 @@ void setupInterrupts(){
 void setupPorts(){
     // use LED
     DDRD = 0x50;
-
+	   
     // Mark all PORTA pins as output
     DDRA = 0b11111111;
 
@@ -103,14 +103,11 @@ int main(int argc, char** argv){
     turnDisplayOn();
     _delay_ms(1);
     sendEmptyDI();
-
-    //setupInterrupts();
-    sendInstructionData(0b10111011);
-    while(1){
-        sendWriteData(0b11000101);
-    }
+    clearDisplay();
+    _delay_ms(2000);
+    setupInterrupts();
     bool lightOn = false;
-
+    
     while(true){
         if(trigger_signalError){
             trigger_signalError = false;
@@ -135,7 +132,7 @@ int main(int argc, char** argv){
                 if(display_toSend == 0){
                     // next row
                     setInstructionsForRow(++display_row);
-                    changeRowOnDisplayTo(display_row);
+                    changeRowOnDisplayTo(++display_row);
                 }
             }
         }
@@ -150,6 +147,7 @@ int main(int argc, char** argv){
                 lightOn = true;
             }
             incrementByOneSecond();
+	    changeRowOnDisplayTo(1);
             visualizeOnDisplay();
         }
     }

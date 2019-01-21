@@ -69,6 +69,7 @@ void setInstructionsForRow(uint8_t row){
             display_toSend = 12;
             break;
         default:
+	    display_row = 1;
             break;
     }
 }
