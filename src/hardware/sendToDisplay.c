@@ -92,13 +92,13 @@ void changeRowOnDisplayTo(uint8_t x){
 
 void resetDisplay(){
     // setting DB4 to 0 (reset low)
-    PORTC &= ~(1 << PA4);
+    PORTC &= ~(1 << PC5);
     _delay_us(500);
-    PORTC |= (1 << PA4);
+    PORTC |= (1 << PC5);
     _delay_us(500);
-    PORTC &= ~(1 << PA4);
+    PORTC &= ~(1 << PC5);
     _delay_us(500);
-    PORTC |= (1 << PA4);
+    PORTC |= (1 << PC5);
 }
 
 void sendEmptyDI(){
