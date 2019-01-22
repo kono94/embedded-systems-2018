@@ -72,6 +72,7 @@ void setupPorts(){
 
     PORTA = 0;
     PORTB = 0;
+    PORTC = 0;
 
     //disable JTAG
     MCUCSR |= (1<<7);
@@ -130,7 +131,12 @@ int main(int argc, char** argv){
 
         if(trigger_evaluateSignal) {
             trigger_evaluateSignal = false;
-           // evaluateSignal(PINC);
+           if(PIND & 0x0b1){
+               PORTD |= (1<<5);
+           }else{
+               PORTD &= ~(1<<5);
+           }
+            evaluateSignal(PIND & 0x0b1);
         }
 
         if(trigger_sentToDisplay){
@@ -154,15 +160,6 @@ int main(int argc, char** argv){
 
         if(trigger_oneSecondPassed){
             trigger_oneSecondPassed = false;
-            /*
-            if(lightOn){
-                PORTD |= (1<<5);
-                lightOn = false;
-            }else{
-                PORTD &= ~(1<<5);
-                lightOn = true;
-            }
-             */
             incrementByOneSecond();
             startVisualizingOnDisplay();
         }
