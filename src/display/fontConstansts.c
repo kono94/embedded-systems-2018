@@ -70,7 +70,7 @@ uint8_t* getInstructionFromNumber(uint8_t n){
 uint8_t* getInstructionFromWeekdayIndex(uint8_t weekdayIndex){
 
     // array to hold the result
-    uint8_t* combined = malloc(2 * font_width * 8);
+    uint8_t* combined = malloc(2 * font_width);
 
     uint8_t* firstLetter;
     uint8_t* secondLetter;
@@ -111,8 +111,8 @@ uint8_t* getInstructionFromWeekdayIndex(uint8_t weekdayIndex){
             break;
     }
 
-    memcpy(combined,     firstLetter, font_width * 8);
-    memcpy(combined + font_width, secondLetter, font_width * 8);
+    memcpy(combined,     firstLetter, font_width);
+    memcpy(combined + font_width, secondLetter, font_width);
 
     return combined;
 }
@@ -120,32 +120,31 @@ uint8_t* getInstructionFromWeekdayIndex(uint8_t weekdayIndex){
 uint8_t* getInstructionFromCurrentDCFPos() {
 
     // array to hold the result
-    uint8_t *combined = malloc(4 * font_width * 8);
+    uint8_t *combined = malloc(4 * font_width);
 
 
-    memcpy(combined,   CHAR_i, font_width * 8);
-    memcpy(combined + font_width, CHAR_DOUBLE_POINTS, font_width * 8);
-    memcpy(combined + font_width*2, getInstructionFromNumber(g_position/10), font_width * 8);
-    memcpy(combined + font_width*3, getInstructionFromNumber(g_position%10), font_width * 8);
-
+    memcpy(combined,   CHAR_i, font_width);
+    memcpy(combined + font_width, CHAR_DOUBLE_POINTS, font_width);
+    memcpy(combined + font_width*2, getInstructionFromNumber(g_position/10), font_width);
+    memcpy(combined + font_width*3, getInstructionFromNumber(g_position%10), font_width);
     return combined;
 }
 
 uint8_t* getInstructionForCurrentDCFStatus(){
     // array to hold the result
-    uint8_t *combined = malloc(8 * font_width * 8);
+    uint8_t *combined = malloc(8 * font_width);
 
 
-    memcpy(combined,   CHAR_S, font_width * 8);
-    memcpy(combined + font_width, CHAR_a, font_width * 8);
-    memcpy(combined + font_width*2, CHAR_S, font_width * 8);
-    memcpy(combined + font_width*3, CHAR_o, font_width * 8);
-    memcpy(combined + font_width*4, CHAR_S, font_width * 8);
-    memcpy(combined + font_width*5, CHAR_DOUBLE_POINTS, font_width * 8);
+    memcpy(combined,   CHAR_S, font_width);
+    memcpy(combined + font_width, CHAR_a, font_width);
+    memcpy(combined + font_width*2, CHAR_S, font_width);
+    memcpy(combined + font_width*3, CHAR_o, font_width);
+    memcpy(combined + font_width*4, CHAR_S, font_width);
+    memcpy(combined + font_width*5, CHAR_DOUBLE_POINTS, font_width);
     if(dcfErrorState){
-        memcpy(combined + font_width*6, CHAR_ONE, font_width * 8);
+        memcpy(combined + font_width*6, CHAR_ONE, font_width);
     }else{
-        memcpy(combined + font_width*6, CHAR_ZERO, font_width * 8);
+        memcpy(combined + font_width*6, CHAR_ZERO, font_width);
     }
     return combined;
 }
