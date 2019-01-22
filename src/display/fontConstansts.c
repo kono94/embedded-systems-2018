@@ -125,8 +125,8 @@ uint8_t* getInstructionFromCurrentDCFPos() {
 
     memcpy(combined,   CHAR_i, font_width * 8);
     memcpy(combined + font_width, CHAR_DOUBLE_POINTS, font_width * 8);
-    memcpy(combined + font_width*2, g_position/10, font_width * 8);
-    memcpy(combined + font_width*3, g_position%10, font_width * 8);
+    memcpy(combined + font_width*2, getInstructionFromNumber(g_position/10), font_width * 8);
+    memcpy(combined + font_width*3, getInstructionFromNumber(g_position%10), font_width * 8);
 
     return combined;
 }
