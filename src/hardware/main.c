@@ -111,7 +111,7 @@ int main(int argc, char** argv){
     sendEmptyDI();
     _delay_ms(1);
     clearDisplay();
-    _delay_ms(1);
+    _delay_ms(100);
     setupInterrupts();
 
 

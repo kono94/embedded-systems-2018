@@ -37,7 +37,7 @@ void wasteTime(uint8_t c){
 
 void clockCycle(){
     // wait 450ns after instructions were set
-    _delay_us(1);
+    _delay_us(10);
     // read in instruction pins (what is the command)
     // set Enable Bit to 1 (pull high)
     PORTC |= (1 << PC2);
@@ -99,7 +99,7 @@ void changeRowOnDisplayTo(uint8_t x){
  
     // change Page (X) to desired row
    // sendInstructionData(0b10111000 | (x & 0b111));
-    sendInstructionData(0b10111000 | (x%7));
+    sendInstructionData(0b10111000 | (x%8));
 }
 
 void resetDisplay(){
@@ -123,6 +123,7 @@ void clearDisplay(){
 	//sendInstructionData(0b11000000);
 	for(uint8_t page=0; page < 8; page++){
 		changeRowOnDisplayTo(page);
+		_delay_us(1);
 		for(uint8_t column=0; column < 64; ++column){
 		    PORTD = column;
 		    sendWriteData(0b00000000);
