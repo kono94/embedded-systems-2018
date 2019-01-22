@@ -21,8 +21,8 @@
  * Using PORTC for other instructions:
  *
  * () = Index of pin on the self made port, from right to left, starting at 1
- * PC0 = R/W Input   (3)
- * PC1 = D/I Data Read  (4)
+ * PC0 = D/I Data Read   (3)
+ * PC1 = R/W Input  (4)
  * PC2 = Enable (5)
  * PC3 = Chip Select IC1    (15)
  * PC4 = Chip Select IC2    (16)
@@ -36,10 +36,14 @@ void wasteTime(uint8_t c){
 }
 
 void clockCycle(){
+    // wait 450ns after instructions were set
+    _delay_us(1);
+    // read in instruction pins (what is the command)
     // set Enable Bit to 1 (pull high)
     PORTC |= (1 << PC2);
-    // wait a bit
+    // wait 450ns
     _delay_us(1);
+    // read in data pins
     // set enable bit to 0 (pull down)
     PORTC &= ~(1 << PC2);
 }
@@ -84,16 +88,18 @@ void turnDisplayOn(){
 }
 
 void turnDisplayOff(){
+    // Turn off chip 1
+    PORTC |= (1 << PC3);
     sendInstructionData(0b00111110);
 }
 
 void changeRowOnDisplayTo(uint8_t x){
-    // resset Y counter to 0
+    // reset Y counter to 0
     sendInstructionData(0b01000000);
  
     // change Page (X) to desired row
    // sendInstructionData(0b10111000 | (x & 0b111));
-    sendInstructionData(0b10111000 | x);
+    sendInstructionData(0b10111000 | (x%7));
 }
 
 void resetDisplay(){
@@ -117,8 +123,9 @@ void clearDisplay(){
 	//sendInstructionData(0b11000000);
 	for(uint8_t page=0; page < 8; page++){
 		changeRowOnDisplayTo(page);
-		for(uint8_t column=0; column < 60; ++column){
-		        sendWriteData(0b00000000);
+		for(uint8_t column=0; column < 64; ++column){
+		    PORTD = column;
+		    sendWriteData(0b00000000);
 		}
 	}
 }

@@ -5,7 +5,7 @@
 #ifndef ES2018_REPO_DISPLAYINSTR_H
 #define ES2018_REPO_DISPLAYINSTR_H
 #include <inttypes.h>
-
+#include <stdbool.h>
 
 uint8_t display_dataLength;
 uint8_t display_row;
@@ -15,8 +15,7 @@ uint8_t display_toSend_currentSession;
 uint8_t sending_phase;
 
 void init_displayInstructions();
-void visualizeOnDisplay();
 void sendToDisplay();
-void setInstructionsForRow(uint8_t);
+bool setInstructionsForRow(uint8_t);
 
 #endif //ES2018_REPO_DISPLAYINSTR_H

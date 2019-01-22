@@ -80,6 +80,12 @@ void setupPorts(){
     //disabling Two-wire Serial Bus Clock Line
     TWCR &= ~(1 << TWEN);
 }
+
+void startVisualizingOnDisplay(){
+    changeRowOnDisplayTo(1);
+    setInstructionsForRow(1);
+}
+
 int main(int argc, char** argv){
     DCF_init();
     AvrDatetime_init();
@@ -103,9 +109,12 @@ int main(int argc, char** argv){
     turnDisplayOn();
     _delay_ms(1);
     sendEmptyDI();
+    _delay_ms(1);
     clearDisplay();
-    _delay_ms(2000);
+    _delay_ms(1);
     setupInterrupts();
+
+
     bool lightOn = false;
     
     while(true){
@@ -130,15 +139,22 @@ int main(int argc, char** argv){
                 sendWriteData(display_data[display_toSend_currentSession - display_toSend]);
                 display_toSend--;
                 if(display_toSend == 0){
-                    // next row
-                    setInstructionsForRow(++display_row);
-                    changeRowOnDisplayTo(++display_row);
+                    // Load instructions into display_data for next row
+                    if(setInstructionsForRow(++display_row)){
+                        // change display row
+                        changeRowOnDisplayTo(display_row);
+                    }else{
+                        // all information got printed to the display
+                        // refreshing data on display finished for this "second"
+                    }
+                    PORTD = display_row;
                 }
             }
         }
 
         if(trigger_oneSecondPassed){
             trigger_oneSecondPassed = false;
+            /*
             if(lightOn){
                 PORTD |= (1<<5);
                 lightOn = false;
@@ -146,9 +162,10 @@ int main(int argc, char** argv){
                 PORTD &= ~(1<<5);
                 lightOn = true;
             }
+             */
             incrementByOneSecond();
-	    changeRowOnDisplayTo(1);
-            visualizeOnDisplay();
+            startVisualizingOnDisplay();
         }
     }
 }
+

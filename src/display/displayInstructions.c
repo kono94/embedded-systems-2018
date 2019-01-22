@@ -7,6 +7,7 @@
 #include "fontConstansts.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 void init_displayInstructions(){
     display_toSend_currentSession = 0;
@@ -23,14 +24,7 @@ void init_displayInstructions(){
     sending_phase = 0;
 }
 
-// This gets called when one second passed /changed
-// (in while-loop in main-file)
-void visualizeOnDisplay() {
-    display_row = 1;
-    setInstructionsForRow(1);
-}
-
-void setInstructionsForRow(uint8_t row){
+bool setInstructionsForRow(uint8_t row){
     switch (row){
         case 1:
             // instruction for HH:mm:SS
@@ -45,7 +39,7 @@ void setInstructionsForRow(uint8_t row){
 
             display_toSend_currentSession = 48;
             display_toSend = 48;
-            break;
+            return true;
         case 2:
             // instruction for DD.MM.YYYY
             memcpy(display_data,    getInstructionFromNumber(p_avrDatetime->days/10), font_width * 8);
@@ -61,15 +55,14 @@ void setInstructionsForRow(uint8_t row){
 
             display_toSend_currentSession = 60;
             display_toSend = 60;
-            break;
+            return true;
         case 3:
             memcpy(display_data,    getInstructionFromWeekdayIndex(p_avrDatetime->weekdayIndex), font_width * 8);
 
             display_toSend_currentSession = 12;
             display_toSend = 12;
-            break;
+            return true;
         default:
-	    display_row = 1;
-            break;
+            return false;
     }
 }
