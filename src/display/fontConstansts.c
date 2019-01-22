@@ -9,6 +9,7 @@
 
 #include "fontConstansts.h"
 #include "../DCF/signalToDCF.h"
+#include "../internClock/avrDatetime.h"
 
 #include <inttypes.h>
 #include <stdlib.h>
@@ -65,17 +66,37 @@ uint8_t* getInstructionFromNumber(uint8_t n){
 }
 
 
-// return array with size 12 as it combines
+// set array with size 12 as it combines
 // two characters to represent weekday (Mo, Di, Mi, Do, Fr,...)
-uint8_t* getInstructionFromWeekdayIndex(uint8_t weekdayIndex){
+void copyTimeIntoDisplayData(){
+    memcpy(display_data,    getInstructionFromNumber(p_avrDatetime->hours/10), font_width * 8);
+    memcpy(display_data + 6,    getInstructionFromNumber(p_avrDatetime->hours%10), font_width * 8);
+    memcpy(display_data + 12,    getInstructionFromNumber(11), font_width * 8);
+    memcpy(display_data + 18,    getInstructionFromNumber(p_avrDatetime->minutes/10), font_width * 8);
+    memcpy(display_data + 24,    getInstructionFromNumber(p_avrDatetime->minutes%10), font_width * 8);
+    memcpy(display_data + 30,    getInstructionFromNumber(11), font_width * 8);
+    memcpy(display_data + 36,    getInstructionFromNumber(p_avrDatetime->seconds/10), font_width * 8);
+    memcpy(display_data + 42,    getInstructionFromNumber(p_avrDatetime->seconds%10), font_width * 8);
+}
 
-    // array to hold the result
-    uint8_t* combined = malloc(2 * font_width);
+void copyDateIntoDisplayData(){
+    memcpy(display_data,    getInstructionFromNumber(p_avrDatetime->days/10), font_width);
+    memcpy(display_data + 6,    getInstructionFromNumber(p_avrDatetime->days%10), font_width);
+    memcpy(display_data + 12,    getInstructionFromNumber(10), font_width);
+    memcpy(display_data + 18,    getInstructionFromNumber(p_avrDatetime->months/10), font_width);
+    memcpy(display_data + 24,    getInstructionFromNumber(p_avrDatetime->months%10), font_width);
+    memcpy(display_data + 30,    getInstructionFromNumber(10), font_width);
+    memcpy(display_data + 36,    getInstructionFromNumber(p_avrDatetime->years_hundreds/10), font_width);
+    memcpy(display_data + 42,    getInstructionFromNumber(p_avrDatetime->years_hundreds%10), font_width);
+    memcpy(display_data + 48,    getInstructionFromNumber(p_avrDatetime->years_tens/10), font_width);
+    memcpy(display_data + 54,    getInstructionFromNumber(p_avrDatetime->years_tens%10), font_width);
+}
 
+void copyWeekDayIntoDisplayData(){
     uint8_t* firstLetter;
     uint8_t* secondLetter;
 
-    switch(weekdayIndex) {
+    switch(p_avrDatetime->weekdayIndex) {
         case 1:
             firstLetter = CHAR_M;
             secondLetter = CHAR_o;
@@ -111,42 +132,28 @@ uint8_t* getInstructionFromWeekdayIndex(uint8_t weekdayIndex){
             break;
     }
 
-    memcpy(combined,     firstLetter, font_width);
-    memcpy(combined + font_width, secondLetter, font_width);
-
-    return combined;
+    memcpy(display_data,    firstLetter, font_width);
+    memcpy(display_data + font_width,    secondLetter, font_width);
+}
+void copyCurrentDCFPosIntoDisplayData() {
+    memcpy(display_data,   CHAR_i, font_width);
+    memcpy(display_data + font_width, CHAR_DOUBLE_POINTS, font_width);
+    memcpy(display_data + font_width*2, getInstructionFromNumber(g_position/10), font_width);
+    memcpy(display_data + font_width*3, getInstructionFromNumber(g_position%10), font_width);
 }
 
-uint8_t* getInstructionFromCurrentDCFPos() {
-
-    // array to hold the result
-    uint8_t *combined = malloc(4 * font_width);
-
-
-    memcpy(combined,   CHAR_i, font_width);
-    memcpy(combined + font_width, CHAR_DOUBLE_POINTS, font_width);
-    memcpy(combined + font_width*2, getInstructionFromNumber(g_position/10), font_width);
-    memcpy(combined + font_width*3, getInstructionFromNumber(g_position%10), font_width);
-    return combined;
-}
-
-uint8_t* getInstructionForCurrentDCFStatus(){
-    // array to hold the result
-    uint8_t *combined = malloc(8 * font_width);
-
-
-    memcpy(combined,   CHAR_S, font_width);
-    memcpy(combined + font_width, CHAR_a, font_width);
-    memcpy(combined + font_width*2, CHAR_S, font_width);
-    memcpy(combined + font_width*3, CHAR_o, font_width);
-    memcpy(combined + font_width*4, CHAR_S, font_width);
-    memcpy(combined + font_width*5, CHAR_DOUBLE_POINTS, font_width);
+void copyCurrentDCFStatusIntoDisplayData(){
+    memcpy(display_data,   CHAR_S, font_width);
+    memcpy(display_data + font_width, CHAR_a, font_width);
+    memcpy(display_data + font_width*2, CHAR_S, font_width);
+    memcpy(display_data + font_width*3, CHAR_o, font_width);
+    memcpy(display_data + font_width*4, CHAR_S, font_width);
+    memcpy(display_data + font_width*5, CHAR_DOUBLE_POINTS, font_width);
     if(dcfErrorState){
-        memcpy(combined + font_width*6, CHAR_ONE, font_width);
+        memcpy(display_data + font_width*6, CHAR_ONE, font_width);
     }else{
-        memcpy(combined + font_width*6, CHAR_ZERO, font_width);
+        memcpy(display_data + font_width*6, CHAR_ZERO, font_width);
     }
-    return combined;
 }
  /*
 0:

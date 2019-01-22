@@ -10,6 +10,7 @@
 #ifndef ES2018_REPO_FONTANSTS_H
 #define ES2018_REPO_FONTANSTS_H
 #include <inttypes.h>
+#include "displayInstructions.h"
 
 #define font_width 6
 
@@ -37,8 +38,9 @@ extern uint8_t CHAR_EMPTY[];
 extern uint8_t CHAR_INVALID[];
 
 uint8_t* getInstructionFromNumber(uint8_t n);
-uint8_t* getInstructionFromWeekdayIndex(uint8_t weekdayIndex);
-uint8_t* getInstructionForCurrentDCFStatus();
-uint8_t* getInstructionFromCurrentDCFPos();
-
+void copyTimeIntoDisplayData();
+void copyDateIntoDisplayData();
+void copyWeekDayIntoDisplayData();
+void copyCurrentDCFPosIntoDisplayData();
+void copyCurrentDCFStatusIntoDisplayData();
 #endif //ES2018_REPO_FONTANSTS_H
