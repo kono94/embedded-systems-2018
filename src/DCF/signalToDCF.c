@@ -26,7 +26,7 @@ int state_1_missed = 0;
 bool errorState = false;
 
 void evaluateSignal(uint8_t pinC_value){
-    if(pinC_value >= 1){
+   if(pinC_value >= 1){
         if(errorState){
             errorState = false;
             // tell "main" that the signal is present once again
@@ -74,7 +74,7 @@ void evaluateSignal(uint8_t pinC_value){
                     // do not reset inactive counter!
                     // was just a small edge from the signal
                 }
-                if(g_position == 60){
+                if(g_position ==60){
                     g_position = 0;
                     syncAVRTimeWithDCF();
                 }
