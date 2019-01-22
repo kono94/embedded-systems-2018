@@ -83,6 +83,7 @@ void setupPorts(){
 }
 
 void startVisualizingOnDisplay(){
+    display_row = 1;
     changeRowOnDisplayTo(1);
     setInstructionsForRow(1);
 }
@@ -150,7 +151,6 @@ int main(int argc, char** argv){
                         // all information got printed to the display
                         // refreshing data on display finished for this "second"
                     }
-                    PORTD = display_row;
                 }
             }
         }
