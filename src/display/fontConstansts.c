@@ -133,14 +133,14 @@ uint8_t* getInstructionFromCurrentDCFPos() {
 
 uint8_t* getInstructionForCurrentDCFStatus(){
     // array to hold the result
-    uint8_t *combined = malloc(7 * font_width * 8);
+    uint8_t *combined = malloc(8 * font_width * 8);
 
 
     memcpy(combined,   CHAR_S, font_width * 8);
     memcpy(combined + font_width, CHAR_a, font_width * 8);
-    memcpy(combined + font_width*2, CHAR_s, font_width * 8);
+    memcpy(combined + font_width*2, CHAR_S, font_width * 8);
     memcpy(combined + font_width*3, CHAR_o, font_width * 8);
-    memcpy(combined + font_width*4, CHAR_s, font_width * 8);
+    memcpy(combined + font_width*4, CHAR_S, font_width * 8);
     memcpy(combined + font_width*5, CHAR_DOUBLE_POINTS, font_width * 8);
     if(dcfErrorState){
         memcpy(combined + font_width*6, CHAR_ONE, font_width * 8);

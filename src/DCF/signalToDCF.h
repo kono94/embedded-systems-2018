@@ -5,6 +5,7 @@
 #ifndef ES2018_REPO_SIGNALTODCF_H
 #define ES2018_REPO_SIGNALTODCF_H
 #include <inttypes.h>
+#include <stdbool.h>
 
 void evaluateSignal(uint8_t);
 bool dcfErrorState;
