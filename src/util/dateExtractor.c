@@ -12,7 +12,7 @@
 #include "dateExtractor.h"
 #include "../DCF/dcftype.h"
 #include "bitConverter.h"
-
+#include "../internClock/avrDatetime.h"
 
 /**
  *  bit range for a specific part of the date is split
@@ -90,6 +90,17 @@ uint8_t getCalendarYears(const DCF dcf){
     return tens + units;
 }
 
+uint8_t getCalendarYearsHundreds(const DCF dcf){
+    uint8_t hundreds = 10 * helper_4bit(dcf[54], dcf[55], dcf[56], dcf[57]);
+
+    return hundreds;
+}
+
+uint8_t getCalendarYearsTens(const DCF dcf){
+    uint8_t tens = helper_4bit(dcf[50], dcf[51], dcf[52], dcf[53]);
+    return tens;
+}
+
 /*
  * bits for weekday: 42-44
  */
@@ -113,4 +124,18 @@ char* getWeekdayString(const DCF dcf){
  */
 uint8_t getWeekdayIndex(const DCF dcf){
     return helper_3bit(dcf[42], dcf[43], dcf[44]);
+}
+
+
+void syncAVRTimeWithDCF(){
+    p_avrDatetime->hours = getHours(rawDCF);
+    p_avrDatetime->minutes = getMinutes(rawDCF);
+    p_avrDatetime->seconds = 0;
+
+    p_avrDatetime->days = getCalendarDay(rawDCF);
+    p_avrDatetime->months = getCalendarMonth(rawDCF);
+    p_avrDatetime->years_hundreds = getCalendarYearsHundreds(rawDCF);
+    p_avrDatetime->years_tens = getCalendarYearsTens(rawDCF);
+
+    p_avrDatetime->weekdayIndex = getWeekdayIndex(rawDCF);
 }

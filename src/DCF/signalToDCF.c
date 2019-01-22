@@ -8,7 +8,7 @@
 
 #include "dcftype.h"
 #include "../util/triggers.h"
-
+#include "../util/dateExtractor.h"
 
 int MISSING_THRESHOLD = 5;
 int ZERO_BORDER_ALL = 70;
@@ -65,14 +65,18 @@ void evaluateSignal(uint8_t pinC_value){
             state_1_missed += 1;
             if(state_1_missed >= MISSING_THRESHOLD){
                 if(state_1_all >= ONE_BORDER_ALL){
-                    rawDCF[g_position++%60] = 1;
+                    rawDCF[g_position++] = 1;
                     state_0_all = 0;
                 }else if(state_1_all >= ZERO_BORDER_ALL){
-                    rawDCF[g_position++%60] = 0;
+                    rawDCF[g_position++] = 0;
                     state_0_all = 0;
                 }else{
                     // do not reset inactive counter!
                     // was just a small edge from the signal
+                }
+                if(g_position == 60){
+                    g_position = 0;
+                    syncAVRTimeWithDCF();
                 }
                 state_1_all = 0;
                 state_1_missed = 0;

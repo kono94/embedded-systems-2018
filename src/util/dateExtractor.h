@@ -30,4 +30,5 @@ uint8_t getCalendarYears(const DCF dcf);
  */
 char* getWeekdayString(const DCF dcf);
 
+void syncAVRTimeWithDCF();
 #endif //ES2018_REPO_DATEEXTRACTOR_H
