@@ -121,12 +121,19 @@ int main(int argc, char** argv){
     while(true){
         if(trigger_evaluateSignal) {
             trigger_evaluateSignal = false;
-           if(PIND & 0x0b1){
-               PORTD |= (1<<5);
+           /*if((PIND & 1) == 1) {
+	       changeRowOnDisplayTo(5);
+               sendWriteData(0b11111111);
+	       sendWriteData(0b11111111);
            }else{
                PORTD &= ~(1<<5);
+	       changeRowOnDisplayTo(5);
+	       sendWriteData(0b00000000);
+	       sendWriteData(0b00000000);
+	       ;
            }
-            evaluateSignal(PIND & 0x0b1);
+	   */
+            evaluateSignal(PIND & 1);
         }
 
         if(trigger_sentToDisplay){
