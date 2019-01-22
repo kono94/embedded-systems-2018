@@ -62,6 +62,16 @@ bool setInstructionsForRow(uint8_t row){
             display_toSend_currentSession = 12;
             display_toSend = 12;
             return true;
+        case 4:
+            memcpy(display_data,    getInstructionFromCurrentDCFPos(), font_width * 8);
+            display_toSend_currentSession = 24;
+            display_toSend = 24;
+            return true;
+        case 5:
+            memcpy(display_data,    getInstructionForCurrentDCFStatus(), font_width * 8);
+            display_toSend_currentSession = 42;
+            display_toSend = 42;
+            return true;
         default:
             return false;
     }

@@ -119,16 +119,6 @@ int main(int argc, char** argv){
     bool lightOn = false;
     
     while(true){
-        if(trigger_signalError){
-            trigger_signalError = false;
-            // draw SIGNAL-ERROR
-        }
-
-        if(trigger_noSignalError){
-            trigger_noSignalError = false;
-            // clear SIGNAL-ERROR
-        }
-
         if(trigger_evaluateSignal) {
             trigger_evaluateSignal = false;
            if(PIND & 0x0b1){

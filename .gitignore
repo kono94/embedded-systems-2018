@@ -8,3 +8,5 @@ cmake-build-debug/
 runAllTests
 main
 *.exe
+main.elf
+main.hex

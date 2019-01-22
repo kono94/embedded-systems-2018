@@ -17,7 +17,5 @@ void init_triggers();
 volatile bool trigger_sentToDisplay;
 volatile bool trigger_evaluateSignal;
 volatile bool trigger_oneSecondPassed;
-volatile bool trigger_signalError;
-volatile bool trigger_noSignalError;
 
 #endif //ES2018_REPO_TRIGGERS_H

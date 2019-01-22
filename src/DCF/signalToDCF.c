@@ -23,14 +23,13 @@ int state_0_all = 0;
 
 int state_1_all = 0;
 int state_1_missed = 0;
-bool errorState = false;
+bool dcfErrorState = false;
 
 void evaluateSignal(uint8_t pinC_value){
+
     if(pinC_value >= 1){
-        if(errorState){
-            errorState = false;
-            // tell "main" that the signal is present once again
-            trigger_noSignalError = true;
+        if(dcfErrorState){
+            dcfErrorState = false;
         }
         // switch to active state
         if(currentState == 0){
@@ -50,10 +49,9 @@ void evaluateSignal(uint8_t pinC_value){
         if(currentState == 0){
             // not active and 0 => just increment all-counter of inactive state
             state_0_all += 1;
-            if(state_0_all >= MISSING_SIGNAL_BORDER && !errorState){
+            if(state_0_all >= MISSING_SIGNAL_BORDER && !dcfErrorState){
                 // 3 seconds no ones or zeros found
-                errorState = true;
-                trigger_signalError = true;
+                dcfErrorState = true;
 
             }
         }else if(currentState == 1){

@@ -8,6 +8,8 @@
  *******************************************************************************/
 
 #include "fontConstansts.h"
+#include "../DCF/signalToDCF.h"
+
 #include <inttypes.h>
 #include <stdlib.h>
 #include <string.h>
@@ -112,6 +114,39 @@ uint8_t* getInstructionFromWeekdayIndex(uint8_t weekdayIndex){
     memcpy(combined,     firstLetter, font_width * 8);
     memcpy(combined + font_width, secondLetter, font_width * 8);
 
+    return combined;
+}
+
+uint8_t* getInstructionFromCurrentDCFPos() {
+
+    // array to hold the result
+    uint8_t *combined = malloc(4 * font_width * 8);
+
+
+    memcpy(combined,   CHAR_i, font_width * 8);
+    memcpy(combined + font_width, CHAR_DOUBLE_POINTS, font_width * 8);
+    memcpy(combined + font_width*2, g_position/10, font_width * 8);
+    memcpy(combined + font_width*3, g_position%10, font_width * 8);
+
+    return combined;
+}
+
+uint8_t* getInstructionForCurrentDCFStatus(){
+    // array to hold the result
+    uint8_t *combined = malloc(7 * font_width * 8);
+
+
+    memcpy(combined,   CHAR_S, font_width * 8);
+    memcpy(combined + font_width, CHAR_a, font_width * 8);
+    memcpy(combined + font_width*2, CHAR_s, font_width * 8);
+    memcpy(combined + font_width*3, CHAR_o, font_width * 8);
+    memcpy(combined + font_width*4, CHAR_s, font_width * 8);
+    memcpy(combined + font_width*5, CHAR_DOUBLE_POINTS, font_width * 8);
+    if(dcfErrorState){
+        memcpy(combined + font_width*6, CHAR_ONE, font_width * 8);
+    }else{
+        memcpy(combined + font_width*6, CHAR_ZERO, font_width * 8);
+    }
     return combined;
 }
  /*

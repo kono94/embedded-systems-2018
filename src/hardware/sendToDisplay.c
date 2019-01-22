@@ -37,7 +37,7 @@ void wasteTime(uint8_t c){
 
 void clockCycle(){
     // wait 450ns after instructions were set
-    _delay_us(10);
+    _delay_us(5);
     // read in instruction pins (what is the command)
     // set Enable Bit to 1 (pull high)
     PORTC |= (1 << PC2);

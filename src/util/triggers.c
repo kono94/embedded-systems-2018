@@ -14,7 +14,5 @@ void init_triggers(){
     trigger_sentToDisplay = false;
     trigger_evaluateSignal = false;
     trigger_oneSecondPassed = false;
-    trigger_signalError = false;
-    trigger_noSignalError = false;
 }
 
