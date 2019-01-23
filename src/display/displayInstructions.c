@@ -58,6 +58,17 @@ bool setInstructionsForRow(uint8_t row){
             display_toSend_currentSession = 42;
             display_toSend = 42;
             return true;
+        case 6:
+            copyMinutesNotSyncedIntoDisplayData();
+            display_toSend_currentSession = 48;
+            display_toSend = 48;
+            return true;
+        case 7:
+            copySyncStatusIntoDisplayData();
+
+            display_toSend_currentSession = 24;
+            display_toSend = 24;
+            return true;
         default:
             display_toSend_currentSession = 0;
             display_toSend = 0;

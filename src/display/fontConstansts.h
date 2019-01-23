@@ -43,4 +43,6 @@ void copyDateIntoDisplayData();
 void copyWeekDayIntoDisplayData();
 void copyCurrentDCFPosIntoDisplayData();
 void copyCurrentDCFStatusIntoDisplayData();
+void copyMinutesNotSyncedIntoDisplayData();
+void copySyncStatusIntoDisplayData();
 #endif //ES2018_REPO_FONTANSTS_H

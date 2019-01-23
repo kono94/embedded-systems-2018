@@ -10,6 +10,7 @@
 #include "fontConstansts.h"
 #include "../DCF/signalToDCF.h"
 #include "../internClock/avrDatetime.h"
+#include "../DCF/signalToDCF.h"
 
 #include <inttypes.h>
 #include <stdlib.h>
@@ -153,6 +154,30 @@ void copyCurrentDCFStatusIntoDisplayData(){
         memcpy(display_data + font_width*6, CHAR_ONE, font_width);
     }else{
         memcpy(display_data + font_width*6, CHAR_ZERO, font_width);
+    }
+}
+
+void copyMinutesNotSyncedIntoDisplayData(){
+    memcpy(display_data,   CHAR_M, font_width);
+    memcpy(display_data + font_width, CHAR_i, font_width);
+    memcpy(display_data + font_width*2, CHAR_S, font_width);
+    memcpy(display_data + font_width*3, CHAR_DOUBLE_POINTS, font_width);
+
+    memcpy(display_data + font_width*4, getInstructionFromNumber(minutesNotSynced/1000), font_width);
+    memcpy(display_data + font_width*5, getInstructionFromNumber(minutesNotSynced/100), font_width);
+    memcpy(display_data + font_width*6, getInstructionFromNumber(minutesNotSynced/10), font_width);
+    memcpy(display_data + font_width*7, getInstructionFromNumber(minutesNotSynced%10), font_width);
+}
+
+void copySyncStatusIntoDisplayData(){
+    memcpy(display_data,   CHAR_S, font_width);
+    memcpy(display_data + font_width, CHAR_S, font_width);
+    memcpy(display_data + font_width*2, CHAR_DOUBLE_POINTS, font_width);
+
+    if(minutesNotSynced > 60){
+        memcpy(display_data + font_width*3, getInstructionFromNumber(0), font_width);
+    }else{
+        memcpy(display_data + font_width*3, getInstructionFromNumber(1), font_width);
     }
 }
  /*

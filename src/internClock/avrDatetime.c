@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include "../validation/validDateTime.h"
+#include "../DCF/signalToDCF.h"
 
 void AvrDatetime_init(){
     p_avrDatetime = &avrDatetime;
@@ -23,6 +24,7 @@ void incrementByOneSecond(){
     if(!isValidInternClock(p_avrDatetime)){
         p_avrDatetime->seconds = 0;
         p_avrDatetime->minutes++;
+        minutesNotSynced++;
 
         if(!isValidInternClock(p_avrDatetime)){
             p_avrDatetime->minutes = 0;

@@ -10,5 +10,5 @@
 void evaluateSignal(uint8_t);
 bool dcfErrorState;
 uint8_t g_position;
-
+uint16_t minutesNotSynced;
 #endif //ES2018_REPO_SIGNALTODCF_H

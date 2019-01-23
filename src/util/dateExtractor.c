@@ -13,6 +13,8 @@
 #include "../DCF/dcftype.h"
 #include "bitConverter.h"
 #include "../internClock/avrDatetime.h"
+#include "../validation/validTime.h";
+#include "../DCF/signalToDCF.h"
 
 /**
  *  bit range for a specific part of the date is split
@@ -117,13 +119,18 @@ uint8_t getWeekdayIndex(const DCF dcf){
 
 
 void syncAVRTimeWithDCF(){
-    p_avrDatetime->hours = getHours(rawDCF);
-    p_avrDatetime->minutes = getMinutes(rawDCF);
-    p_avrDatetime->seconds = 0;
 
-    p_avrDatetime->days = getCalendarDay(rawDCF);
-    p_avrDatetime->months = getCalendarMonth(rawDCF);
-    p_avrDatetime->years_tens = getCalendarYears(rawDCF);
+    if(isValidDateTime(getCalendarDay(rawDCF), getCalendarMonth(rawDCF), 20, getCalendarYears(rawDCF), getHours(rawDCF), getMinutes(rawDCF), 0)){
+        p_avrDatetime->hours = getHours(rawDCF);
+        p_avrDatetime->minutes = getMinutes(rawDCF);
+        p_avrDatetime->seconds = 0;
 
-    p_avrDatetime->weekdayIndex = getWeekdayIndex(rawDCF);
+        p_avrDatetime->days = getCalendarDay(rawDCF);
+        p_avrDatetime->months = getCalendarMonth(rawDCF);
+        p_avrDatetime->years_tens = getCalendarYears(rawDCF);
+
+        p_avrDatetime->weekdayIndex = getWeekdayIndex(rawDCF);
+
+        minutesNotSynced = 0;
+    }
 }

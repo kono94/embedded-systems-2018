@@ -26,8 +26,11 @@ bool isLeapYear(uint8_t hundreds, uint8_t tens){
 }
 
 bool isValidDay(uint8_t day, uint8_t month, uint8_t leapYear){
-  if(month != 2 && month < 8){
+    if(day < 0){
+        return false;
+    }
 
+  if(month != 2 && month < 8){
     return ((month % 2 == 0 && day < 31) || (month % 2 == 1 && day < 32));
 
   }else if(month != 2 && month > 7 && month < 13){
