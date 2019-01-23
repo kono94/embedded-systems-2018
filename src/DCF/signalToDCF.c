@@ -72,7 +72,7 @@ void evaluateSignal(uint8_t pinC_value){
                     // do not reset inactive counter!
                     // was just a small edge from the signal
                 }
-                if(g_position == 60){
+                if(g_position == 59){
                     g_position = 0;
                     syncAVRTimeWithDCF();
                 }
