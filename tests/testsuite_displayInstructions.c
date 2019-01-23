@@ -106,8 +106,8 @@ void testStoppingOfSendingRows(){
     char *descr = "TEST- testStoppingOfSendingRows(): Stop setting instructions if all is done";
 
     printTestResult(descr, (display_toSend == 0), "fresh init of display_toSend should be 0");
-    setInstructionsForRow(4);
-    printTestResult(descr, (display_toSend == 0), "should not set 'display_toSend' if instructionRow equals 4");
+    setInstructionsForRow(6);
+    printTestResult(descr, (display_toSend == 0), "should not set 'display_toSend' if instructionRow equals 6");
 }
 
 

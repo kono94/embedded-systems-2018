@@ -29,10 +29,10 @@
 #include "testsuite_displayInstructions.h"
 
 int main(int argc, char** argv){
-    //runTestsuite_validDate();
-    //runTestsuite_validTime();
-    //runTestsuite_bitConverter();
-    //runTestsuite_incrementInternClock();
+    runTestsuite_validDate();
+    runTestsuite_validTime();
+    runTestsuite_bitConverter();
+    runTestsuite_incrementInternClock();
     runTestsuite_dateExtractor();
     runTestsuite_displayInstructions();
     printf(GRN "\n TEST OK: %d \n" RED " TEST FAILED: %d \n" RESET, ok, fail);

@@ -90,17 +90,6 @@ uint8_t getCalendarYears(const DCF dcf){
     return tens + units;
 }
 
-uint8_t getCalendarYearsHundreds(const DCF dcf){
-    uint8_t hundreds = 10 * helper_4bit(dcf[54], dcf[55], dcf[56], dcf[57]);
-
-    return hundreds;
-}
-
-uint8_t getCalendarYearsTens(const DCF dcf){
-    uint8_t tens = helper_4bit(dcf[50], dcf[51], dcf[52], dcf[53]);
-    return tens;
-}
-
 /*
  * bits for weekday: 42-44
  */
@@ -134,8 +123,7 @@ void syncAVRTimeWithDCF(){
 
     p_avrDatetime->days = getCalendarDay(rawDCF);
     p_avrDatetime->months = getCalendarMonth(rawDCF);
-    p_avrDatetime->years_hundreds = getCalendarYearsHundreds(rawDCF);
-    p_avrDatetime->years_tens = getCalendarYearsTens(rawDCF);
+    p_avrDatetime->years_tens = getCalendarYears(rawDCF);
 
     p_avrDatetime->weekdayIndex = getWeekdayIndex(rawDCF);
 }
