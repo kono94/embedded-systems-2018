@@ -132,5 +132,6 @@ void syncAVRTimeWithDCF(){
         p_avrDatetime->weekdayIndex = getWeekdayIndex(rawDCF);
 
         minutesNotSynced = 0;
+        isSynced = true;
     }
 }

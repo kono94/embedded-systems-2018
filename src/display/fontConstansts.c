@@ -174,10 +174,10 @@ void copySyncStatusIntoDisplayData(){
     memcpy(display_data + font_width, CHAR_S, font_width);
     memcpy(display_data + font_width*2, CHAR_DOUBLE_POINTS, font_width);
 
-    if(minutesNotSynced > 60){
-        memcpy(display_data + font_width*3, getInstructionFromNumber(0), font_width);
-    }else{
+    if(isSynced){
         memcpy(display_data + font_width*3, getInstructionFromNumber(1), font_width);
+    }else{
+        memcpy(display_data + font_width*3, getInstructionFromNumber(0), font_width);
     }
 }
  /*

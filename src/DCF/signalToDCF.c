@@ -26,6 +26,7 @@ int state_1_missed = 0;
 bool dcfErrorState = false;
 bool newMinuteStart = false;
 uint16_t minutesNotSynced = 0;
+bool isSynced = false;
 
 void evaluateSignal(uint8_t pinC_value){
 
@@ -73,7 +74,7 @@ void evaluateSignal(uint8_t pinC_value){
                     state_0_all = 0;
                     if(newMinuteStart){
                         newMinuteStart = false;
-                        g_position = 1;
+                        g_position = 0;
                         syncAVRTimeWithDCF();
                     }
                 }else{

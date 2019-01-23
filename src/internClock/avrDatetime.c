@@ -24,8 +24,9 @@ void incrementByOneSecond(){
     if(!isValidInternClock(p_avrDatetime)){
         p_avrDatetime->seconds = 0;
         p_avrDatetime->minutes++;
-        minutesNotSynced++;
-
+        if(minutesNotSynced++ > 60){
+            isSynced = false;
+        }
         if(!isValidInternClock(p_avrDatetime)){
             p_avrDatetime->minutes = 0;
             p_avrDatetime->hours++;
