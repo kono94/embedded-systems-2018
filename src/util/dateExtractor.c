@@ -13,7 +13,7 @@
 #include "../DCF/dcftype.h"
 #include "bitConverter.h"
 #include "../internClock/avrDatetime.h"
-#include "../validation/validTime.h";
+#include "../validation/validDateTime.h"
 #include "../DCF/signalToDCF.h"
 
 /**

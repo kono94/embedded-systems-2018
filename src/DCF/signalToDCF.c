@@ -25,7 +25,7 @@ int state_1_all = 0;
 int state_1_missed = 0;
 bool dcfErrorState = false;
 bool newMinuteStart = false;
-uint8_t minutesNotSynced = 0;
+uint16_t minutesNotSynced = 0;
 
 void evaluateSignal(uint8_t pinC_value){
 
