@@ -12,4 +12,5 @@ bool dcfErrorState;
 uint8_t g_position;
 uint16_t minutesNotSynced;
 bool isSynced;
+uint8_t secondsPassed;
 #endif //ES2018_REPO_SIGNALTODCF_H

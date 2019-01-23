@@ -27,6 +27,7 @@ bool dcfErrorState = false;
 bool newMinuteStart = false;
 uint16_t minutesNotSynced = 0;
 bool isSynced = false;
+uint8_t secondsPassed = 0;
 
 void evaluateSignal(uint8_t pinC_value){
 
@@ -74,8 +75,11 @@ void evaluateSignal(uint8_t pinC_value){
                     state_0_all = 0;
                     if(newMinuteStart){
                         newMinuteStart = false;
+                        if(secondsPassed > 57 && secondsPassed < 62){
+                            syncAVRTimeWithDCF();
+                        }
                         g_position = 0;
-                        syncAVRTimeWithDCF();
+                        secondsPassed = 0;
                     }
                 }else{
                     // do not reset inactive counter!

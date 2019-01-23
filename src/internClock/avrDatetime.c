@@ -20,7 +20,7 @@ void AvrDatetime_init(){
 
 void incrementByOneSecond(){
     p_avrDatetime->seconds++;
-
+    secondsPassed++;
     if(!isValidInternClock(p_avrDatetime)){
         p_avrDatetime->seconds = 0;
         p_avrDatetime->minutes++;
