@@ -9,6 +9,8 @@
 
 void evaluateSignal(uint8_t);
 bool dcfSignalLost;
+bool leapSecondNextHour;
+bool leapSecondSkip;
 uint8_t g_position;
 uint16_t minutesNotSynced;
 bool isSynced;

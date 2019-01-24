@@ -157,7 +157,11 @@ int main(int argc, char** argv){
 
         if(trigger_oneSecondPassed){
             trigger_oneSecondPassed = false;
-            incrementByOneSecond();
+            // Skip incrementation of intern time if leap second added
+            if(!leapSecondSkip){
+                leapSecondSkip = false;
+                incrementByOneSecond();
+            }
             startVisualizingOnDisplay();
         }
     }

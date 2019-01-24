@@ -29,7 +29,10 @@ void incrementByOneSecond(){
         if(!isValidInternClock(p_avrDatetime)){
             p_avrDatetime->minutes = 0;
             p_avrDatetime->hours++;
-
+            if(leapSecondNextHour){
+                leapSecondNextHour = false;
+                leapSecondSkip = true;
+            }
             if(!isValidInternClock(p_avrDatetime)){
                 p_avrDatetime->hours = 0;
                 p_avrDatetime->days++;

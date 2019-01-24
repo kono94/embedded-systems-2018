@@ -25,6 +25,8 @@ uint16_t state_1_all = 0;
 uint16_t state_1_missed = 0;
 bool dcfSignalLost = false;
 bool newMinuteStart = false;
+bool leapSecondNextHour = false;
+bool leapSecondSkip = false;
 bool isSynced = false;
 /*
  * Possible error states:
@@ -82,7 +84,6 @@ void evaluateSignal(uint8_t pinC_value){
                     state_0_all = 0;
                     if(newMinuteStart){
                         newMinuteStart = false;
-                        minutesNotSynced = secondsPassed;
                         // 58 to 62 seconds need to be passed in between syncs
                         // to make sure ones and zeros are not corrupted
                         if(secondsPassed < 59){

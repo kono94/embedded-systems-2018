@@ -151,9 +151,9 @@ void copyCurrentDCFStatusIntoDisplayData(){
     memcpy(display_data + font_width*4, CHAR_S, font_width);
     memcpy(display_data + font_width*5, CHAR_DOUBLE_POINTS, font_width);
     if(dcfSignalLost){
-        memcpy(display_data + font_width*6, CHAR_ONE, font_width);
-    }else{
         memcpy(display_data + font_width*6, CHAR_ZERO, font_width);
+    }else{
+        memcpy(display_data + font_width*6, CHAR_ONE, font_width);
     }
 }
 
@@ -179,6 +179,18 @@ void copySyncStatusIntoDisplayData(){
     }else{
         memcpy(display_data + font_width*3, getInstructionFromNumber(0), font_width);
     }
+
+    memcpy(display_data+ font_width*4,   CHAR_S, font_width);
+    memcpy(display_data+ font_width*5,   CHAR_a, font_width);
+    memcpy(display_data+ font_width*6,   CHAR_DOUBLE_POINTS, font_width);
+    if(leapSecondNextHour){
+        memcpy(display_data+ font_width*7,   getInstructionFromNumber(1), font_width);
+    }else{
+        memcpy(display_data+ font_width*7,   getInstructionFromNumber(0), font_width);
+
+    }
+
+
 }
 
 

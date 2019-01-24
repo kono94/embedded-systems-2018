@@ -120,6 +120,9 @@ uint8_t getWeekdayIndex(const DCF dcf){
 
 
 void syncAVRTimeWithDCF(){
+    if(rawDCF[19]){
+        leapSecondNextHour = true;
+    }
     if(!checkParitiesInDCF(rawDCF)){
         errorStateLastMinute = 3;
         return;
