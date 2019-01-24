@@ -63,8 +63,23 @@ void testNegativeDateSamples(){
 void testPositiveDateSamples(){
 
 }
+
+void testMonth(){
+  char *descr = "TEST- testMonth(): value for 'month' above 12 should not be accepted.";
+
+
+  for(uint8_t i = 12; i < 255; ++i){
+    if(!isValidMonth(i)){
+      printTestResult(descr, 1, " - should not accept 'month' value above 12");
+      return;
+    }
+  }
+  printTestResult(descr, 0, 0);
+}
+
 uint8_t runTestsuite_validDate(){
   printSuiteName("TEST SUITE FOR VALID_DATE");
+  testMonth();
   testDay();
   tesstLeapYear();
     testNegativeDateSamples();
