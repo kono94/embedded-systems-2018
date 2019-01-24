@@ -13,11 +13,11 @@
 void runTestsuite_parityChecker(){
     char* descr = "TEST- checkParitiesInDCF(): checking parities";
     const DCF testDCF = {0,0,1,0,0,0,0,1,1,0,
-                         1,0,0,0,0,0,0,1,0,0,1,1,
-                         0,1,0,1,0,0,1,  0,
-                         1,1,0,1,0,1,    1,
-                         1,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,1,1,0,0,0, 1};
-    printTestResult(descr, checkParity(21,27,testDCF) == 0, "minute parity should correct (0)");
-    printTestResult(descr, checkParity(29,34,testDCF) == 0, "hour parity should be correct (0)");
-    printTestResult(descr, checkParity(36,57,testDCF) == 1, "date parity should be correct(1)");
+                         1,0,0,0,0,0,0,1,0,0,1,
+                         1,0,1,0,1,0,0,  1,
+                         0,1,1,0,1,0, 1,
+                         1,1,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,1,1,0,0,0, 0};
+    printTestResult(descr, checkParity(21,27,testDCF), "minute parity should correct (0)");
+    printTestResult(descr, checkParity(29,34,testDCF), "hour parity should be correct (0)");
+    printTestResult(descr, checkParity(36,57,testDCF), "date parity should be correct(1)");
 }

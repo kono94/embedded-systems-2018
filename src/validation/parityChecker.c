@@ -13,7 +13,7 @@ bool areOneBitsOdd(uint8_t startIndex, uint8_t endIndex, const DCF testDCF){
         if(testDCF[x])
             ++ones;
     }
-    return !(ones%2);
+    return ones%2;
 }
 
 bool checkParity(uint8_t startIndex, uint8_t endIndex, const DCF testDCF){
