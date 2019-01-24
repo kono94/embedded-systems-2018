@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "../DCF/signalToDCF.h"
+#include "../dcf/signalToDCF.h"
 
 // Interrupt throwing when intern timer should be incremented
 ISR(TIMER1_OVF_vect)

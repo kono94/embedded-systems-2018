@@ -1,6 +1,6 @@
 MCU := atmega32
 AVR_SOURCE := src/**/*.c
-TEST_SOURCE := tests/*.c src/DCF/*.c src/util/*.c  src/display/*.c src/validation/*.c src/internClock/*.c
+TEST_SOURCE := tests/*.c src/dcf/*.c src/util/*.c  src/display/*.c src/validation/*.c src/internClock/*.c
 F_CPU := 16000000
 
 # Schon drin sind /usr/lib/avr/include

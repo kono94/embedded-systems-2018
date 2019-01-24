@@ -24,10 +24,10 @@
 
 #include <util/delay.h>
 
-#include "../DCF/dcftype.h"
+#include "../dcf/dcftype.h"
 #include "../util/dateExtractor.h"
 #include "../internClock/avrDatetime.h"
-#include "../DCF/signalToDCF.h"
+#include "../dcf/signalToDCF.h"
 #include "oneSecondInterrupt.h"
 #include "oneMilliInterrupt.h"
 #include "../display/displayInstructions.h"

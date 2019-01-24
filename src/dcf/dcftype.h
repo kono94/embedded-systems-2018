@@ -22,12 +22,12 @@
 #include <inttypes.h>
 
 /*
- * defining the type "DCF" as bool array[59]
+ * defining the type "dcf" as bool array[59]
  */
 typedef bool DCF[59];
 
 /*
- * saving the length of DCF array because C lang does not
+ * saving the length of dcf array because C lang does not
  * support array.length out of the box.
  * Somewhat redundant because the length with always be 59
  * and the length of an array has to be given at declaration time.

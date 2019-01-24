@@ -8,9 +8,9 @@
  *******************************************************************************/
 
 #include "fontConstansts.h"
-#include "../DCF/signalToDCF.h"
+#include "../dcf/signalToDCF.h"
 #include "../internClock/avrDatetime.h"
-#include "../DCF/signalToDCF.h"
+#include "../dcf/signalToDCF.h"
 
 #include <inttypes.h>
 #include <stdlib.h>

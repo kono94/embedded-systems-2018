@@ -11,7 +11,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdbool.h>
-#include "../DCF/signalToDCF.h"
+#include "../dcf/signalToDCF.h"
 #include "../display/displayInstructions.h"
 #include "../util/triggers.h"
 

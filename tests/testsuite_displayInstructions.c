@@ -43,16 +43,16 @@ void testInstructionInit() {
 
 }
 
-void testInstructionForRow1() {
+void testInstructionForRow0() {
     init_displayInstructions();
     AvrDatetime_init();
-    char *descr = "TEST- testInstructionForRow1(): First row display test";
+    char *descr = "TEST- testInstructionForRow0(): First row display test";
 
     p_avrDatetime->hours = 12;
     p_avrDatetime->minutes = 45;
     p_avrDatetime->seconds = 06;
 
-    setInstructionsForRow(1);
+    setInstructionsForRow(0);
     printTestResult(descr, (display_toSend == 48), "display_toSend should be 48 in first row");
     printTestResult(descr, (display_toSend_currentSession == 48), "display_toSend_currentSession should be 48 in first row");
 
@@ -60,19 +60,19 @@ void testInstructionForRow1() {
 }
 
 
-void testInstructionForRow2() {
+void testInstructionForRow1() {
     init_displayInstructions();
     AvrDatetime_init();
 
 
-    char *descr = "TEST- testInstructionForRow2(): Second row display test";
+    char *descr = "TEST- testInstructionForRow1(): second row display test";
 
     p_avrDatetime->days = 07;
     p_avrDatetime->months = 1;
     p_avrDatetime->years_hundreds = 20;
     p_avrDatetime->years_tens = 19;
 
-    setInstructionsForRow(2);
+    setInstructionsForRow(1);
     printTestResult(descr, (display_toSend == 60), "display_toSend should be 60 in second row");
     printTestResult(descr, (display_toSend_currentSession == 60),
                     "display_toSend_currentSession should be 60 in second row");
@@ -82,32 +82,38 @@ void testInstructionForRow2() {
 
 
 
-void testInstructionForRow3(){
+void testInstructionForRow2(){
     init_displayInstructions();
 
     AvrDatetime_init();
 
 
-    char *descr = "TEST- testInstructionForRow3(): Third row display test";
+    char *descr = "TEST- testInstructionForRow2(): Third row display test";
 
 
     p_avrDatetime->weekdayIndex = 1;
 
-    setInstructionsForRow(3);
+    setInstructionsForRow(2);
     printTestResult(descr, (display_toSend == 12), "display_toSend should be 12 in third row");
     printTestResult(descr, (display_toSend_currentSession == 12), "display_toSend_currentSession should be 12 in third row");
 
     printOutDisplayData();
 }
 
-void testStoppingOfSendingRows(){
+void testSettingInstructionsForRows(){
     init_displayInstructions();
 
-    char *descr = "TEST- testStoppingOfSendingRows(): Stop setting instructions if all is done";
 
-    printTestResult(descr, (display_toSend == 0), "fresh init of display_toSend should be 0");
-    setInstructionsForRow(0);
-    printTestResult(descr, (display_toSend == 0), "should not set 'display_toSend' if instructionRow equals 0");
+    char *descr = "TEST- testSettingInstructionsForRows(): Should return true for all rows from 0-7";
+    printTestResult(descr, setInstructionsForRow(0), "setInstructionsForRow(0) should return true");
+    printTestResult(descr, setInstructionsForRow(1), "setInstructionsForRow(1) should return true");
+    printTestResult(descr, setInstructionsForRow(2), "setInstructionsForRow(2) should return true");
+    printTestResult(descr, setInstructionsForRow(3), "setInstructionsForRow(3) should return true");
+    printTestResult(descr, setInstructionsForRow(4), "setInstructionsForRow(4) should return true");
+    printTestResult(descr, setInstructionsForRow(5), "setInstructionsForRow(5) should return true");
+    printTestResult(descr, setInstructionsForRow(6), "setInstructionsForRow(6) should return true");
+    printTestResult(descr, setInstructionsForRow(7), "setInstructionsForRow(7) should return true");
+    printTestResult(descr, setInstructionsForRow(8) == false, "setInstructionsForRow(8) should return false");
 }
 
 
@@ -116,9 +122,11 @@ void testStoppingOfSendingRows(){
 uint8_t runTestsuite_displayInstructions(){
     printSuiteName("TEST SUITE FOR DISPLAY INSTRUCTIONS");
     testInstructionInit();
+    testInstructionForRow0();
     testInstructionForRow1();
     testInstructionForRow2();
-    testInstructionForRow3();
-    testStoppingOfSendingRows();
+    testSettingInstructionsForRows();
     return 0;
 }
+
+

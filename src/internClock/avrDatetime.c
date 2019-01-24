@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include "../validation/validDateTime.h"
-#include "../DCF/signalToDCF.h"
+#include "../dcf/signalToDCF.h"
 
 void AvrDatetime_init(){
     p_avrDatetime = &avrDatetime;

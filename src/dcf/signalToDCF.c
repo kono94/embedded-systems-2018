@@ -85,9 +85,9 @@ void evaluateSignal(uint8_t pinC_value){
                         minutesNotSynced = secondsPassed;
                         // 58 to 62 seconds need to be passed in between syncs
                         // to make sure ones and zeros are not corrupted
-                        if(secondsPassed < 58){
+                        if(secondsPassed < 59){
                             errorStateLastMinute = 1;
-                        }else if(secondsPassed > 62){
+                        }else if(secondsPassed > 61){
                             errorStateLastMinute = 2;
                         }else{
                             errorStateLastMinute = 0;

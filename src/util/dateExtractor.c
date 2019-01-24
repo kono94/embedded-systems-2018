@@ -10,11 +10,11 @@
 
 #include <inttypes.h>
 #include "dateExtractor.h"
-#include "../DCF/dcftype.h"
+#include "../dcf/dcftype.h"
 #include "bitConverter.h"
 #include "../internClock/avrDatetime.h"
 #include "../validation/validDateTime.h"
-#include "../DCF/signalToDCF.h"
+#include "../dcf/signalToDCF.h"
 #include "../validation/parityChecker.h"
 
 /**

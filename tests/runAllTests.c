@@ -31,12 +31,12 @@
 
 int main(int argc, char** argv){
     runTestsuite_parityChecker();
-    //runTestsuite_validDate();
-    //runTestsuite_validTime();
-    //runTestsuite_bitConverter();
-    //runTestsuite_incrementInternClock();
-    //runTestsuite_dateExtractor();
-    //runTestsuite_displayInstructions();
+    runTestsuite_validDate();
+    runTestsuite_validTime();
+    runTestsuite_bitConverter();
+    runTestsuite_incrementInternClock();
+    runTestsuite_dateExtractor();
+    runTestsuite_displayInstructions();
     printf(GRN "\n TEST OK: %d \n" RED " TEST FAILED: %d \n" RESET, ok, fail);
     return 0;
 }

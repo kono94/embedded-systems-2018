@@ -12,7 +12,7 @@
 #ifndef ES2018_REPO_DATEEXTRACTOR_H
 #define ES2018_REPO_DATEEXTRACTOR_H
 
-#include "../DCF/dcftype.h"
+#include "../dcf/dcftype.h"
 
 uint8_t getMinutes(const DCF dcf);
 uint8_t getHours(const DCF dcf);
