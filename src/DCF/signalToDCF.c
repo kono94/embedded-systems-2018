@@ -30,7 +30,6 @@ bool isSynced = false;
 uint8_t secondsPassed = 0;
 
 void evaluateSignal(uint8_t pinC_value){
-
     if(pinC_value >= 1){
         if(dcfErrorState){
             dcfErrorState = false;
@@ -68,27 +67,25 @@ void evaluateSignal(uint8_t pinC_value){
             state_1_missed += 1;
             if(state_1_missed >= MISSING_THRESHOLD){
                 if(state_1_all >= ONE_BORDER_ALL){
-                    rawDCF[g_position++] = 1;
+                    rawDCF[g_position] = 1;
                     state_0_all = 0;
                 }else if(state_1_all >= ZERO_BORDER_ALL){
-                    rawDCF[g_position++] = 0;
+                    rawDCF[g_position] = 0;
                     state_0_all = 0;
                     if(newMinuteStart){
                         newMinuteStart = false;
-                        if(secondsPassed > 57 && secondsPassed < 62){
-                            syncAVRTimeWithDCF();
-                        }else{
-                            g_position = 88;
-                        }
-                        //g_position = 0;
+                        syncAVRTimeWithDCF();
+                        g_position = 0;
                         secondsPassed = 0;
                     }
                 }else{
                     // do not reset inactive counter!
                     // was just a small edge from the signal
                 }
-                if(g_position == 59) {
+                if(g_position == 58) {
                     g_position = 0;
+                }else{
+                    g_position++;
                 }
 
                 state_1_all = 0;
