@@ -15,6 +15,7 @@
 #include "../internClock/avrDatetime.h"
 #include "../validation/validDateTime.h"
 #include "../DCF/signalToDCF.h"
+#include "../validation/parityChecker.h"
 
 /**
  *  bit range for a specific part of the date is split
@@ -119,7 +120,10 @@ uint8_t getWeekdayIndex(const DCF dcf){
 
 
 void syncAVRTimeWithDCF(){
-
+    if(!checkParitiesInDCF(rawDCF)){
+        errorStateLastMinute = 3;
+        return;
+    }
     if(isValidDateTime(getCalendarDay(rawDCF), getCalendarMonth(rawDCF), 20, getCalendarYears(rawDCF), getHours(rawDCF), getMinutes(rawDCF), 0)){
         p_avrDatetime->hours = getHours(rawDCF);
         p_avrDatetime->minutes = getMinutes(rawDCF);
@@ -133,5 +137,8 @@ void syncAVRTimeWithDCF(){
 
         minutesNotSynced = 0;
         isSynced = true;
+        errorStateLastMinute = 0;
+    }else{
+        errorStateLastMinute = 4;
     }
 }

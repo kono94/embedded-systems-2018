@@ -26,6 +26,14 @@ uint16_t state_1_missed = 0;
 bool dcfSignalLost = false;
 bool newMinuteStart = false;
 bool isSynced = false;
+/*
+ * Possible error states:
+ * 0 => everything ok
+ * 1 => too few signals found in one minute
+ * 2 => too much signals found in one minute
+ * 3 => parity check was bad
+ * 4 => date check was bad
+ */
 uint8_t errorStateLastMinute = 0;
 uint16_t minutesNotSynced = 0;
 uint8_t secondsPassed = 0;
