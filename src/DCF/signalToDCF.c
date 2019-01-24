@@ -74,7 +74,9 @@ void evaluateSignal(uint8_t pinC_value){
                     if(newMinuteStart){
                         newMinuteStart = false;
                         minutesNotSynced = secondsPassed;
-                        if(secondsPassed > 50 && secondsPassed < 63){
+                        // 58 to 62 seconds need to be passed in between syncs
+                        // to make sure ones and zeros are not corrupted
+                        if(secondsPassed > 57 && secondsPassed < 63){
                             syncAVRTimeWithDCF();
                         }
                         g_position = 0;
