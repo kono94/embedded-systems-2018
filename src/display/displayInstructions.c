@@ -66,8 +66,8 @@ bool setInstructionsForRow(uint8_t row){
         case 6:
             copySyncStatusIntoDisplayData();
 
-            display_toSend_currentSession = 48;
-            display_toSend = 48;
+            display_toSend_currentSession = 60;
+            display_toSend = 60;
             return true;
         case 7:
             copyErrorStateLastMinuteIntoDisplayData();

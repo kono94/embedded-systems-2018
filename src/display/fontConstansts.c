@@ -180,13 +180,16 @@ void copySyncStatusIntoDisplayData(){
         memcpy(display_data + font_width*3, getInstructionFromNumber(0), font_width);
     }
 
-    memcpy(display_data+ font_width*4,   CHAR_S, font_width);
-    memcpy(display_data+ font_width*5,   CHAR_a, font_width);
-    memcpy(display_data+ font_width*6,   CHAR_DOUBLE_POINTS, font_width);
+    memcpy(display_data+ font_width*4,   CHAR_EMPTY, font_width);
+    memcpy(display_data+ font_width*5,   CHAR_EMPTY, font_width);
+
+    memcpy(display_data+ font_width*6,   CHAR_S, font_width);
+    memcpy(display_data+ font_width*7,   CHAR_a, font_width);
+    memcpy(display_data+ font_width*8,   CHAR_DOUBLE_POINTS, font_width);
     if(leapSecondNextHour){
-        memcpy(display_data+ font_width*7,   getInstructionFromNumber(1), font_width);
+        memcpy(display_data+ font_width*9,   getInstructionFromNumber(1), font_width);
     }else{
-        memcpy(display_data+ font_width*7,   getInstructionFromNumber(0), font_width);
+        memcpy(display_data+ font_width*9,   getInstructionFromNumber(0), font_width);
 
     }
 
