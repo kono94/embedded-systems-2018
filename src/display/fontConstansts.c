@@ -152,9 +152,9 @@ void copyCurrentDCFStatusIntoDisplayData(){
     memcpy(display_data,   CHAR_E, font_width);
     memcpy(display_data + font_width, CHAR_DOUBLE_POINTS, font_width);
     if(dcfSignalLost){
-        memcpy(display_data + font_width*2, CHAR_smileyPos, font_width);
-    }else{
         memcpy(display_data + font_width*2, CHAR_smileyNeg, font_width);
+    }else{
+        memcpy(display_data + font_width*2, CHAR_smileyPos, font_width);
     }
 }
 
