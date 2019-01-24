@@ -39,6 +39,7 @@ bool isSynced = false;
 uint8_t errorStateLastMinute = 0;
 uint16_t minutesNotSynced = 0;
 uint8_t secondsPassed = 0;
+uint8_t leapSecondSignalCount = 0;
 
 void evaluateSignal(uint8_t pinC_value){
     if(pinC_value >= 1){

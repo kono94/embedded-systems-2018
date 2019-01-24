@@ -55,8 +55,8 @@ bool setInstructionsForRow(uint8_t row){
         case 4:
             copyCurrentDCFStatusIntoDisplayData();
 
-            display_toSend_currentSession = 42;
-            display_toSend = 42;
+            display_toSend_currentSession = 18;
+            display_toSend = 18;
             return true;
         case 5:
             copyMinutesNotSyncedIntoDisplayData();
@@ -72,8 +72,8 @@ bool setInstructionsForRow(uint8_t row){
         case 7:
             copyErrorStateLastMinuteIntoDisplayData();
 
-            display_toSend_currentSession = 18;
-            display_toSend = 18;
+            display_toSend_currentSession = 30;
+            display_toSend = 30;
             return true;
         default:
             display_toSend_currentSession = 0;

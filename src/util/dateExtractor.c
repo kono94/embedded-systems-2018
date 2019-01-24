@@ -120,14 +120,16 @@ uint8_t getWeekdayIndex(const DCF dcf){
 
 
 void syncAVRTimeWithDCF(){
-    if(rawDCF[19]){
-        leapSecondNextHour = true;
-    }
+
     if(!checkParitiesInDCF(rawDCF)){
         errorStateLastMinute = 3;
         return;
     }
     if(isValidDateTime(getCalendarDay(rawDCF), getCalendarMonth(rawDCF), 20, getCalendarYears(rawDCF), getHours(rawDCF), getMinutes(rawDCF), 0)){
+        if(rawDCF[19] && leapSecondSignalCount++ > 40){
+            leapSecondNextHour = true;
+        }
+
         p_avrDatetime->hours = getHours(rawDCF);
         p_avrDatetime->minutes = getMinutes(rawDCF);
         p_avrDatetime->seconds = 0;

@@ -30,12 +30,17 @@ uint8_t CHAR_M[] = 		{0b01111111, 0b00000010, 0b00001100, 0b01000010, 0b01111111
 uint8_t CHAR_D[] = 		{0b01111111, 0b01000001, 0b01000001, 0b00100010, 0b00011100, 0b00000000};
 uint8_t CHAR_F[] = 		{0b01111111, 0b00001001, 0b00001001, 0b00001001, 0b00000001, 0b00000000};
 uint8_t CHAR_S[] = 		{0b01000110, 0b01001001, 0b01001001, 0b01001001, 0b00110001, 0b00000000};
+uint8_t CHAR_N[] =      {0b01111111, 0b00000100, 0b00001000, 0b00010000, 0b01111111, 0b00000000};
 uint8_t CHAR_i[] = 		{0b00000000, 0b01000100, 0b01111101, 0b01000000, 0b01000000, 0b00000000};
 uint8_t CHAR_o[] = 		{0b00111000, 0b01000100, 0b01000100, 0b01000100, 0b00111000, 0b00000000};
 uint8_t CHAR_r[] = 		{0b01111100, 0b00001000, 0b00000100, 0b00000100, 0b00001000, 0b00000000};
 uint8_t CHAR_a[] = 		{0b00100000, 0b01010100, 0b01010100, 0b01010100, 0b01111000, 0b00000000};
+uint8_t CHAR_smileyPos[] = {0b01111000, 0b01000011, 0b01000000, 0b01000000, 0b01000011, 0b01111000};
+uint8_t CHAR_smileyNeg[] = {0b01111000, 0b00001011, 0b00001000, 0b00001000, 0b00001011, 0b01111000};
+
 uint8_t CHAR_DOUBLE_POINTS[] = 	{0b00000000, 0b01101100, 0b01101100, 0b00000000, 0b00000000, 0b00000000};
 uint8_t CHAR_SINGLE_POINT[] = 	{0b00000000, 0b01100000, 0b01100000, 0b00000000, 0b00000000, 0b00000000};
+uint8_t CHAR_E[] = {0b01111111, 0b01001001, 0b01001001, 0b01001001, 0b01000001, 0b00000000};
 uint8_t CHAR_EMPTY[] = 			{0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000};
 uint8_t CHAR_INVALID[] = {0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,};
 
@@ -144,22 +149,18 @@ void copyCurrentDCFPosIntoDisplayData() {
 }
 
 void copyCurrentDCFStatusIntoDisplayData(){
-    memcpy(display_data,   CHAR_S, font_width);
-    memcpy(display_data + font_width, CHAR_a, font_width);
-    memcpy(display_data + font_width*2, CHAR_S, font_width);
-    memcpy(display_data + font_width*3, CHAR_o, font_width);
-    memcpy(display_data + font_width*4, CHAR_S, font_width);
-    memcpy(display_data + font_width*5, CHAR_DOUBLE_POINTS, font_width);
+    memcpy(display_data,   CHAR_E, font_width);
+    memcpy(display_data + font_width, CHAR_DOUBLE_POINTS, font_width);
     if(dcfSignalLost){
-        memcpy(display_data + font_width*6, CHAR_ZERO, font_width);
+        memcpy(display_data + font_width*2, CHAR_smileyPos, font_width);
     }else{
-        memcpy(display_data + font_width*6, CHAR_ONE, font_width);
+        memcpy(display_data + font_width*2, CHAR_smileyNeg, font_width);
     }
 }
 
 void copyMinutesNotSyncedIntoDisplayData(){
     memcpy(display_data,   CHAR_M, font_width);
-    memcpy(display_data + font_width, CHAR_i, font_width);
+    memcpy(display_data + font_width, CHAR_N, font_width);
     memcpy(display_data + font_width*2, CHAR_S, font_width);
     memcpy(display_data + font_width*3, CHAR_DOUBLE_POINTS, font_width);
 
@@ -198,9 +199,12 @@ void copySyncStatusIntoDisplayData(){
 
 
 void copyErrorStateLastMinuteIntoDisplayData(){
-    memcpy(display_data,   CHAR_D, font_width);
-    memcpy(display_data + font_width, CHAR_DOUBLE_POINTS, font_width);
-    memcpy(display_data + font_width*2, getInstructionFromNumber(errorStateLastMinute), font_width);
+    memcpy(display_data,   CHAR_E, font_width);
+    memcpy(display_data + font_width,   CHAR_r, font_width);
+    memcpy(display_data + font_width*2,   CHAR_r, font_width);
+
+    memcpy(display_data + font_width*3, CHAR_DOUBLE_POINTS, font_width);
+    memcpy(display_data + font_width*4, getInstructionFromNumber(errorStateLastMinute), font_width);
 }
 
  /*
