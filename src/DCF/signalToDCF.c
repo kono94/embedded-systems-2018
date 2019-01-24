@@ -10,29 +10,30 @@
 #include "../util/triggers.h"
 #include "../util/dateExtractor.h"
 
-int MISSING_THRESHOLD = 10;
-int ZERO_BORDER_ALL = 70;
-int ONE_BORDER_ALL = 150;
-int NEW_MINUTE_BORDER = 1700;
-int MISSING_SIGNAL_BORDER = 3000;
+uint8_t MISSING_THRESHOLD = 10;
+uint8_t ZERO_BORDER_ALL = 70;
+uint8_t ONE_BORDER_ALL = 150;
+uint16_t NEW_MINUTE_BORDER = 1700;
+uint16_t MISSING_SIGNAL_BORDER = 3000;
 
 // states: 0 = nicht erregt, 1 = erregt
-int currentState = 0;
+uint8_t currentState = 0;
 
-int state_0_all = 0;
+uint16_t state_0_all = 0;
 
-int state_1_all = 0;
-int state_1_missed = 0;
-bool dcfErrorState = false;
+uint16_t state_1_all = 0;
+uint16_t state_1_missed = 0;
+bool dcfSignalLost = false;
 bool newMinuteStart = false;
-uint16_t minutesNotSynced = 0;
 bool isSynced = false;
+uint8_t errorStateLastMinute = 0;
+uint16_t minutesNotSynced = 0;
 uint8_t secondsPassed = 0;
 
 void evaluateSignal(uint8_t pinC_value){
     if(pinC_value >= 1){
-        if(dcfErrorState){
-            dcfErrorState = false;
+        if(dcfSignalLost){
+            dcfSignalLost = false;
         }
         // switch to active state
         if(currentState == 0){
@@ -53,9 +54,9 @@ void evaluateSignal(uint8_t pinC_value){
         if(currentState == 0){
             // not active and 0 => just increment all-counter of inactive state
             state_0_all += 1;
-            if(state_0_all >= MISSING_SIGNAL_BORDER && !dcfErrorState){
+            if(state_0_all >= MISSING_SIGNAL_BORDER && !dcfSignalLost){
                 // 3 seconds no ones or zeros found
-                dcfErrorState = true;
+                dcfSignalLost = true;
             }
         }else if(currentState == 1){
             // active and 0 => increment all count and missed count,
@@ -76,7 +77,12 @@ void evaluateSignal(uint8_t pinC_value){
                         minutesNotSynced = secondsPassed;
                         // 58 to 62 seconds need to be passed in between syncs
                         // to make sure ones and zeros are not corrupted
-                        if(secondsPassed > 57 && secondsPassed < 63){
+                        if(secondsPassed < 58){
+                            errorStateLastMinute = 1;
+                        }else if(secondsPassed > 62){
+                            errorStateLastMinute = 2;
+                        }else{
+                            errorStateLastMinute = 0;
                             syncAVRTimeWithDCF();
                         }
                         g_position = 0;

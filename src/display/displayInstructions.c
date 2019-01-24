@@ -26,48 +26,54 @@ void init_displayInstructions(){
 
 bool setInstructionsForRow(uint8_t row){
     switch (row){
-        case 1:
+        case 0:
             // instruction for HH:mm:SS
             copyTimeIntoDisplayData();
 
             display_toSend_currentSession = 48;
             display_toSend = 48;
             return true;
-        case 2:
+        case 1:
             // instructions for DD.MM.YYYY
             copyDateIntoDisplayData();
 
             display_toSend_currentSession = 60;
             display_toSend = 60;
             return true;
-        case 3:
+        case 2:
             copyWeekDayIntoDisplayData();
 
             display_toSend_currentSession = 12;
             display_toSend = 12;
             return true;
-        case 4:
+        case 3:
             copyCurrentDCFPosIntoDisplayData();
 
             display_toSend_currentSession = 24;
             display_toSend = 24;
             return true;
-        case 5:
+        case 4:
             copyCurrentDCFStatusIntoDisplayData();
 
             display_toSend_currentSession = 42;
             display_toSend = 42;
             return true;
-        case 6:
+        case 5:
             copyMinutesNotSyncedIntoDisplayData();
             display_toSend_currentSession = 48;
             display_toSend = 48;
             return true;
-        case 7:
+        case 6:
             copySyncStatusIntoDisplayData();
 
             display_toSend_currentSession = 24;
             display_toSend = 24;
+            return true;
+        case 7:
+            copyErrorStateLastMinuteIntoDisplayData();
+
+            display_toSend_currentSession = 18;
+            display_toSend = 18;
             return true;
         default:
             display_toSend_currentSession = 0;

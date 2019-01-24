@@ -8,9 +8,10 @@
 #include <stdbool.h>
 
 void evaluateSignal(uint8_t);
-bool dcfErrorState;
+bool dcfSignalLost;
 uint8_t g_position;
 uint16_t minutesNotSynced;
 bool isSynced;
 uint8_t secondsPassed;
+uint8_t errorStateLastMinute;
 #endif //ES2018_REPO_SIGNALTODCF_H

@@ -83,6 +83,7 @@ void setupPorts(){
 }
 
 void startVisualizingOnDisplay(){
+    display_row = 0;
     changeRowOnDisplayTo(display_row);
     setInstructionsForRow(display_row);
 }
@@ -157,7 +158,6 @@ int main(int argc, char** argv){
         if(trigger_oneSecondPassed){
             trigger_oneSecondPassed = false;
             incrementByOneSecond();
-            display_row = 1;
             startVisualizingOnDisplay();
         }
     }

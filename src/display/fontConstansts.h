@@ -45,4 +45,5 @@ void copyCurrentDCFPosIntoDisplayData();
 void copyCurrentDCFStatusIntoDisplayData();
 void copyMinutesNotSyncedIntoDisplayData();
 void copySyncStatusIntoDisplayData();
+void copyErrorStateLastMinuteIntoDisplayData();
 #endif //ES2018_REPO_FONTANSTS_H
