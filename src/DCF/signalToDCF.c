@@ -56,7 +56,6 @@ void evaluateSignal(uint8_t pinC_value){
             if(state_0_all >= MISSING_SIGNAL_BORDER && !dcfErrorState){
                 // 3 seconds no ones or zeros found
                 dcfErrorState = true;
-
             }
         }else if(currentState == 1){
             // active and 0 => increment all count and missed count,
@@ -74,7 +73,10 @@ void evaluateSignal(uint8_t pinC_value){
                     state_0_all = 0;
                     if(newMinuteStart){
                         newMinuteStart = false;
-                        syncAVRTimeWithDCF();
+                        minutesNotSynced = secondsPassed;
+                        if(secondsPassed > 50 && secondsPassed < 63){
+                            syncAVRTimeWithDCF();
+                        }
                         g_position = 0;
                         secondsPassed = 0;
                     }

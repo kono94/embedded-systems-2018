@@ -12,13 +12,14 @@
 #include <stdbool.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-
+#include "../DCF/signalToDCF.h"
 
 // Interrupt throwing when intern timer should be incremented
 ISR(TIMER1_OVF_vect)
 {
     TCNT1 = 49912;
     trigger_oneSecondPassed = true;
+    secondsPassed++;
 }
 
 void enableOneSecInterrupt(){
