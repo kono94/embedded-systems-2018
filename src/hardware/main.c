@@ -80,6 +80,14 @@ void setupPorts(){
 
     //disabling Two-wire Serial Bus Clock Line
     TWCR &= ~(1 << TWEN);
+
+    GICR = 1<<INT0;					// Enable INT0
+    MCUCR = 1<<ISC01 | 1<<ISC00;	// Trigger INT0 on rising edge
+}
+
+ISR(INT0_vect)
+{
+        p_avrDatetime->hours = 10;
 }
 
 void startVisualizingOnDisplay(){
