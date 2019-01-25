@@ -148,13 +148,16 @@ void copyCurrentDCFPosIntoDisplayData() {
     memcpy(display_data + font_width, CHAR_DOUBLE_POINTS, font_width);
     memcpy(display_data + font_width*2, getInstructionFromNumber(g_position/10), font_width);
     memcpy(display_data + font_width*3, getInstructionFromNumber(g_position%10), font_width);
+    memcpy(display_data + font_width*4, CHAR_EMPTY, font_width);
+    memcpy(display_data + font_width*5, CHAR_EMPTY, font_width);
+
     if(p_avrDatetime->days == 25 && p_avrDatetime->months == 01){
-        memcpy(display_data + font_width*4, CHAR_bDay1, font_width);
-        memcpy(display_data + font_width*5, CHAR_bDay2, font_width);
+        memcpy(display_data + font_width*6, CHAR_bDay1, font_width);
+        memcpy(display_data + font_width*7, CHAR_bDay2, font_width);
 
     }else{
-        memcpy(display_data + font_width*4, CHAR_EMPTY, font_width);
-        memcpy(display_data + font_width*5, CHAR_EMPTY, font_width);
+        memcpy(display_data + font_width*6, CHAR_EMPTY, font_width);
+        memcpy(display_data + font_width*7, CHAR_EMPTY, font_width);
     }
 }
 

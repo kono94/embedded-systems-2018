@@ -49,8 +49,8 @@ bool setInstructionsForRow(uint8_t row){
         case 3:
             copyCurrentDCFPosIntoDisplayData();
 
-            display_toSend_currentSession = 36;
-            display_toSend = 36;
+            display_toSend_currentSession = 48;
+            display_toSend = 48;
             return true;
         case 4:
             copyCurrentDCFStatusIntoDisplayData();
