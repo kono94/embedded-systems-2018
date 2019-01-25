@@ -84,10 +84,17 @@ void setupPorts(){
     GICR = 1<<INT0;					// Enable INT0
     MCUCR = 1<<ISC01 | 1<<ISC00;	// Trigger INT0 on rising edge
 }
+bool isDisplayOn = false;
 
 ISR(INT0_vect)
 {
-        p_avrDatetime->hours = 10;
+ if(isDisplayOn){
+     turnDisplayOff();
+     isDisplayOn = false;
+ }  else{
+     turnDisplayOn();
+     isDisplayOn = true;
+ }
 }
 
 void startVisualizingOnDisplay(){
@@ -117,6 +124,7 @@ int main(int argc, char** argv){
     resetDisplay();
     _delay_ms(1);
     turnDisplayOn();
+    isDisplayOn = true;
     _delay_ms(1);
     sendEmptyDI();
     _delay_ms(1);
