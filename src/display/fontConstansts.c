@@ -44,6 +44,8 @@ uint8_t CHAR_E[] = {0b01111111, 0b01001001, 0b01001001, 0b01001001, 0b01000001, 
 uint8_t CHAR_EMPTY[] = 			{0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000};
 uint8_t CHAR_INVALID[] = {0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,};
 
+uint8_t CHAR_bDay1[] = {0b11000000, 0b11111000, 0b11111111, 0b01111110, 0b01111100, 0b00111001};
+uint8_t CHAR_bDay2[] = {0b00110100, 0b00100011, 0b00001010, 0b00101001, 0b00100100, 0b00010010};
 
 /* return array with size 6
  * 0 = 0
@@ -146,6 +148,14 @@ void copyCurrentDCFPosIntoDisplayData() {
     memcpy(display_data + font_width, CHAR_DOUBLE_POINTS, font_width);
     memcpy(display_data + font_width*2, getInstructionFromNumber(g_position/10), font_width);
     memcpy(display_data + font_width*3, getInstructionFromNumber(g_position%10), font_width);
+    if(p_avrDatetime->days == 25 && p_avrDatetime->months == 01){
+        memcpy(display_data + font_width*4, CHAR_bDay1, font_width);
+        memcpy(display_data + font_width*5, CHAR_bDay2, font_width);
+
+    }else{
+        memcpy(display_data + font_width*4, CHAR_EMPTY, font_width);
+        memcpy(display_data + font_width*5, CHAR_EMPTY, font_width);
+    }
 }
 
 void copyCurrentDCFStatusIntoDisplayData(){
