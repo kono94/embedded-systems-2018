@@ -129,3 +129,25 @@ void clearDisplay(){
 		}
 	}
 }
+
+/*
+ * Turns on the display on program start.
+ * Also clears the display ram, so nothing is
+ * displayed anymore
+ */
+void displayStartSequence(){
+    _delay_ms(1);
+
+    resetDisplay();
+    _delay_ms(1);
+
+    turnDisplayOn();
+
+    _delay_ms(1);
+
+    sendEmptyDI();
+    _delay_ms(1);
+
+    clearDisplay();
+    _delay_ms(100);
+}

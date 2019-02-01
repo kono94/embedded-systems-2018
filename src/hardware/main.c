@@ -107,21 +107,8 @@ int main(int argc, char** argv){
     AvrDatetime_init();
     init_triggers();
     setupPorts();
-    _delay_ms(1);
-
-    resetDisplay();
-    _delay_ms(1);
-
-    turnDisplayOn();
+    displayStartSequence();
     isDisplayOn = true;
-    _delay_ms(1);
-
-    sendEmptyDI();
-    _delay_ms(1);
-
-    clearDisplay();
-    _delay_ms(100);
-
     setupInterrupts();
 
     while(true){
