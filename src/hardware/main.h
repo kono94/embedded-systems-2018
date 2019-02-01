@@ -1,7 +1,8 @@
 /*******************************************************************************
  * File main.h
  *
- *
+ * Entry point for the whole project.
+ * Sets up ports, interrupts and has the main while-loop in it.
  *
  * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 14.11.18

@@ -1,12 +1,12 @@
 /*******************************************************************************
- * File fontants.h
+ * File fontConstants.h
  *
- *
+ * Defines all data that describes certain characters that
+ * are drawn onto the display.
  *
  * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.01.19
  *******************************************************************************/
-
 #ifndef ES2018_REPO_FONTANSTS_H
 #define ES2018_REPO_FONTANSTS_H
 #include <inttypes.h>

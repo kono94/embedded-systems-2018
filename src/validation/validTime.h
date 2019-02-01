@@ -1,7 +1,7 @@
 /*******************************************************************************
  * File validTime.h
  *
- * //TODO: description
+ * Checks whether the time (HH:mm:SS) is valid or not
  *
  * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.11.18

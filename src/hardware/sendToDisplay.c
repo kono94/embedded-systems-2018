@@ -1,7 +1,7 @@
 /*******************************************************************************
  * File sendToDisplay.c
  *
- *
+ * Defines and offers functions to interact with the display.
  *
  * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.01.19

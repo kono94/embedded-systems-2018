@@ -1,7 +1,8 @@
 /*******************************************************************************
  * File triggers.h
  *
- *
+ * Exposes boolean flags to trigger routines
+ * in the main while-loop
  *
  * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.01.19

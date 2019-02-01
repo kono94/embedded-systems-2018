@@ -1,6 +1,14 @@
-//
-// Created by Jan Uni on 30.11.18.
-//
+/*******************************************************************************
+ * File avrDatetime.c
+ *
+ * Defines and initializes the intern time.
+ * Also offers a function to let one second pass
+ * and increment the time and date information correctly.
+ *
+ * Authors: Jan Löwenstrom & Johann Hoffer
+ * Date: 30.11.18
+ *******************************************************************************/
+
 #include "avrDatetime.h"
 #include <stdio.h>
 #include <inttypes.h>

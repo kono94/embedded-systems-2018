@@ -1,7 +1,8 @@
 /*******************************************************************************
  * File main.c
  *
- *
+ * Entry point for the whole project.
+ * Sets up ports, interrupts and has the main while-loop in it.
  *
  * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 14.11.18
@@ -50,8 +51,6 @@ const struct avr_mmcu_vcd_trace_t _mytrace[] _MMCU_ = {
         { AVR_MCU_VCD_SYMBOL("PIN_C"), .what = (void*)&PINC, },
         { AVR_MCU_VCD_SYMBOL("PORT_B"), .what = (void*)&PORTB, },
 };
-
-
 
 void setupInterrupts(){
     cli(); // disable global interrupts
@@ -110,46 +109,24 @@ int main(int argc, char** argv){
     setupPorts();
     _delay_ms(1);
 
-    p_avrDatetime->hours = 23;
-    p_avrDatetime->minutes = 55;
-    p_avrDatetime->seconds = 50;
-
-    p_avrDatetime->days = 31;
-    p_avrDatetime->months = 12;
-    p_avrDatetime->years_hundreds = 20;
-    p_avrDatetime->years_tens = 18;
-
-    p_avrDatetime->weekdayIndex = 1;
-
     resetDisplay();
     _delay_ms(1);
+
     turnDisplayOn();
     isDisplayOn = true;
     _delay_ms(1);
+
     sendEmptyDI();
     _delay_ms(1);
+
     clearDisplay();
     _delay_ms(100);
+
     setupInterrupts();
 
-
-    bool lightOn = false;
-    
     while(true){
         if(trigger_evaluateSignal) {
             trigger_evaluateSignal = false;
-           /*if((PIND & 1) == 1) {
-	       changeRowOnDisplayTo(5);
-               sendWriteData(0b11111111);
-	       sendWriteData(0b11111111);
-           }else{
-               PORTD &= ~(1<<5);
-	       changeRowOnDisplayTo(5);
-	       sendWriteData(0b00000000);
-	       sendWriteData(0b00000000);
-	       ;
-           }
-	   */
             evaluateSignal(PIND & 1);
         }
 

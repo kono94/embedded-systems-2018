@@ -1,6 +1,13 @@
-//
-// Created by Jan Uni on 14.12.18.
-//
+/*******************************************************************************
+ * File signalToDCF.c
+ *
+ * Includes the algorithm to analyse incoming DCF Signal
+ * and fill the rawDCF with 1's and 0's.
+ *
+ *
+ * Authors: Jan Löwenstrom & Johann Hoffer
+ * Date: 14.12.18
+ *******************************************************************************/
 
 #include "signalToDCF.h"
 #include <inttypes.h>
@@ -55,6 +62,7 @@ void evaluateSignal(uint8_t pinC_value){
                 state_0_all = 0;
                 g_position = 0;
                 newMinuteStart = true;
+
             }
         }else if(currentState == 1){
             // active and 1 => reset missing count and increment all-counter

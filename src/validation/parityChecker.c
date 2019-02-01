@@ -1,6 +1,12 @@
-//
-// Created by Johann on 23.01.2019.
-//
+/*******************************************************************************
+ * File parityChecker.c
+ *
+ * Makes sure that the received DCF signal has valid
+ * parity bits and the message is valid.
+ *
+ * Authors: Jan Löwenstrom & Johann Hoffer
+ * Date: 23.01.19
+ *******************************************************************************/
 
 #include "parityChecker.h"
 #include <stdio.h>

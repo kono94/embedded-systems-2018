@@ -1,7 +1,13 @@
-//
-// Created by Jan Uni on 30.11.18.
-//
-
+/*******************************************************************************
+ * File avrDatetime.h
+ *
+ * Defines and initializes the intern time.
+ * Also offers a function to let one second pass
+ * and increment the time and date information correctly.
+ *
+ * Authors: Jan Löwenstrom & Johann Hoffer
+ * Date: 30.11.18
+ *******************************************************************************/
 #ifndef ES2018_REPO_AVRDATETIME_H
 #define ES2018_REPO_AVRDATETIME_H
 

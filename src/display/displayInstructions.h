@@ -1,7 +1,11 @@
-//
-// Created by Jan Uni on 09.01.19.
-//
-
+/*******************************************************************************
+ * File displayInstructions.h
+ *
+ * Manages what is written in each row on the display.
+ *
+ * Authors: Jan Löwenstrom & Johann Hoffer
+ * Date: 09.01.19
+ *******************************************************************************/
 #ifndef ES2018_REPO_DISPLAYINSTR_H
 #define ES2018_REPO_DISPLAYINSTR_H
 #include <inttypes.h>

@@ -1,6 +1,11 @@
-//
-// Created by Jan Uni on 09.01.19.
-//
+/*******************************************************************************
+ * File displayInstructions.c
+ *
+ * Manages what is written in each row on the display.
+ *
+ * Authors: Jan Löwenstrom & Johann Hoffer
+ * Date: 09.01.19
+ *******************************************************************************/
 
 #include "displayInstructions.h"
 #include "../internClock/avrDatetime.h"

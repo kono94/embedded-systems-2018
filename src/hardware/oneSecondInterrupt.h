@@ -1,7 +1,10 @@
 /*******************************************************************************
  * File oneSecondInterrupt.h
  *
- *
+ * Sets up the one sec timer/ interrupt.
+ * Also handles the corresponding interrupt vector
+ * which will eventually trigger the routine of
+ * incrementing the intern time.
  *
  * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.01.19

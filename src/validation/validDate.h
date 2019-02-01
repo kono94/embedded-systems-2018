@@ -1,7 +1,7 @@
 /*******************************************************************************
  * File validDate.h
  *
- * //TODO: description
+ * Offers functions to check whether the date is valid or not
  *
  * Authors: Jan Löwenstrom & Johann Hoffer
  * Date: 09.11.18

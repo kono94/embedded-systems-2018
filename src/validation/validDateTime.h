@@ -1,6 +1,12 @@
-//
-// Created by Jan Uni on 02.12.18.
-//
+/*******************************************************************************
+ * File validDateTime.h
+ *
+ * Offers wrapper functions to validate the intern time or the
+ * time information received from the DCF-signal
+ *
+ * Authors: Jan Löwenstrom & Johann Hoffer
+ * Date: 02.12.18
+ *******************************************************************************/
 
 #ifndef ES2018_REPO_VALIDDATETIME_H
 #define ES2018_REPO_VALIDDATETIME_H
